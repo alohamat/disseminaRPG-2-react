@@ -1,0 +1,15 @@
+<%- include('includes/head') %>
+
+<section>
+
+    <form action="/jogador/<%=jogador%>/<%=dado%>" method="post">
+        <button>Rolar dado</button>
+    </form>
+
+    <form action="/acao" method="post">
+        <button>Escolher ação</button>
+    </form>
+
+</section>
+
+<%- include('includes/foot') %>
