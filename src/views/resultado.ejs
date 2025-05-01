@@ -1,0 +1,68 @@
+<%- include('includes/head') %>
+    <section>
+
+        <h1>RPGzão no Auditório</h1>
+        <h2>Resultado das Rolagens de Dados</h2>
+        <!--
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+    const labels = [1, 2, 3, 4, 5, 6];
+const data = {
+labels: labels,
+datasets: [
+  {
+    label: 'Rolagens',
+    data: [<%=d6[0]%>, <%=d6[1]%>, <%=d6[2]%>, <%=d6[3]%>, <%=d6[4]%>, <%=d6[5]%>]
+  }
+]
+};
+
+const config = {
+type: 'bar',
+data: data,
+options: {
+  indexAxis: 'y',
+  elements: {
+    bar: {
+      borderWidth: 2,
+    }
+  },
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'right',
+    },
+    title: {
+      display: true,
+      text: 'Rolagens do Dado de Ação'
+    }
+  }
+},
+};
+
+      const ctx = document.getElementById('myChart');
+      new Chart(ctx, config);
+    </script>
+    -->
+
+        <div class="resultado">
+            <h1>Dado de Ação: <%=total%>
+            </h1>
+            <h1>Dado de Desafio 1: <%=desafio1%>
+            </h1>
+            <h1>Dado de Desafio 2: <%=desafio2%>
+            </h1>
+            <h2>Resultado: <%=resolucao%>
+            </h2>
+        </div>
+
+        <form action="/mestre/<%=jogador%>/voltar" method="post">
+            <button type="submit">Voltar</button>
+        </form>
+    </section>
+
+    <%- include('includes/foot') %>

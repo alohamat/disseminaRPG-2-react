@@ -4,79 +4,120 @@ let rolagemAberta = false, votacaoAberta = false
 let votosItem = 0, votosFugir = 0, votosRanged = 0, votosMeele = 0
 let passoAtual = -1, votacaoAtual = 0, mensagemVotacao
 
-console.log(d6, d10_1, d10_2, rolagensD6, rolagensD10_1, rolagensD10_2, rolagemAberta, votacaoAberta, votosItem, votosFugir, votosRanged, votosMeele, passoAtual, votacaoAtual, mensagemVotacao)
-
-function maioria() {
-    const maior = Math.max(votosItem, votosFugir, votosMeele, votosRanged)
-    if (maior === votosRanged) { 
-        return `Ataque à distância`
-    } else if (maior === votosMeele) { 
-        return `Ataque corpo-a-corpo`
-    } else if (maior === votosItem) { 
-        return `Usar Item`
-    } else { 
-        return `Fugir`
+class Jogador {
+    constructor(d6, d10_1, d10_2, rolagensD6, rolagensD10_1, rolagensD10_2, rolagemAberta, votacaoAberta, passoAtual, votacaoAtual, mensagemVotacao) {
+        this.d6 = d6
+        this.d10_1 = d10_1
+        this.d10_2 = d10_2
+        this.rolagensD6 = rolagensD6
+        this.rolagensD10_1 = rolagensD10_1
+        this.rolagensD10_2 = rolagensD10_2
+        this.rolagemAberta = rolagemAberta
+        this.votacaoAberta = votacaoAberta
+        this.passoAtual = passoAtual
+        this.votacaoAtual = votacaoAtual
+        this.mensagemVotacao = mensagemVotacao
     }
-}
 
-function resetaDado(dado, lados) {
-    for (let i=0; i<lados; i++) {
-        dado[i] = 0
-    }
-}
-
-function moda(dado, lados) {
-    let resultado = 0, check = 0
-    for (let i=0; i<lados; i++) {
-        if (lados==6 && dado[i] >= check) {
-            check = dado[i]
-            resultado = i
-        }
-        if (lados==10 && dado[i] > check) {
-            check = dado[i]
-            resultado = i
+    maioria() {
+        const maior = Math.max(votosItem, votosFugir, votosMeele, votosRanged)
+        if (maior === votosRanged) { 
+            return `Ataque à distância`
+        } else if (maior === votosMeele) { 
+            return `Ataque corpo-a-corpo`
+        } else if (maior === votosItem) { 
+            return `Usar Item`
+        } else { 
+            return `Fugir`
         }
     }
-    resultado++
-    return resultado
+
+    resetaDado(dado, lados) {
+        for (let i=0; i<lados; i++) {
+            dado[i] = 0
+        }
+    }
+    
+    moda(dado, lados) {
+        let resultado = 0, check = 0
+        for (let i=0; i<lados; i++) {
+            if (lados==6 && dado[i] >= check) {
+                check = dado[i]
+                resultado = i
+            }
+            if (lados==10 && dado[i] > check) {
+                check = dado[i]
+                resultado = i
+            }
+        }
+        resultado++
+        return resultado
+    }
+    
+    resolucaoIronsworn(total, desafio1, desafio2) {
+        let resolucao
+        if (total > desafio1 && total > desafio2 && desafio1 == desafio2)
+            resolucao = 'Acerto Crítico!' 
+        else if (total > desafio1 && total > desafio2)
+            resolucao = 'Acerto Forte!'
+        else if (total <= desafio1 && total <= desafio2 && desafio1 == desafio2)
+            resolucao = 'Erro Crítico!'
+        else if (total <= desafio1 && total <= desafio2)
+            resolucao = 'Erro!'
+        else
+            resolucao = 'Acerto Fraco.'
+        return resolucao
+    }
+    
 }
 
-function resolucaoIronsworn(total, desafio1, desafio2) {
-    let resolucao
-    if (total > desafio1 && total > desafio2 && desafio1 == desafio2)
-        resolucao = 'Acerto Crítico!' 
-    else if (total > desafio1 && total > desafio2)
-        resolucao = 'Acerto Forte!'
-    else if (total <= desafio1 && total <= desafio2 && desafio1 == desafio2)
-        resolucao = 'Erro Crítico!'
-    else if (total <= desafio1 && total <= desafio2)
-        resolucao = 'Erro!'
-    else
-        resolucao = 'Acerto Fraco.'
-    return resolucao
-}
+let jogador1 = new Jogador(
+    d6 = [],
+    d10_1 = [],
+    d10_2 = [],
+    rolagensD6 = 0,
+    rolagensD10_1 = 0,
+    rolagensD10_2 = 0,
+    rolagemAberta = false,
+    votacaoAberta = false,
+    passoAtual = -1,
+    votacaoAtual = 0,
+    mensagemVotacao
+)
+
+let jogador2 = new Jogador(
+    d6 = [],
+    d10_1 = [],
+    d10_2 = [],
+    rolagensD6 = 0,
+    rolagensD10_1 = 0,
+    rolagensD10_2 = 0,
+    rolagemAberta = false,
+    votacaoAberta = false,
+    passoAtual = -1,
+    votacaoAtual = 0,
+    mensagemVotacao
+)
+
+let jogador3 = new Jogador(
+    d6 = [],
+    d10_1 = [],
+    d10_2 = [],
+    rolagensD6 = 0,
+    rolagensD10_1 = 0,
+    rolagensD10_2 = 0,
+    rolagemAberta = false,
+    votacaoAberta = false,
+    passoAtual = -1,
+    votacaoAtual = 0,
+    mensagemVotacao
+)
 
 
 
-module.exports.recursos = {
-    d6,
-    d10_1,
-    d10_2,
-    rolagensD6,
-    rolagensD10_1,
-    rolagensD10_2,
-    rolagemAberta,
-    votacaoAberta,
-    votosItem,
-    votosFugir,
-    votosRanged,
-    votosMeele,
-    passoAtual,
-    votacaoAtual,
-    mensagemVotacao,
-    resetaDado,
-    moda,
-    maioria,
-    resolucaoIronsworn
+module.exports.personagens = {
+    jogador1,
+    jogador2,
+    jogador3,
 }
 

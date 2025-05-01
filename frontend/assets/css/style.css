@@ -32,7 +32,7 @@ h1 {
     align-items: center;
     flex-direction: column;
     width: 100vw;
-    height: 80vh;
+    max-height: 80vh;
 }
 
 button {
@@ -54,4 +54,23 @@ button:hover {
     transform: scale(1.05);
     color: #121212;
     box-shadow: #fd1f53 0px 0px 5px 1px;
+}
+
+#formExibirRolagens {
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#formExibirRolagens input {
+    background: linear-gradient(135deg, #fd1f53, #e31347);
+
+    color: white;
+    font-size: 1.5rem;
+    padding: 1rem 2rem;
+    margin: 1rem 0;
+    border-radius: 10px;
+    border: 0px solid #fd1f53;
+    transition: 0.2s ease;
+
 }

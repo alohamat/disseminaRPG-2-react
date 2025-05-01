@@ -2,43 +2,24 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dissemina-IFF de RPG</title>
-    <script>
-        function checarBonus() {
-          if (bonus.value == "") {
-            alert('Você esqueceu de digitar o bônus/penalidade, Mestre.');
-          } else {
-            formExibirRolagens.submit();
-          }
-        }
-    
-        document.addEventListener('DOMContentLoaded', () => { 
-          setInterval(checaRolagens, 5000)
-          
-          function checaRolagens() {
-            fetch('/rolagensEstado') 
-            .then(response => response.json()) 
-            .then(data => {
-              total.innerHTML = data.rolagens
-            }) 
-            .catch(error => console.error('Erro:', error))
-          }
-        })
-      </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dissemina-IFF de RPG</title>
+  
 </head>
+
 <body>
 
-<section>
+  <section>
     <p><b id="total">0</b> rolagens realizadas</p>
-    <form action="/exibeRolagem" method="post" id="formExibirRolagens">
-        <label>Bônus/Penalidade: </label>
-        <input type="number" name="bonus" id="bonus">
-        <button type="button" onclick="checarBonus()">Exibir Rolagens</button>
+    <form action="/mestre/<%=jogador%>/exibeRolagem" method="post" id="formExibirRolagens">
+      <label><h2>Bônus/Penalidade: </h2></label>
+      <input type="number" name="bonus" id="bonus">
+      <button type="button" id="checaBonus">Exibir Rolagens</button>
     </form>
-</section>
+    <div id="jogador-info" data-jogador="<%= jogador %>"></div>
+  </section>
+  <script src="/assets/js/esperaRolagens.js"></script>
 
-<%- include('includes/foot') %>
 
-    
+  <%- include('includes/foot') %>

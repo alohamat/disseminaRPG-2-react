@@ -2,14 +2,15 @@
 
 <section>
 
-    <form action="/jogador/<%=jogador%>/<%=dado%>" method="post">
-        <button>Rolar dado</button>
+    <form action="/jogador/<%=jogador%>/<%=dado%>" method="post" id="formRolagem">
+        <button id="btnRolagem">Rolar dado</button>
     </form>
 
     <form action="/acao" method="post">
-        <button>Escolher ação</button>
+        <button id="btnEscolhas">Escolher ação</button>
     </form>
 
 </section>
+<script src="/assets/js/jogador.js"></script>
 
 <%- include('includes/foot') %>

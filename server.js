@@ -25,7 +25,9 @@ app.use(helmet()) //ajuda a proteger o app de algumas vulnerabilidades, como o x
 //configurando a pasta publica e o bodyparser
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-app.use('/assets', express.static(path.join(__dirname, 'public/assets')));
+app.use(express.static(path.join(__dirname, 'public')))
+
+
 
 
 //configurando a sessão pra ser jogada lá na base de dados
