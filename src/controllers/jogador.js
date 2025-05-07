@@ -6,7 +6,6 @@ exports.logIn = (req, res) => {
 }
 
 exports.jogador = (req, res) => {
-    console.log(personagens.jogador1, req.params.jogador)
     res.render('jogador', {
         dado:'full', 
         nomeDado: 'Dados', 
@@ -63,4 +62,28 @@ exports.full = (req, res) => {
             jogador: req.params.jogador        
         })
     }
+}
+
+exports.votacao = (req, res) => {
+    if(personagens[String(req.params.jogador)].votacaoAberta) {
+        res.render('votar', {
+            jogador: req.params.jogador,
+            opcoes: personagens[String(req.params.jogador)].opcoes,
+            votacaoAberta: personagens[String(req.params.jogador)].votacaoAberta
+        })
+    } else {
+        res.redirect(`/jogador/${req.params.jogador}`)
+    }
+}
+
+exports.depositaVoto = (req, res) => {
+    console.log(`Voto: ${req.params.voto}`)
+    for(let opcao in personagens[String(req.params.jogador)].opcoes) {
+        if(req.params.voto == personagens[String(req.params.jogador)].opcoes[opcao]) {
+            personagens[String(req.params.jogador)].votacao[opcao]++
+        }
+    }
+    personagens[String(req.params.jogador)].votacaoAtual++
+
+    res.redirect(`/jogador/${req.params.jogador}`)
 }

@@ -1,0 +1,15 @@
+<%- include('includes/head') %>
+
+<section>
+    <p><b id="total">0</b> escolhas de ação realizadas.</p>
+      <br>
+      <form action="/exibeEscolha" method="post">
+        <button type="submit">Exibir Escolha de Ação</button>
+      </form>
+</section>
+
+<div id="jogador-info" data-jogador="<%= jogador %>"></div>
+<script src="/assets/js/esperaVotacao.js"></script>
+
+
+<%- include('includes/foot') %>

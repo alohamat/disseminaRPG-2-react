@@ -1,11 +1,7 @@
-let d6 = [], d10_1 = [], d10_2 = []
-let rolagensD6 = 0, rolagensD10_1 = 0, rolagensD10_2 = 0
-let rolagemAberta = false, votacaoAberta = false
-let votosItem = 0, votosFugir = 0, votosRanged = 0, votosMeele = 0
-let passoAtual = -1, votacaoAtual = 0, mensagemVotacao
+
 
 class Jogador {
-    constructor(d6, d10_1, d10_2, rolagensD6, rolagensD10_1, rolagensD10_2, rolagemAberta, votacaoAberta, passoAtual, votacaoAtual, mensagemVotacao) {
+    constructor(d6, d10_1, d10_2, rolagensD6, rolagensD10_1, rolagensD10_2, rolagemAberta, votacaoAberta, passoAtual, votacaoAtual, mensagemVotacao, votacao, opcoes, votosTotal) {
         this.d6 = d6
         this.d10_1 = d10_1
         this.d10_2 = d10_2
@@ -17,6 +13,9 @@ class Jogador {
         this.passoAtual = passoAtual
         this.votacaoAtual = votacaoAtual
         this.mensagemVotacao = mensagemVotacao
+        this.votacao = votacao
+        this.opcoes = opcoes
+        this.votosTotal = votosTotal
     }
 
     maioria() {
@@ -82,7 +81,10 @@ let jogador1 = new Jogador(
     votacaoAberta = false,
     passoAtual = -1,
     votacaoAtual = 0,
-    mensagemVotacao
+    mensagemVotacao = '',
+    votacao = [],
+    opcoes = [],
+    votosTotal = 0,
 )
 
 let jogador2 = new Jogador(
@@ -96,7 +98,10 @@ let jogador2 = new Jogador(
     votacaoAberta = false,
     passoAtual = -1,
     votacaoAtual = 0,
-    mensagemVotacao
+    mensagemVotacao = '',
+    votacao = [],
+    opcoes = [],
+    votosTotal = 0,
 )
 
 let jogador3 = new Jogador(
@@ -110,7 +115,10 @@ let jogador3 = new Jogador(
     votacaoAberta = false,
     passoAtual = -1,
     votacaoAtual = 0,
-    mensagemVotacao
+    mensagemVotacao = '',
+    votacao = [],
+    opcoes = [],
+    votosTotal = 0,
 )
 
 

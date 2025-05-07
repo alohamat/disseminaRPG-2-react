@@ -1,7 +1,8 @@
+const e = require('connect-flash')
+
 const personagens = require('../controllers/global').personagens
-let jogador
 
-
+//rotas gerais do mestre
 exports.index = (req, res) => {
     res.render('loginMestre', {jogador: req.params.jogador})
 }
@@ -10,6 +11,8 @@ exports.controle = (req, res) => {
     res.render('mestre', {jogador: req.params.jogador})
 }
 
+
+//rotas do mestre para dados
 exports.resetaDados = (req, res) => {
     personagens[String(req.params.jogador)].resetaDado(personagens[String(req.params.jogador)].d6, 6)
     personagens[String(req.params.jogador)].rolagensD6 = 0
@@ -42,4 +45,29 @@ exports.exibeRolgem = (req, res) => {
 
 exports.voltar = (req, res) => {
     res.redirect(`/mestre/${req.params.jogador}`)
+}
+
+
+
+
+//rotas do mestre para escolhas
+exports.criaVotacao = (req, res) => {
+    res.render('criaVotacao', {jogador: req.params.jogador})
+
+}
+
+exports.esperaVotacao = (req, res) => {
+    personagens[String(req.params.jogador)].votacaoAberta = true
+    personagens[String(req.params.jogador)].opcoes = req.body.opcao
+
+    for(let i=0; i<personagens[String(req.params.jogador)].opcoes.length; i++) {
+        personagens[String(req.params.jogador)].votacao[i] = 0
+    }
+
+    personagens[String(req.params.jogador)].votacaoAtual = 0
+    res.render('esperaVotacao', {jogador: req.params.jogador})
+}
+
+exports.votacaoEstado = (req, res) => {
+    res.json({ votosTotal: personagens[String(req.params.jogador)].votosTotal })
 }
