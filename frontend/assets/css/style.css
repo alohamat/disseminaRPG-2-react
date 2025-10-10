@@ -1,11 +1,19 @@
 @charset "UTF-8";
 * {
     box-sizing: border-box;
+
+}
+
+:root {
+    --font-claro: white;
+    --cinza-escuro: #121212;
+    --cor-principal:  #fd1f53;
+    --cor-degrade-1: #e31347;
 }
 body {
     margin: 0;
-    background-color: #121212;
-    color: #fd1f53;
+    background-color: var(--cinza-escuro);
+    color: var(--cor-principal);
     font-family: 'Arial', sans-serif;
     display: flex;
     flex-direction: column;
@@ -36,8 +44,8 @@ h1 {
 }
 
 button {
-    background: linear-gradient(135deg, #fd1f53, #e31347);
-    color: white;
+    background: linear-gradient(135deg, var(--cor-principal), var(--cor-degrade-1));
+    color: var(--font-claro);
     font-weight: bold;
     padding: 1.7rem 2.6rem;
     margin: 1rem 0;
@@ -46,14 +54,14 @@ button {
     font-size: 1.7rem;
     border-radius: 10px;
     cursor: pointer;
-    border: 0px solid #fd1f53;
+    border: 0px solid var(--cor-principal);
     transition: 0.2s ease;
 }
 
 button:hover {
     transform: scale(1.05);
-    color: #121212;
-    box-shadow: #fd1f53 0px 0px 5px 1px;
+    color: var(--cinza-escuro);
+    box-shadow: var(--cor-principal) 0px 0px 5px 1px;
 }
 
 #formExibirRolagens {
@@ -63,14 +71,14 @@ button:hover {
 }
 
 #formExibirRolagens input {
-    background: linear-gradient(135deg, #fd1f53, #e31347);
+    background: linear-gradient(135deg, var(--cor-principal), var(--cor-degrade-1));
 
-    color: white;
+    color: var(--font-claro);
     font-size: 1.5rem;
     padding: 1rem 2rem;
     margin: 1rem 0;
     border-radius: 10px;
-    border: 0px solid #fd1f53;
+    border: 0px solid var(--cor-principal);
     transition: 0.2s ease;
 
 }

@@ -24,11 +24,19 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 * {
     box-sizing: border-box;
+
+}
+
+:root {
+    --font-claro: white;
+    --cinza-escuro: #121212;
+    --cor-principal:  #fd1f53;
+    --cor-degrade-1: #e31347;
 }
 body {
     margin: 0;
-    background-color: #121212;
-    color: #fd1f53;
+    background-color: var(--cinza-escuro);
+    color: var(--cor-principal);
     font-family: 'Arial', sans-serif;
     display: flex;
     flex-direction: column;
@@ -59,8 +67,8 @@ h1 {
 }
 
 button {
-    background: linear-gradient(135deg, #fd1f53, #e31347);
-    color: white;
+    background: linear-gradient(135deg, var(--cor-principal), var(--cor-degrade-1));
+    color: var(--font-claro);
     font-weight: bold;
     padding: 1.7rem 2.6rem;
     margin: 1rem 0;
@@ -69,14 +77,14 @@ button {
     font-size: 1.7rem;
     border-radius: 10px;
     cursor: pointer;
-    border: 0px solid #fd1f53;
+    border: 0px solid var(--cor-principal);
     transition: 0.2s ease;
 }
 
 button:hover {
     transform: scale(1.05);
-    color: #121212;
-    box-shadow: #fd1f53 0px 0px 5px 1px;
+    color: var(--cinza-escuro);
+    box-shadow: var(--cor-principal) 0px 0px 5px 1px;
 }
 
 #formExibirRolagens {
@@ -86,17 +94,17 @@ button:hover {
 }
 
 #formExibirRolagens input {
-    background: linear-gradient(135deg, #fd1f53, #e31347);
+    background: linear-gradient(135deg, var(--cor-principal), var(--cor-degrade-1));
 
-    color: white;
+    color: var(--font-claro);
     font-size: 1.5rem;
     padding: 1rem 2rem;
     margin: 1rem 0;
     border-radius: 10px;
-    border: 0px solid #fd1f53;
+    border: 0px solid var(--cor-principal);
     transition: 0.2s ease;
 
-}`, "",{"version":3,"sources":["webpack://./frontend/assets/css/style.css"],"names":[],"mappings":"AAAA,gBAAgB;AAChB;IACI,sBAAsB;AAC1B;AACA;IACI,SAAS;IACT,yBAAyB;IACzB,cAAc;IACd,gCAAgC;IAChC,aAAa;IACb,sBAAsB;IACtB,iBAAiB;IACjB,uBAAuB;AAC3B;;AAEA;IACI,gBAAgB;IAChB,aAAa;IACb,mBAAmB;IACnB,sBAAsB;IACtB,YAAY;AAChB;;AAEA;IACI,eAAe;IACf,mBAAmB;AACvB;;AAEA;IACI,aAAa;IACb,uBAAuB;IACvB,mBAAmB;IACnB,sBAAsB;IACtB,YAAY;IACZ,gBAAgB;AACpB;;AAEA;IACI,qDAAqD;IACrD,YAAY;IACZ,iBAAiB;IACjB,sBAAsB;IACtB,cAAc;IACd,WAAW;IACX,gBAAgB;IAChB,iBAAiB;IACjB,mBAAmB;IACnB,eAAe;IACf,yBAAyB;IACzB,qBAAqB;AACzB;;AAEA;IACI,sBAAsB;IACtB,cAAc;IACd,mCAAmC;AACvC;;AAEA;IACI,iBAAiB;IACjB,aAAa;IACb,sBAAsB;AAC1B;;AAEA;IACI,qDAAqD;;IAErD,YAAY;IACZ,iBAAiB;IACjB,kBAAkB;IAClB,cAAc;IACd,mBAAmB;IACnB,yBAAyB;IACzB,qBAAqB;;AAEzB","sourcesContent":["@charset \"UTF-8\";\r\n* {\r\n    box-sizing: border-box;\r\n}\r\nbody {\r\n    margin: 0;\r\n    background-color: #121212;\r\n    color: #fd1f53;\r\n    font-family: 'Arial', sans-serif;\r\n    display: flex;\r\n    flex-direction: column;\r\n    min-height: 100vh;\r\n    justify-content: center;\r\n}\r\n\r\nsection {\r\n    padding: 0vw 4vw;\r\n    display: flex;\r\n    align-items: center;\r\n    flex-direction: column;\r\n    width: 100vw;\r\n}\r\n\r\nh1 {\r\n    font-size: 2rem;\r\n    margin-bottom: 2rem;\r\n}\r\n\r\n.button_container {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    flex-direction: column;\r\n    width: 100vw;\r\n    max-height: 80vh;\r\n}\r\n\r\nbutton {\r\n    background: linear-gradient(135deg, #fd1f53, #e31347);\r\n    color: white;\r\n    font-weight: bold;\r\n    padding: 1.7rem 2.6rem;\r\n    margin: 1rem 0;\r\n    width: 60vw;\r\n    max-width: 400px;\r\n    font-size: 1.7rem;\r\n    border-radius: 10px;\r\n    cursor: pointer;\r\n    border: 0px solid #fd1f53;\r\n    transition: 0.2s ease;\r\n}\r\n\r\nbutton:hover {\r\n    transform: scale(1.05);\r\n    color: #121212;\r\n    box-shadow: #fd1f53 0px 0px 5px 1px;\r\n}\r\n\r\n#formExibirRolagens {\r\n    max-height: 100vh;\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n#formExibirRolagens input {\r\n    background: linear-gradient(135deg, #fd1f53, #e31347);\r\n\r\n    color: white;\r\n    font-size: 1.5rem;\r\n    padding: 1rem 2rem;\r\n    margin: 1rem 0;\r\n    border-radius: 10px;\r\n    border: 0px solid #fd1f53;\r\n    transition: 0.2s ease;\r\n\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./frontend/assets/css/style.css"],"names":[],"mappings":"AAAA,gBAAgB;AAChB;IACI,sBAAsB;;AAE1B;;AAEA;IACI,mBAAmB;IACnB,uBAAuB;IACvB,yBAAyB;IACzB,wBAAwB;AAC5B;AACA;IACI,SAAS;IACT,qCAAqC;IACrC,2BAA2B;IAC3B,gCAAgC;IAChC,aAAa;IACb,sBAAsB;IACtB,iBAAiB;IACjB,uBAAuB;AAC3B;;AAEA;IACI,gBAAgB;IAChB,aAAa;IACb,mBAAmB;IACnB,sBAAsB;IACtB,YAAY;AAChB;;AAEA;IACI,eAAe;IACf,mBAAmB;AACvB;;AAEA;IACI,aAAa;IACb,uBAAuB;IACvB,mBAAmB;IACnB,sBAAsB;IACtB,YAAY;IACZ,gBAAgB;AACpB;;AAEA;IACI,+EAA+E;IAC/E,wBAAwB;IACxB,iBAAiB;IACjB,sBAAsB;IACtB,cAAc;IACd,WAAW;IACX,gBAAgB;IAChB,iBAAiB;IACjB,mBAAmB;IACnB,eAAe;IACf,sCAAsC;IACtC,qBAAqB;AACzB;;AAEA;IACI,sBAAsB;IACtB,0BAA0B;IAC1B,gDAAgD;AACpD;;AAEA;IACI,iBAAiB;IACjB,aAAa;IACb,sBAAsB;AAC1B;;AAEA;IACI,+EAA+E;;IAE/E,wBAAwB;IACxB,iBAAiB;IACjB,kBAAkB;IAClB,cAAc;IACd,mBAAmB;IACnB,sCAAsC;IACtC,qBAAqB;;AAEzB","sourcesContent":["@charset \"UTF-8\";\r\n* {\r\n    box-sizing: border-box;\r\n\r\n}\r\n\r\n:root {\r\n    --font-claro: white;\r\n    --cinza-escuro: #121212;\r\n    --cor-principal:  #fd1f53;\r\n    --cor-degrade-1: #e31347;\r\n}\r\nbody {\r\n    margin: 0;\r\n    background-color: var(--cinza-escuro);\r\n    color: var(--cor-principal);\r\n    font-family: 'Arial', sans-serif;\r\n    display: flex;\r\n    flex-direction: column;\r\n    min-height: 100vh;\r\n    justify-content: center;\r\n}\r\n\r\nsection {\r\n    padding: 0vw 4vw;\r\n    display: flex;\r\n    align-items: center;\r\n    flex-direction: column;\r\n    width: 100vw;\r\n}\r\n\r\nh1 {\r\n    font-size: 2rem;\r\n    margin-bottom: 2rem;\r\n}\r\n\r\n.button_container {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    flex-direction: column;\r\n    width: 100vw;\r\n    max-height: 80vh;\r\n}\r\n\r\nbutton {\r\n    background: linear-gradient(135deg, var(--cor-principal), var(--cor-degrade-1));\r\n    color: var(--font-claro);\r\n    font-weight: bold;\r\n    padding: 1.7rem 2.6rem;\r\n    margin: 1rem 0;\r\n    width: 60vw;\r\n    max-width: 400px;\r\n    font-size: 1.7rem;\r\n    border-radius: 10px;\r\n    cursor: pointer;\r\n    border: 0px solid var(--cor-principal);\r\n    transition: 0.2s ease;\r\n}\r\n\r\nbutton:hover {\r\n    transform: scale(1.05);\r\n    color: var(--cinza-escuro);\r\n    box-shadow: var(--cor-principal) 0px 0px 5px 1px;\r\n}\r\n\r\n#formExibirRolagens {\r\n    max-height: 100vh;\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n#formExibirRolagens input {\r\n    background: linear-gradient(135deg, var(--cor-principal), var(--cor-degrade-1));\r\n\r\n    color: var(--font-claro);\r\n    font-size: 1.5rem;\r\n    padding: 1rem 2rem;\r\n    margin: 1rem 0;\r\n    border-radius: 10px;\r\n    border: 0px solid var(--cor-principal);\r\n    transition: 0.2s ease;\r\n\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
