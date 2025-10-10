@@ -82,3 +82,32 @@ button:hover {
     transition: 0.2s ease;
 
 }
+
+#ExibirOpcoes input[type="text"] {
+    padding: 10px 15px;       
+    border-radius: 10px;
+    border: none;           
+    outline: none;           
+    font-size: 16px;        
+    background-color: #1a1a1a;
+    color: white;       
+    width: 250px;             
+    transition: 0.2s ease;
+}
+
+#ExibirOpcoes input[type="text"]:focus {
+    box-shadow: 0 0 8px #ff2b5c; 
+ 
+}
+
+.btnDeleteOpcao {
+    padding: 10px 15px;       
+    border-radius: 10px;
+    border: none;           
+    outline: none;           
+    font-size: 16px;        
+    background-color: #1a1a1a;
+    color: white;       
+    width: 150px;             
+    transition: none;    
+}
