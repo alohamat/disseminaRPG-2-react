@@ -1,8 +1,11 @@
+import { Route, Routes } from 'react-router-dom'
+import { Login } from './pages/Login';
+
 function App() {
   return (
-    <div>
-      <h1>Hello, world!</h1>
-    </div>
+    <Routes>
+      <Route path='/login' element={<Login /> }/>
+    </Routes>
   );
 }
 
