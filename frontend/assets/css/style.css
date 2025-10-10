@@ -8,7 +8,8 @@
     --font-claro: white;
     --cinza-escuro: #121212;
     --cor-principal:  #fd1f53;
-    --cor-degrade-1: #e31347;
+    --cor-sombra-1: #e31347;
+    --input-fundo: #1a1a1a;
 }
 body {
     margin: 0;
@@ -44,7 +45,7 @@ h1 {
 }
 
 button {
-    background: linear-gradient(135deg, var(--cor-principal), var(--cor-degrade-1));
+    background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));
     color: var(--font-claro);
     font-weight: bold;
     padding: 1.7rem 2.6rem;
@@ -71,7 +72,7 @@ button:hover {
 }
 
 #formExibirRolagens input {
-    background: linear-gradient(135deg, var(--cor-principal), var(--cor-degrade-1));
+    background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));
 
     color: var(--font-claro);
     font-size: 1.5rem;
@@ -89,14 +90,14 @@ button:hover {
     border: none;           
     outline: none;           
     font-size: 16px;        
-    background-color: #1a1a1a;
-    color: white;       
+    background-color: var(--input-fundo);
+    color: var(--font-claro);       
     width: 250px;             
     transition: 0.2s ease;
 }
 
 #ExibirOpcoes input[type="text"]:focus {
-    box-shadow: 0 0 8px #ff2b5c; 
+    box-shadow: 0 0 8px var(--cor-principal); 
  
 }
 
@@ -106,8 +107,8 @@ button:hover {
     border: none;           
     outline: none;           
     font-size: 16px;        
-    background-color: #1a1a1a;
-    color: white;       
+    background-color: var(--input-fundo);
+    color: var(--font-claro);       
     width: 150px;             
     transition: none;    
 }

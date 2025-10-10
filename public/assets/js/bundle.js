@@ -31,7 +31,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
     --font-claro: white;
     --cinza-escuro: #121212;
     --cor-principal:  #fd1f53;
-    --cor-degrade-1: #e31347;
+    --cor-sombra-1: #e31347;
+    --input-fundo: #1a1a1a;
 }
 body {
     margin: 0;
@@ -67,7 +68,7 @@ h1 {
 }
 
 button {
-    background: linear-gradient(135deg, var(--cor-principal), var(--cor-degrade-1));
+    background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));
     color: var(--font-claro);
     font-weight: bold;
     padding: 1.7rem 2.6rem;
@@ -94,7 +95,7 @@ button:hover {
 }
 
 #formExibirRolagens input {
-    background: linear-gradient(135deg, var(--cor-principal), var(--cor-degrade-1));
+    background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));
 
     color: var(--font-claro);
     font-size: 1.5rem;
@@ -104,7 +105,37 @@ button:hover {
     border: 0px solid var(--cor-principal);
     transition: 0.2s ease;
 
-}`, "",{"version":3,"sources":["webpack://./frontend/assets/css/style.css"],"names":[],"mappings":"AAAA,gBAAgB;AAChB;IACI,sBAAsB;;AAE1B;;AAEA;IACI,mBAAmB;IACnB,uBAAuB;IACvB,yBAAyB;IACzB,wBAAwB;AAC5B;AACA;IACI,SAAS;IACT,qCAAqC;IACrC,2BAA2B;IAC3B,gCAAgC;IAChC,aAAa;IACb,sBAAsB;IACtB,iBAAiB;IACjB,uBAAuB;AAC3B;;AAEA;IACI,gBAAgB;IAChB,aAAa;IACb,mBAAmB;IACnB,sBAAsB;IACtB,YAAY;AAChB;;AAEA;IACI,eAAe;IACf,mBAAmB;AACvB;;AAEA;IACI,aAAa;IACb,uBAAuB;IACvB,mBAAmB;IACnB,sBAAsB;IACtB,YAAY;IACZ,gBAAgB;AACpB;;AAEA;IACI,+EAA+E;IAC/E,wBAAwB;IACxB,iBAAiB;IACjB,sBAAsB;IACtB,cAAc;IACd,WAAW;IACX,gBAAgB;IAChB,iBAAiB;IACjB,mBAAmB;IACnB,eAAe;IACf,sCAAsC;IACtC,qBAAqB;AACzB;;AAEA;IACI,sBAAsB;IACtB,0BAA0B;IAC1B,gDAAgD;AACpD;;AAEA;IACI,iBAAiB;IACjB,aAAa;IACb,sBAAsB;AAC1B;;AAEA;IACI,+EAA+E;;IAE/E,wBAAwB;IACxB,iBAAiB;IACjB,kBAAkB;IAClB,cAAc;IACd,mBAAmB;IACnB,sCAAsC;IACtC,qBAAqB;;AAEzB","sourcesContent":["@charset \"UTF-8\";\r\n* {\r\n    box-sizing: border-box;\r\n\r\n}\r\n\r\n:root {\r\n    --font-claro: white;\r\n    --cinza-escuro: #121212;\r\n    --cor-principal:  #fd1f53;\r\n    --cor-degrade-1: #e31347;\r\n}\r\nbody {\r\n    margin: 0;\r\n    background-color: var(--cinza-escuro);\r\n    color: var(--cor-principal);\r\n    font-family: 'Arial', sans-serif;\r\n    display: flex;\r\n    flex-direction: column;\r\n    min-height: 100vh;\r\n    justify-content: center;\r\n}\r\n\r\nsection {\r\n    padding: 0vw 4vw;\r\n    display: flex;\r\n    align-items: center;\r\n    flex-direction: column;\r\n    width: 100vw;\r\n}\r\n\r\nh1 {\r\n    font-size: 2rem;\r\n    margin-bottom: 2rem;\r\n}\r\n\r\n.button_container {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    flex-direction: column;\r\n    width: 100vw;\r\n    max-height: 80vh;\r\n}\r\n\r\nbutton {\r\n    background: linear-gradient(135deg, var(--cor-principal), var(--cor-degrade-1));\r\n    color: var(--font-claro);\r\n    font-weight: bold;\r\n    padding: 1.7rem 2.6rem;\r\n    margin: 1rem 0;\r\n    width: 60vw;\r\n    max-width: 400px;\r\n    font-size: 1.7rem;\r\n    border-radius: 10px;\r\n    cursor: pointer;\r\n    border: 0px solid var(--cor-principal);\r\n    transition: 0.2s ease;\r\n}\r\n\r\nbutton:hover {\r\n    transform: scale(1.05);\r\n    color: var(--cinza-escuro);\r\n    box-shadow: var(--cor-principal) 0px 0px 5px 1px;\r\n}\r\n\r\n#formExibirRolagens {\r\n    max-height: 100vh;\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n#formExibirRolagens input {\r\n    background: linear-gradient(135deg, var(--cor-principal), var(--cor-degrade-1));\r\n\r\n    color: var(--font-claro);\r\n    font-size: 1.5rem;\r\n    padding: 1rem 2rem;\r\n    margin: 1rem 0;\r\n    border-radius: 10px;\r\n    border: 0px solid var(--cor-principal);\r\n    transition: 0.2s ease;\r\n\r\n}"],"sourceRoot":""}]);
+}
+
+#ExibirOpcoes input[type="text"] {
+    padding: 10px 15px;       
+    border-radius: 10px;
+    border: none;           
+    outline: none;           
+    font-size: 16px;        
+    background-color: var(--input-fundo);
+    color: var(--font-claro);       
+    width: 250px;             
+    transition: 0.2s ease;
+}
+
+#ExibirOpcoes input[type="text"]:focus {
+    box-shadow: 0 0 8px var(--cor-principal); 
+ 
+}
+
+.btnDeleteOpcao {
+    padding: 10px 15px;       
+    border-radius: 10px;
+    border: none;           
+    outline: none;           
+    font-size: 16px;        
+    background-color: var(--input-fundo);
+    color: var(--font-claro);       
+    width: 150px;             
+    transition: none;    
+}
+`, "",{"version":3,"sources":["webpack://./frontend/assets/css/style.css"],"names":[],"mappings":"AAAA,gBAAgB;AAChB;IACI,sBAAsB;;AAE1B;;AAEA;IACI,mBAAmB;IACnB,uBAAuB;IACvB,yBAAyB;IACzB,uBAAuB;IACvB,sBAAsB;AAC1B;AACA;IACI,SAAS;IACT,qCAAqC;IACrC,2BAA2B;IAC3B,gCAAgC;IAChC,aAAa;IACb,sBAAsB;IACtB,iBAAiB;IACjB,uBAAuB;AAC3B;;AAEA;IACI,gBAAgB;IAChB,aAAa;IACb,mBAAmB;IACnB,sBAAsB;IACtB,YAAY;AAChB;;AAEA;IACI,eAAe;IACf,mBAAmB;AACvB;;AAEA;IACI,aAAa;IACb,uBAAuB;IACvB,mBAAmB;IACnB,sBAAsB;IACtB,YAAY;IACZ,gBAAgB;AACpB;;AAEA;IACI,8EAA8E;IAC9E,wBAAwB;IACxB,iBAAiB;IACjB,sBAAsB;IACtB,cAAc;IACd,WAAW;IACX,gBAAgB;IAChB,iBAAiB;IACjB,mBAAmB;IACnB,eAAe;IACf,sCAAsC;IACtC,qBAAqB;AACzB;;AAEA;IACI,sBAAsB;IACtB,0BAA0B;IAC1B,gDAAgD;AACpD;;AAEA;IACI,iBAAiB;IACjB,aAAa;IACb,sBAAsB;AAC1B;;AAEA;IACI,8EAA8E;;IAE9E,wBAAwB;IACxB,iBAAiB;IACjB,kBAAkB;IAClB,cAAc;IACd,mBAAmB;IACnB,sCAAsC;IACtC,qBAAqB;;AAEzB;;AAEA;IACI,kBAAkB;IAClB,mBAAmB;IACnB,YAAY;IACZ,aAAa;IACb,eAAe;IACf,oCAAoC;IACpC,wBAAwB;IACxB,YAAY;IACZ,qBAAqB;AACzB;;AAEA;IACI,wCAAwC;;AAE5C;;AAEA;IACI,kBAAkB;IAClB,mBAAmB;IACnB,YAAY;IACZ,aAAa;IACb,eAAe;IACf,oCAAoC;IACpC,wBAAwB;IACxB,YAAY;IACZ,gBAAgB;AACpB","sourcesContent":["@charset \"UTF-8\";\r\n* {\r\n    box-sizing: border-box;\r\n\r\n}\r\n\r\n:root {\r\n    --font-claro: white;\r\n    --cinza-escuro: #121212;\r\n    --cor-principal:  #fd1f53;\r\n    --cor-sombra-1: #e31347;\r\n    --input-fundo: #1a1a1a;\r\n}\r\nbody {\r\n    margin: 0;\r\n    background-color: var(--cinza-escuro);\r\n    color: var(--cor-principal);\r\n    font-family: 'Arial', sans-serif;\r\n    display: flex;\r\n    flex-direction: column;\r\n    min-height: 100vh;\r\n    justify-content: center;\r\n}\r\n\r\nsection {\r\n    padding: 0vw 4vw;\r\n    display: flex;\r\n    align-items: center;\r\n    flex-direction: column;\r\n    width: 100vw;\r\n}\r\n\r\nh1 {\r\n    font-size: 2rem;\r\n    margin-bottom: 2rem;\r\n}\r\n\r\n.button_container {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    flex-direction: column;\r\n    width: 100vw;\r\n    max-height: 80vh;\r\n}\r\n\r\nbutton {\r\n    background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));\r\n    color: var(--font-claro);\r\n    font-weight: bold;\r\n    padding: 1.7rem 2.6rem;\r\n    margin: 1rem 0;\r\n    width: 60vw;\r\n    max-width: 400px;\r\n    font-size: 1.7rem;\r\n    border-radius: 10px;\r\n    cursor: pointer;\r\n    border: 0px solid var(--cor-principal);\r\n    transition: 0.2s ease;\r\n}\r\n\r\nbutton:hover {\r\n    transform: scale(1.05);\r\n    color: var(--cinza-escuro);\r\n    box-shadow: var(--cor-principal) 0px 0px 5px 1px;\r\n}\r\n\r\n#formExibirRolagens {\r\n    max-height: 100vh;\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n#formExibirRolagens input {\r\n    background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));\r\n\r\n    color: var(--font-claro);\r\n    font-size: 1.5rem;\r\n    padding: 1rem 2rem;\r\n    margin: 1rem 0;\r\n    border-radius: 10px;\r\n    border: 0px solid var(--cor-principal);\r\n    transition: 0.2s ease;\r\n\r\n}\r\n\r\n#ExibirOpcoes input[type=\"text\"] {\r\n    padding: 10px 15px;       \r\n    border-radius: 10px;\r\n    border: none;           \r\n    outline: none;           \r\n    font-size: 16px;        \r\n    background-color: var(--input-fundo);\r\n    color: var(--font-claro);       \r\n    width: 250px;             \r\n    transition: 0.2s ease;\r\n}\r\n\r\n#ExibirOpcoes input[type=\"text\"]:focus {\r\n    box-shadow: 0 0 8px var(--cor-principal); \r\n \r\n}\r\n\r\n.btnDeleteOpcao {\r\n    padding: 10px 15px;       \r\n    border-radius: 10px;\r\n    border: none;           \r\n    outline: none;           \r\n    font-size: 16px;        \r\n    background-color: var(--input-fundo);\r\n    color: var(--font-claro);       \r\n    width: 150px;             \r\n    transition: none;    \r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
