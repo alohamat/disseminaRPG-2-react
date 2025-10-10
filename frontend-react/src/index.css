@@ -1,6 +1,142 @@
-@import "tailwindcss";
+@charset "UTF-8";
+* {
+    box-sizing: border-box;
 
+}
+
+:root {
+    --font-claro: white;
+    --cinza-escuro: #121212;
+    --cor-principal:  #fd1f53;
+    --cor-sombra-1: #e31347;
+    --input-fundo: #1a1a1a;
+}
 html, body {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
+    background-color: var(--cinza-escuro);
+    color: var(--cor-principal);
+    font-family: 'Arial', sans-serif;
+}
+
+#tudo {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+header {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    font-weight: bold;
+    z-index: 1000; /* fica acima do resto */
+    padding: 1rem 0;
+}
+
+section {
+    padding: 0vw 4vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.button_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    max-height: 80vh;
+}
+
+button {
+    background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));
+    color: var(--font-claro);
+    font-weight: bold;
+    padding: 1.7rem 2.6rem;
+    margin: 1rem 0;
+    width: 60vw;
+    max-width: 400px;
+    font-size: 1.7rem;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 0px solid var(--cor-principal);
+    transition: 0.2s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+    color: var(--cinza-escuro);
+    box-shadow: var(--cor-principal) 0px 0px 5px 1px;
+}
+
+#formExibirRolagens {
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#formExibirRolagens input {
+    background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));
+    color: var(--font-claro);
+    font-size: 1.5rem;
+    padding: 1rem 2rem;
+    margin: 1rem 0;
+    border-radius: 10px;
+    border: 0px solid var(--cor-principal);
+    transition: 0.2s ease;
+
+}
+
+#ExibirOpcoes input[type="text"] {
+    padding: 10px 15px;       
+    border-radius: 10px;
+    border: none;           
+    outline: none;           
+    font-size: 20px;        
+    background-color: var(--input-fundo);
+    color: var(--font-claro);       
+    width: 250px;
+    padding: 1rem;
+    transition: 0.2s ease
+}
+
+#ExibirOpcoes input[type="text"]:focus {
+    box-shadow: 0 0 8px var(--cor-principal); 
+ 
+}
+
+.btnDeleteOpcao {
+    margin-left: 10px;
+    background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));
+    color: var(--font-claro);
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    padding: 0.9rem;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 50px;
+    transition: 0.2s ease;
+}
+
+#opcoes > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 1rem;
 }

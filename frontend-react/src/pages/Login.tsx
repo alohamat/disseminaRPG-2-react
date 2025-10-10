@@ -1,15 +1,15 @@
 import { Header } from "../components/Header"
-import { Footer } from "../components/Footer"
-import { CharI, CharII, CharIII } from "../components/CharButtons"
+import Char from "../components/CharButtons"
 
 export function Login(){
     return(
-        <div>
+        <div id="tudo">
             <Header />
-            <CharI />
-            <CharII />
-            <CharIII />
-            <Footer />
+            <section>
+                <Char CharNumber="1"></Char>
+                <Char CharNumber="2"></Char>
+                <Char CharNumber="3"></Char>
+            </section>
         </div>
     )
 }
