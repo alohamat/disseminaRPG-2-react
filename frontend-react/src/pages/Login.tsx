@@ -6,9 +6,9 @@ export function Login(){
         <div id="tudo">
             <Header />
             <section>
-                <Char CharNumber="1"></Char>
-                <Char CharNumber="2"></Char>
-                <Char CharNumber="3"></Char>
+                <Char CharNumber="1"/>
+                <Char CharNumber="2"/>
+                <Char CharNumber="3"/>
             </section>
         </div>
     )

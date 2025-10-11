@@ -3,11 +3,32 @@ type CharProps = {
 }
 
 export default function Char( { CharNumber } : CharProps) {
+    const handleClick = async () => {
+        try {
+            const res = await fetch(`https://dissemina-iff-backend.vercel.app/api/jogador/jogador${CharNumber}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ jogador: CharNumber })
+            });
+
+            if (!res.ok) {
+                throw new Error('Erro ao buscar jogador');
+            }
+
+            const data = await res.json();
+            console.log(data);
+        } catch (error) {
+            console.log("Erro na conexão com o servidor.", error);
+        }
+    }
+
     return (
-        <form action="">
-            <button>
+        <div>
+            <button onClick={handleClick}>
                 Jogador {CharNumber}
             </button>
-        </form>
+        </div>
     )
 }
