@@ -35,12 +35,13 @@ exports.exibeRolgem = (req, res) => {
     const acao = personagens[String(req.params.jogador)].moda(personagens[String(req.params.jogador)].d6, 6)
     const desafio1 = personagens[String(req.params.jogador)].moda(personagens[String(req.params.jogador)].d10_1, 10)
     const desafio2 = personagens[String(req.params.jogador)].moda(personagens[String(req.params.jogador)].d10_2, 10)
+    
     const bonus = parseInt(req.body.bonus)
     let total = acao + bonus
     let resolucao = personagens[String(req.params.jogador)].resolucaoIronsworn(total, desafio1, desafio2)
     total = `${acao} + ${bonus} = ${total}`
     console.log(`Ação: ${acao}, Desafio 1: ${desafio1}, Desafio 2: ${desafio2}, Total: ${total}, Resolução: ${resolucao}`)
-    res.render('resultado', {total, desafio1, desafio2, resolucao, d6, jogador: req.params.jogador})
+    res.render('resultado', {total, desafio1, desafio2, resolucao, d6, jogador: req.params.jogador, d6_rolls: personagens[String(req.params.jogador)].d6, d10_1: personagens[String(req.params.jogador)].d10_1, d10_2: personagens[String(req.params.jogador)].d10_2})
 }
 
 exports.voltar = (req, res) => {

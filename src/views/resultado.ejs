@@ -1,68 +1,192 @@
 <%- include('includes/head') %>
-    <section>
+<section>
 
-        <h1>RPGzão no Auditório</h1>
-        <h2>Resultado das Rolagens de Dados</h2>
-        <!--
-        <div>
-            <canvas id="myChart"></canvas>
-        </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <h1>RPGzão no Auditório</h1>
+    <h2>Resultado das Rolagens de Dados</h2>
     
-    <script>
-    const labels = [1, 2, 3, 4, 5, 6];
-const data = {
-labels: labels,
-datasets: [
-  {
-    label: 'Rolagens',
-    data: [<%=d6[0]%>, <%=d6[1]%>, <%=d6[2]%>, <%=d6[3]%>, <%=d6[4]%>, <%=d6[5]%>]
-  }
-]
-};
+    <div >
+        <canvas id="dado_acao"></canvas>
+    </div>
+    <div >
+      <canvas id="desafio1"></canvas>
+    </div>
+    <div >
+      <canvas id="desafio2"></canvas>
+    </div>
+    <div>
+      <canvas id="todas_rolagens"></canvas>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-const config = {
-type: 'bar',
-data: data,
-options: {
-  indexAxis: 'y',
-  elements: {
-    bar: {
-      borderWidth: 2,
-    }
-  },
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'right',
+<script>
+  const labels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const datasets = [
+    {
+      label: 'Rolagens ação',
+      data: [<%=d6_rolls%>],
+      backgroundColor: "#4BC0C0"
+    } ,
+    {
+      label:"Rolagens perigo2",
+      data: [<%=d10_2%>],
+      backgroundColor: "#FF4069"
     },
-    title: {
-      display: true,
-      text: 'Rolagens do Dado de Ação'
+    {
+      label: "Rolagens perigo1",
+      data: [<%=d10_1%>],
+      backgroundColor: "#fc9e11"
+
+    }
+
+  ]
+  const stats_d6 = {
+    labels: [1, 2, 3, 4, 5, 6],
+    datasets: [datasets[0]]
+  };
+
+  const stats_d10_2 = {
+    labels: labels,
+    datasets: [datasets[1]]
+  }
+
+  const stats_d10_1 = {
+    labels: labels,
+    datasets: [datasets[2]]
+  }
+
+  const stats = {
+    labels: labels,
+    datasets: datasets
+  }
+  
+  const font = {
+    size: 25
+  }
+
+  const options = {
+    indexAxis: 'x',
+    elements: {
+      bar: {
+        borderWidth: 2,
+      }
+    },
+    responsive: true,
+    interaction: {
+      intersect: false
+    },
+    scales:{
+      y:{
+        beginAtZero:true,
+        
+        ticks:{
+          font:font,
+          stepSize:1,
+          precision: 0,
+          stacked: true
+        }
+      },
+      x: {
+        ticks: {
+          font: font
+        },
+        stacked:true
+      }
     }
   }
-},
-};
 
-      const ctx = document.getElementById('myChart');
-      new Chart(ctx, config);
-    </script>
-    -->
+  const legend = {
+    position: "top",
+    labels: {
+      font:font
+    }
+  }
+  
+  const config_d6 = {
+    type:"bar",
+    data: stats_d6,
+    options: {
+      ...options,
+      plugins: {
+        legend: legend,
+        title: {
+          display: true,
+          text: 'Rolagens do Dado de Ação',
+          font: font
+        }
+      }   
+    }
+  };
 
-        <div class="resultado">
-            <h1>Dado de Ação: <%=total%>
-            </h1>
-            <h1>Dado de Desafio 1: <%=desafio1%>
-            </h1>
-            <h1>Dado de Desafio 2: <%=desafio2%>
-            </h1>
-            <h2>Resultado: <%=resolucao%>
-            </h2>
-        </div>
+  const config_d10_2 = {
+    type: 'bar',
+    data: stats_d10_2,
+    options: {
+      ...options,
+      plugins: {
+        legend: legend,
+        title: {
+          display: true,
+          text: 'Rolagens do Dado de Perigo 2',
+          font: font
+        }
+      }
+    }
+  
+  }
+  
+  const config_d10_1 = {
+    type: 'bar',
+    data: stats_d10_1,
+    options: {
+      ...options,
+      plugins: {
+        legend: legend,
+        title: {
+          display: true,
+          text: 'Rolagens do Dado de Perigo 2',
+          font: font
+        }
+      }
+    }
+  }
 
-        <form action="/mestre/<%=jogador%>/voltar" method="post">
-            <button type="submit">Voltar</button>
-        </form>
-    </section>
+  const config_todas = {
+    type: "bar",
+    data: stats,
+    options: {
+      ...options,
+      plugins: {
+        legend: legend,
+        title: {
+          display:true,
+          text: "Rolagens",
+          font:font
+        }
+      }
+    }
+  }
+ 
+  const acao = document.getElementById('dado_acao');
+  new Chart(acao, config_d6);
+  new Chart(desafio2, config_d10_2)
+  new Chart(desafio1, config_d10_1)
+  new Chart(todas_rolagens, config_todas)
+</script>
 
-    <%- include('includes/foot') %>
+
+    <div class="resultado">
+        <h1>Dado de Ação: <%=total%>
+        </h1>
+        <h1>Dado de Desafio 1: <%=desafio1%>
+        </h1>
+        <h1>Dado de Desafio 2: <%=desafio2%>
+        </h1>
+        <h2>Resultado: <%=resolucao%>
+        </h2>
+    </div>
+
+    <form action="/mestre/<%=jogador%>/voltar" method="post">
+        <button type="submit">Voltar</button>
+    </form>
+</section>
+<%- include('includes/foot') %>

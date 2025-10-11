@@ -11,6 +11,7 @@
     --cor-sombra-1: #e31347;
     --input-fundo: #1a1a1a;
 }
+
 body {
     margin: 0;
     background-color: var(--cinza-escuro);
@@ -73,7 +74,6 @@ button:hover {
 
 #formExibirRolagens input {
     background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));
-
     color: var(--font-claro);
     font-size: 1.5rem;
     padding: 1rem 2rem;
