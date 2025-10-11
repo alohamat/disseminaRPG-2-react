@@ -1,8 +1,12 @@
+import { useNavigate } from 'react-router-dom';
+
 type CharProps = {
     CharNumber: string;
 }
 
 export default function Char( { CharNumber } : CharProps) {
+    const nav = useNavigate();
+
     const handleClick = async () => {
         try {
             const res = await fetch(`https://dissemina-iff-backend.vercel.app/api/jogador/jogador${CharNumber}`, {
@@ -17,8 +21,7 @@ export default function Char( { CharNumber } : CharProps) {
                 throw new Error('Erro ao buscar jogador');
             }
 
-            const data = await res.json();
-            console.log(data);
+            nav(`/jogador/jogador${CharNumber}`)
         } catch (error) {
             console.log("Erro na conexão com o servidor.", error);
         }
