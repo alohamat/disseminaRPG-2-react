@@ -145,3 +145,9 @@ button:hover {
     gap: 10px;
     margin-bottom: 1rem;
 }
+
+#todas_rolagens {
+    max-height: 90%;
+    max-width: 80%;
+    margin-top: 50px;
+}

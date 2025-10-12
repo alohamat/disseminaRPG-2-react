@@ -10,7 +10,7 @@ export default function MestreResetaDados() {
 
   const handleExibirRolagens = async () => {
     const res = await fetch(
-      `http://localhost:3000/api/mestre/${jogador}/exibeRolagem`,
+      `https://dissemina-iff-backend.vercel.app/api/mestre/${jogador}/exibeRolagem`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -6,7 +6,7 @@ export default function MestreJogador() {
   const navigate = useNavigate();
 
   async function iniciarRolagens() {
-    const res = await fetch(`http://localhost:3000/api/mestre/${jogador}/resetaDados`)
+    const res = await fetch(`https://dissemina-iff-backend.vercel.app/api/mestre/${jogador}/resetaDados`)
     if (!res.ok) {
         throw new Error("Deu erro aqui parcero, te vira aí")
     }
@@ -14,7 +14,7 @@ export default function MestreJogador() {
   }
 
   async function iniciarVotacao() {
-    const res = await fetch(`http://localhost:3000/api/mestre/${jogador}/criavotacao`, {method: 'POST'})
+    const res = await fetch(`https://dissemina-iff-backend.vercel.app/api/mestre/${jogador}/criavotacao`, {method: 'POST'})
     if (!res.ok) {
         throw new Error("Deu erro aqui parcero, te vira aí")
     }

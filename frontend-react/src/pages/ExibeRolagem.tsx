@@ -24,7 +24,7 @@ export default function ExibeRolagem() {
   useEffect(() => {
     async function fetchData() {
       const res = await fetch(
-        `http://localhost:3000/api/mestre/${jogador}/exibeRolagem`,
+        `https://dissemina-iff-backend.vercel.app/api/mestre/${jogador}/exibeRolagem`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -59,7 +59,7 @@ export default function ExibeRolagem() {
   const handleVoltar = () => navigate(`/mestre/${jogador}`)
 
   return (
-    <section>
+    <div id="tudo">
       <Header />
       <canvas id="todas_rolagens"></canvas>
 
@@ -73,6 +73,6 @@ export default function ExibeRolagem() {
       <div>
         <button onClick={handleVoltar}>Voltar</button>
       </div>
-    </section>
+    </div>
   );
 }
