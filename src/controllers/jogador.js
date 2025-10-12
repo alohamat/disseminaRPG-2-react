@@ -8,6 +8,7 @@ exports.logIn = (req, res) => {
 exports.jogador = (req, res) => {
     res.render('jogador', {
         dado:'full', 
+        rolou:false,
         nomeDado: 'Dados', 
         passoAtual: personagens[String(req.params.jogador)].passoAtual, 
         votacaoAtual: personagens[String(req.params.jogador)].votacaoAtual, 
@@ -36,16 +37,18 @@ exports.full = (req, res) => {
         rollD10_2 = rollD10_2+1
         personagens[String(req.params.jogador)].rolagensD10_2++
         
-        resultado = `Dado de ação (D6): ${rollD6} <br> Dado de desafio 1 (D10): ${rollD10_1} <br> Dado de desafio 2 (D10): ${rollD10_2}`
+        resultado = `Dado de ação (D6): ${rollD6} <br> <h1>Dado de desafio 1 (D10): ${rollD10_1}</h1> <br> <h1>Dado de desafio 2 (D10): ${rollD10_2}</h1>`
         resolucao = `Desconsiderando bônus/penalidade sua rolagem seria um: ${personagens[String(req.params.jogador)].resolucaoIronsworn(rollD6, rollD10_1, rollD10_2)}`
         console.log(`${personagens[String(req.params.jogador)].rolagensD10_2} rolagens no total, Dado de ação (D6): ${rollD6}`)
 
         res.render('jogador', {
             dado:'full', 
             nomeDado: 'Dados', 
-            resultado, 
-            rolagem: personagens[String(req.params.jogador)].rolagensD6, 
-            resolucao: resolucao, 
+            d_acao: rollD6,
+            d_desafio_1: rollD10_1,
+            d_desafio_2: rollD10_2,
+            resolucao: personagens[String(req.params.jogador)].resolucaoIronsworn(rollD6, rollD10_1, rollD10_2),
+            rolou:true, 
             passoAtual: personagens[String(req.params.jogador)].passoAtual, 
             votacaoAberta: personagens[String(req.params.jogador)].votacaoAberta, 
             votacaoAtual: personagens[String(req.params.jogador)].votacaoAtual, 
@@ -54,6 +57,7 @@ exports.full = (req, res) => {
     } else {
         res.render('jogador', {
             dado:'full', 
+            rolou:false, 
             nomeDado: 'Dados', 
             mensagem:'Rolagem de dados bloqueada pelo mestre do jogo.', 
             passoAtual: personagens[String(req.params.jogador)].passoAtual, 

@@ -1,7 +1,21 @@
 <%- include('includes/head') %>
 
 <section>
-
+  <% if(rolou) { %>
+    <div class="modal_resultado" onclick="fechaModal()" id="modal">
+      <script>
+        function fechaModal() {
+          modal.style.display = "none"
+        }
+      </script>
+      <div class="resultado">
+        <h1>Dado de Ação: <%=d_acao%></h1>
+        <h1>Dado de Desafio 1: <%=d_desafio_1%></h1>
+        <h1>Dado de Desafio 2: <%=d_desafio_2%></h1>
+        <h1>Resolução: <%=resolucao%></h1>
+      </div>
+    </div>
+  <% } %>
     <form action="/jogador/<%=jogador%>/<%=dado%>" method="post" id="formRolagem">
         <button id="btnRolagem">Rolar dado</button>
     </form>

@@ -123,3 +123,30 @@ button:hover {
     gap: 10px;
     margin-bottom: 1rem;
 }
+
+div.grafico {
+    width: 80vw;
+    margin: 1vh 0;
+}
+
+.modal_resultado {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+.modal_resultado div {
+    background-color: var(--cinza-escuro);
+    padding: 20px;
+    color: var(--cor-principal);
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.2s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
