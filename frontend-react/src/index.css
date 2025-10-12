@@ -40,6 +40,11 @@ header {
     padding: 1rem 0;
 }
 
+.mestre-buttons-container {
+    display: flex;
+    flex-direction: column;
+}
+
 section {
     padding: 0vw 4vw;
     display: flex;
