@@ -4,6 +4,7 @@ import Mestre from './pages/Mestre';
 import MestreJogador from './pages/MestreJogador';
 import MestreResetaDados from './pages/ResetaDados';
 import ExibeRolagem from './pages/ExibeRolagem';
+import Jogador from './pages/Jogador';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path='/mestre/:jogador' element={<MestreJogador /> }/>
       <Route path='/mestre/:jogador/resetaDados' element={ <MestreResetaDados /> } />
       <Route path='/mestre/:jogador/exibeRolagem' element={ <ExibeRolagem /> } />
+      <Route path='/jogador/:jogador' element={ <Jogador /> } />
     </Routes>
   );
 }
