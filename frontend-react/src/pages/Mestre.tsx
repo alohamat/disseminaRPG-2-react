@@ -7,12 +7,12 @@ export default function Mestre() {
   return (
     <div id="tudo">
       <Header />
-      <h1>Escolha seu Lutador</h1>
+      <h1>Escolha seu Jogador</h1>
       <h2>Você está na página de mestre</h2>
       <div className="mestre-buttons-container">
-        <button onClick={() => navigate("/mestre/jogador1")}>Lutador 1</button>
-        <button onClick={() => navigate("/mestre/jogador2")}>Lutador 2</button>
-        <button onClick={() => navigate("/mestre/jogador3")}>Lutador 3</button>
+        <button onClick={() => navigate("/mestre/jogador1")}>Jogador 1</button>
+        <button onClick={() => navigate("/mestre/jogador2")}>Jogador 2</button>
+        <button onClick={() => navigate("/mestre/jogador3")}>Jogador 3</button>
       </div>
     </div>
   );
