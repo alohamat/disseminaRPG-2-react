@@ -189,9 +189,17 @@ div.grafico {
 #todos_herois button span {
     position: relative;
     z-index: 2;
-
 }
 
 fieldset {
+    border-radius: 12px;
     font-size: 30px;
+    height: 100%;
+    transition: 0.3s ease;
+}
+
+fieldset:hover {
+    transform: 0 0 15px var(--cor-principal), 0 0 30px var(--cor-principal);
+    transform: scale(1.03);
+    border-color: var(--cor-sombra-1);
 }
