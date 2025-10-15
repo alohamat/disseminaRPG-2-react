@@ -1,6 +1,6 @@
 import { Header } from "../components/Header"
 import { Footer } from "../components/Footer"
-import Char from "../components/CharButtons"
+import { CharButtons } from "../components/LoginButtons"
 
 export function Login(){
     return(
@@ -8,9 +8,9 @@ export function Login(){
             <Header /> 
             <section>
                 <h1>Escolha seu jogador</h1>
-                <Char CharNumber="1"></Char>
-                <Char CharNumber="2"></Char>
-                <Char CharNumber="3"></Char>
+                <CharButtons CharNumber="1"/>
+                <CharButtons CharNumber="2"/>
+                <CharButtons CharNumber="3"/>
             </section>
             <Footer />
         </div>

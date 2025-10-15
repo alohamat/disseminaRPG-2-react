@@ -1,19 +1,19 @@
-import { Header } from "../components/Header"
-import { Footer } from "../components/Footer"
-import { useParams } from "react-router-dom"
-import { useNavigate } from "react-router-dom"
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export function Player(){
+export function Master(){
     const navigate = useNavigate();
     const { id } = useParams();
     const handleClickDados = () => {
-        navigate(`/player/${id}/dados`);
+        navigate(`/master/${id}/dados`);
     }
     return (
         <div id="tudo">
             <Header />
             <section>
-                <h1>Jogador {id}</h1>
+                <h1>Mestre - Jogador {id}</h1>
                 <form action="">
                     <button id="btnRolagem" onClick={handleClickDados}>Rolar dado</button>
                 </form>
