@@ -6,9 +6,15 @@ import { useNavigate } from "react-router-dom";
 export function Master(){
     const navigate = useNavigate();
     const { id } = useParams();
+
     const handleClickDados = () => {
         navigate(`/master/${id}/dados`);
     }
+
+    const handleClickVota = () => {
+        navigate(`/master/${id}/criar-votacao`)
+    }
+
     return (
         <div id="tudo">
             <Header />
@@ -18,7 +24,7 @@ export function Master(){
                     <button id="btnRolagem" onClick={handleClickDados}>Rolar dado</button>
                 </form>
                 <form action="">
-                    <button id="btnEscolhas">Escolher ação</button>
+                    <button id="btnEscolhas" onClick={handleClickVota}>Criar Votação</button>
                 </form>
             </section>
             <Footer />

@@ -4,6 +4,7 @@ import { Player } from "./pages/PlayerPage"
 import { Dados } from './pages/DadosPage';
 import { LoginMaster } from './pages/LoginMestrePage';
 import { Master } from './pages/MasterPage';
+import { VotingPage } from './pages/VotingPage';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Route path='/master/:id' element={<Master />} />
       <Route path="/player/:id/dados" element={<Dados />} />
       <Route path='/master/:id/dados' element={<Dados />} />
+      <Route path='/master/:id/criar-votacao' element={<VotingPage />} />
     </Routes>
   );
 }
