@@ -1,21 +1,29 @@
 <%- include('includes/head') %>
 
-<section>
-    <h1>Escolha seu Lutador</h1>
-    <div class="button_container">
+    <section>
+        <h1>Escolha seu Lutador</h1>
 
-    <form action="/jogador/jogador1" method="post">
-        <button>Lutador 1</button>
-    </form>
+        <div class="button_container" id="todos_herois">
 
-    <form action="/jogador/jogador2" method="post">
-        <button>Lutador 2</button>
-    </form>
+            <fieldset>
+                <legend>Lutador 1</legend>
+                <form action="/jogador/jogador1" method="post">
+                    <button><img src="zenchi.png" alt="Zenchi"></button>
+                </form>
+            </fieldset>
+            <fieldset>
+                <legend>Atnos</legend>
+                <form action="/jogador/jogador2" method="post">
+                    <button><img src="atnos.png" alt="Atnos"></button>
+                </form>
+            </fieldset>
 
-    <form action="/jogador/jogador3" method="post">
-        <button>Lutador 3</button>
-    </form>
-    </div>
-</section>
-
+            <fieldset>
+                <legend>Lutador 3</legend>
+                <form action="/jogador/jogador3" method="post">
+                    <button><img src="lutador3.png" alt="Lutador 3"></button>
+                </form>
+            </fieldset>
+        </div>
+    </section>
 <%- include('includes/foot') %>

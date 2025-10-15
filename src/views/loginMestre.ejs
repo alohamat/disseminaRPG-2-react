@@ -1,22 +1,32 @@
 <%- include('includes/head') %>
 
-<section>
-    <h1>Escolha seu Lutador</h1>
-    <h2>Você está na pagina de mestre</h2>
-    <div class="button_container">
+    <section>
+        <h1>Escolha seu Lutador</h1>
 
-    <form action="/mestre/jogador1" method="post">
-        <button>Lutador 1</button>
-    </form>
+        <h2>Você está na pagina de mestre</h2>
 
-    <form action="/mestre/jogador2" method="post">
-        <button>Lutador 2</button>
-    </form>
+        <div class="button_container" id="todos_herois">
+            <fieldset>
+                <legend>Zenchi</legend>
+                <form action="/mestre/jogador1" method="post">
+                    <button><img src="Zenchi.png" alt="Zenchi"></button>
+                </form>
 
-    <form action="/mestre/jogador3" method="post">
-        <button>Lutador 3</button>
-    </form>
-    </div>
-</section>
+            </fieldset>
 
+            <fieldset>
+                <legend>Atnos</legend>
+                <form action="/mestre/jogador2" method="post">
+                    <button><img src="atnos.png" alt="Atnos"></button>
+                </form>
+            </fieldset>
+
+            <fieldset>
+                <legend>Lutador3</legend>
+                <form action="/mestre/jogador3" method="post">
+                    <button><img src="lutador3.png" alt="Lutador 3"></button>
+                </form>
+            </fieldset>
+        </div>
+    </section>
 <%- include('includes/foot') %>
