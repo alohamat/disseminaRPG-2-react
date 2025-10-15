@@ -50,7 +50,7 @@ export function D10_1() {
   return (
     <div style={{ textAlign: "center", margin: "20px" }}>
       <h2>Dado de Desafio 1 (D10)</h2>
-      <button onClick={rolar}>Rolar D10_1</button>
+      <button onClick={rolar}>Rolar D10</button>
       {resultado && <p>Resultado: {resultado}</p>}
       <p>Total de rolagens: {rolagens}</p>
       <button onClick={() => setRolagemAberta((p) => !p)}>
@@ -80,7 +80,7 @@ export function D10_2() {
   return (
     <div style={{ textAlign: "center", margin: "20px" }}>
       <h2>Dado de Desafio 2 (D10)</h2>
-      <button onClick={rolar}>Rolar D10_2</button>
+      <button onClick={rolar}>Rolar D10</button>
       {resultado && <p>Resultado: {resultado}</p>}
       <p>Total de rolagens: {rolagens}</p>
       <button onClick={() => setRolagemAberta((p) => !p)}>

@@ -1,8 +1,11 @@
+import { BackButton } from "./BackButton";
+
 export function Header(){
     return(
         <div>
             <header>
-                Dissemina-IFF de RPG
+                <BackButton />
+                Dissemina-IFF RPGzão 2
             </header>
         </div>
     )

@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState } from "react"
 
+//função pra criar as votações para o público
 export function CreateVoting(){
     const [opcoes, setOpcoes] = useState<string[]>([])
 
@@ -24,7 +25,7 @@ export function CreateVoting(){
         console.log("Votação criada");
     }
     return(
-        <section>
+        <section id="ExibirOpcoes">
             <h1>Criar Votação</h1>
             <form onSubmit={criaVotacao}>
                 <button id="criaOpcao" onClick={criaOpcao}>Criar Opção</button>
@@ -32,7 +33,7 @@ export function CreateVoting(){
                     {opcoes.map((opcao, index) => (
                         <div key={index}>
                             <input type="text" name="opcao[]" placeholder="Digite uma opção" value={opcao} onChange={(e) => mudaOpcao(index, e.target.value)} />
-                            <button id="btnDeleteOption" onClick={() => removeOpcao(index)}>Remover opção</button>
+                            <button id="btnDeleteOpcao" onClick={() => removeOpcao(index)}>X</button>
                         </div>
                     ))}
                 </div>
