@@ -18,14 +18,16 @@ export function Master(){
     return (
         <div id="tudo">
             <Header />
+            <h1>Mestre - Jogador {id}</h1>
             <section>
-                <h1>Mestre - Jogador {id}</h1>
-                <form action="">
-                    <button id="btnRolagem" onClick={handleClickDados}>Rolar dado</button>
-                </form>
-                <form action="">
-                    <button id="btnEscolhas" onClick={handleClickVota}>Criar Votação</button>
-                </form>
+                <div>
+                    <form action="">
+                        <button id="btnRolagem" onClick={handleClickDados}>Rolar dado</button>
+                    </form>
+                    <form action="">
+                        <button id="btnEscolhas" onClick={handleClickVota}>Criar Votação</button>
+                    </form>
+                </div>   
             </section>
             <Footer />
         </div>

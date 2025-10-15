@@ -6,11 +6,13 @@ export function Login(){
     return(
         <div id="tudo">
             <Header /> 
-            <section>
+            <section className="login_page">
                 <h1>Escolha seu jogador</h1>
-                <CharButtons CharNumber="1"/>
-                <CharButtons CharNumber="2"/>
-                <CharButtons CharNumber="3"/>
+                <div className="char_buttons">
+                    <CharButtons CharNumber="1"/>
+                    <CharButtons CharNumber="2"/>
+                    <CharButtons CharNumber="3"/>
+                </div>
             </section>
             <Footer />
         </div>

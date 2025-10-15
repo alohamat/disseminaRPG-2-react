@@ -11,14 +11,20 @@
     --cor-sombra-1: #e31347;
     --input-fundo: #1a1a1a;
 }
-
+#tudo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 80px;
+    padding-bottom: 60px;
+}
 body {
     margin: 0;
     background-color: var(--cinza-escuro);
     color: var(--cor-principal);
     font-family: 'Arial', sans-serif;
     display: flex;
-    flex-direction: column;
     min-height: 100vh;
     justify-content: center;
 }
@@ -33,6 +39,41 @@ header {
     font-weight: bold;
     padding: 1rem 0;
     background-color: #121212;
+}
+
+footer {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    font-weight: bold;
+    padding: 1rem 0;
+    background-color: #121212;
+}
+
+section {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    padding: 0vw 4vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.button_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 5rem;
+    max-height: 80vh;
 }
 
 #btnVoltar {
@@ -59,40 +100,6 @@ header {
 #btnVoltar:hover {
   transform: translateY(-50%) scale(1.1);
   box-shadow: 0 0 6px var(--cor-principal);
-}
-
-footer {
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    bottom: 0;
-    left: 0;
-    width: 100vw;
-    font-weight: bold;
-    padding: 1rem 0;
-    background-color: #121212;
-}
-
-section {
-    padding: 0vw 4vw;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 100vw;
-}
-
-h1 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-}
-
-.button_container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    gap: 5rem;
-    max-height: 80vh;
 }
 
 button {
@@ -201,47 +208,82 @@ div.grafico {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-#todos_herois {
+fieldset {
+    font-size: 30px;
+}
+#login_page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+    color: var(--font-claro);
+}
+
+#login_page h1 {
+    color: var(--cor-principal);
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}   
+
+.char_buttons {
     display: flex;
     justify-content: center;
-    align-items: self-start;
+    align-items: stretch;
+    gap: 100px;
     flex-wrap: wrap;
-    gap: 6rem;
     width: 100%;
+    max-width: 1200px;
     padding: 1rem;
 }
 
-#todos_herois form{
-    margin: 0;
-}
-
-#todos_herois button {
-    background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));
-    color: var(--font-claro);
+.char_buttons fieldset {
     border: 2px solid var(--cor-principal);
     border-radius: 12px;
-    width: clamp(180px, 30vw, 280px);
-    height: clamp(260px, 50vw, 400px);
-    cursor: pointer;
+    padding: 1.5rem;
+    min-width: 250px;
+    flex: 1 1 300px;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.char_buttons fieldset:hover {
+    transform: scale(1.02);
+}
+
+.char_buttons legend {
     font-size: 1.3rem;
+    color: var(--cor-principal);
+    padding: 0 1rem;
+}
+
+.char_buttons button {
+    width: 100%;
+    background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));
+    color: var(--font-claro);
     font-weight: bold;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding-bottom: 1rem;
-    text-shadow: 0 0 8px rgba(0,0,0,0.6);
-    background-size: cover;
-    background-position: center;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    padding: 1.5rem 2rem;
+    font-size: 1.4rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-#todos_herois button span {
-    position: relative;
-    z-index: 2;
-
+.char_buttons button:hover {
+    color:var(--cinza-escuro);
+    transform: scale(1.05);
+    box-shadow: 0 0 10px var(--cor-principal);
 }
 
-fieldset {
-    font-size: 30px;
+@media (max-width: 768px) {
+    .char_buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .char_buttons fieldset {
+        width: 90%;
+        flex: none;
+    }
 }

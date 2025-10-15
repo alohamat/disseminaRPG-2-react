@@ -26,7 +26,6 @@ export function CreateVoting(){
     }
     return(
         <section id="ExibirOpcoes">
-            <h1>Criar Votação</h1>
             <form onSubmit={criaVotacao}>
                 <button id="criaOpcao" onClick={criaOpcao}>Criar Opção</button>
                 <div id="opcoes">

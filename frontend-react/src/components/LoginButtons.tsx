@@ -14,11 +14,16 @@ export function CharButtons( { CharNumber } : CharProps) {
         navigate(`/player/${CharNumber}`);
     }
     return (
-        <form action="" onSubmit={(e) => e.preventDefault()}>
-            <button onClick={handleClick}>
-                Jogador {CharNumber}
-            </button>
-        </form>
+        <div>
+            <fieldset>
+                <legend> Jogador {CharNumber} </legend>
+                <form action="" onSubmit={(e) => e.preventDefault()}>
+                    <button onClick={handleClick}>
+                        <img src="" alt="Player1" />
+                    </button>
+                </form>
+            </fieldset>
+        </div>
     )
 }
 
@@ -29,10 +34,15 @@ export function MasterButtons( { MasterNumber } : MasterProps) {
         navigate(`/master/${MasterNumber}`);
     }
     return (
-        <form action="" onSubmit={(e) => e.preventDefault()}>
-            <button onClick={handleClick}>
-                Jogador {MasterNumber}
-            </button>
-        </form>
+        <div>
+            <fieldset>
+                <legend> Jogador {MasterNumber} </legend>
+                <form action="" onSubmit={(e) => e.preventDefault()}>
+                    <button onClick={handleClick}>
+                        <img src="" alt="Player1" />
+                    </button>
+                </form>
+            </fieldset>
+        </div>
     )
 }
