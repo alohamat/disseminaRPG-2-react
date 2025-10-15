@@ -2,7 +2,7 @@ export function Header(){
     return(
         <div>
             <header>
-                Dissemina RPG
+                Dissemina-IFF de RPG
             </header>
         </div>
     )
