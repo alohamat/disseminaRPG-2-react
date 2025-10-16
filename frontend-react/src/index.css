@@ -102,7 +102,7 @@ h1 {
   box-shadow: 0 0 6px var(--cor-principal);
 }
 
-button {
+.button {
     background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));
     color: var(--font-claro);
     font-weight: bold;
@@ -115,9 +115,10 @@ button {
     cursor: pointer;
     border: 0px solid var(--cor-principal);
     transition: 0.2s ease;
+    text-align: center;
 }
 
-button:hover {
+.button:hover {
     transform: scale(1.05);
     color: var(--cinza-escuro);
     box-shadow: var(--cor-principal) 0px 0px 5px 1px;

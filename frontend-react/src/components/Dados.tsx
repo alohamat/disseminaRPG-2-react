@@ -1,14 +1,5 @@
 import { api } from "../services/ApiService";
 
-export async function Player_Full(playerId: string) {
-  try {
-    const res = await api.post(`jogador/jogador${playerId}/full`)
-    console.log("mandei um full", res.data)
-  } catch (err: any) {
-    console.error("erro: ", err.data)
-  }
-}
-
 export async function Ver_Votacao(playerId: string) {
   try {
     const res = await api.post(`jogador/jogador${playerId}/votacao`);
