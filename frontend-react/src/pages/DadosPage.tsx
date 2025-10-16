@@ -4,6 +4,7 @@ import { Footer } from "../components/Footer"
 import { useParams } from "react-router-dom";
 import { Player_Full } from "../components/Dados";
 import { Reseta_dados } from "../components/Dados";
+import { Ver_Votacao } from "../components/Dados";
 
 export function Dados(){
     const { id } = useParams();
@@ -14,7 +15,11 @@ export function Dados(){
             <Header />
             <section>
                 {janelaAtual.includes("player") ? (
+                    <div>
+
                <div onClick={() => id == undefined ? null: Player_Full(id)}>Rolar Todos os dados</div>
+               
+                    </div>
                 ) : 
                 <div onClick={() => id == undefined ? null: Reseta_dados(id)}>Liberar rolagem</div>
                 }

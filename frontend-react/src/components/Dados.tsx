@@ -9,6 +9,15 @@ export async function Player_Full(playerId: string) {
   }
 }
 
+export async function Ver_Votacao(playerId: string) {
+  try {
+    const res = await api.post(`jogador/jogador${playerId}/votacao`);
+    console.log("votacao: ", res.data)
+  } catch (err: any) {
+    console.error("falhou em puxar votacao: ", err.data)
+  }
+}
+
 export async function Reseta_dados(playerId: string) {
   try {
     const res = await api.get(`mestre/jogador${playerId}/resetaDados`)
