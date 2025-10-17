@@ -4,7 +4,7 @@ import { Footer } from "../components/Footer"
 import { useParams } from "react-router-dom";
 
 import { Reseta_dados } from "../components/Dados";
-import { Ver_Votacao } from "../components/Dados";
+import { Tranca_dados } from "../components/Dados";
 
 export function Dados(){
     const { id } = useParams();
@@ -14,13 +14,27 @@ export function Dados(){
         <div id="tudo">
             <Header />
             <section>
+                <h1>Controle dos Dados - Personagem {id}</h1>
                 {janelaAtual.includes("player") ? (
                     <div>
                         <div className="button" >Rolar Todos os dados</div>
-                        <div className="button" onClick={() => id == undefined}>Exibir Resultado dos dados</div>
+                        <div 
+                            className="button"
+                            onClick={() =>
+                            id == undefined}>Exibir Resultado dos dados</div>
                     </div>
                 ) : 
-                <div className="button" onClick={() => id == undefined ? null: Reseta_dados(id)}>Liberar rolagem</div>
+                <div>
+                    <div
+                        className="button" 
+                        onClick={() => 
+                        id == undefined ? null: Reseta_dados(id)}>Liberar Rolagem</div>
+                    <div
+                        className="button"
+                        onClick={() =>
+                        id == undefined ? null: Tranca_dados(id)}>Tranca Rolagem</div>
+                </div>
+                
                 }
             </section>
             <Footer />  

@@ -3,6 +3,9 @@ import { Deposita_Votos } from "../components/Dados";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
+
 function AcoesPage() {
     const { id } = useParams();
     const [votacao, setVotacao] = useState<string[] | null>(null);
@@ -22,16 +25,18 @@ function AcoesPage() {
     };
 
     return (
-        <div>
-            <div onClick={handleVerVotacao}>Ver votacao</div>
+        <div id="tudo">
+            <Header />
+            <div className="button"onClick={handleVerVotacao}>Ver votacao</div>
             
             {votacao && votacao.length > 0 ? (
                 votacao.map((opcao, index) => (
-                    <div key={index} onClick={() => id != undefined ? Deposita_Votos(id, opcao) : null}>{opcao}</div>
+                    <div className="button" key={index} onClick={() => id != undefined ? Deposita_Votos(id, opcao) : null}>{opcao}</div>
                 ))
             ) : (
-                <div>Nenhuma votação encontrada</div>
+                <div> <h2>Nenhuma votação encontrada</h2> </div>
             )}
+            <Footer />
         </div>
     )
 }

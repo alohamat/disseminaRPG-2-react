@@ -18,19 +18,27 @@ export function VotingPage() {
     setOpcoes(novasOpcoes);
   }
 
+  function RemoverOpcao(index: number) {
+    const novasOpcoes = opcoes.filter((_, i) => i !== index);
+    setOpcoes(novasOpcoes);
+  }
+
   return (
     <div id="tudo">
       <Header />
       <h1>Criar Votação - Jogador {id}</h1>
 
       <section>
-        <div
+        <div 
+          className="button"
           onClick={() => (id === undefined ? null : Cria_Votacao(id))}
         >
           Criar votação
         </div>
 
-        <div onClick={AdicionarOpcao}>Criar opção</div>
+        <div 
+          className="button" 
+          onClick={AdicionarOpcao}>Criar opção</div>
 
         {opcoes.map((valor, index) => (
           <div key={index}>
@@ -41,10 +49,17 @@ export function VotingPage() {
               onChange={(e) => AtualizarOpcao(index, e.target.value)}
               placeholder={`Opção ${index + 1}`}
             />
+            <button 
+              id="btnDeleteOpcao"
+              onClick={() => RemoverOpcao(index)}
+            >
+              X
+            </button>
           </div>
         ))}
 
         <div
+          className="button"
           onClick={() =>
             id === undefined ? null : Espera_Votacao(id, opcoes)
           }
@@ -53,6 +68,7 @@ export function VotingPage() {
         </div>
 
         <div
+          className="button"
           onClick={() => (id === undefined ? null : Votacao_Estado(id))}
         >
           Votação estado

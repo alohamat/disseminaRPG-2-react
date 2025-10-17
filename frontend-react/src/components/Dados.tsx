@@ -37,6 +37,15 @@ export async function Cria_Votacao(playerId: string) {
   }
 }
 
+export async function Tranca_dados(playerId: string) {
+  try {
+    const res = await api.post(`mestre/jogador${playerId}/exibeRolagem`);
+    console.log("tranquei dados: ", res.data);
+  } catch (err: any) {
+    console.error("erro ao trancar dados: ", err.data);
+  }
+}
+
 export async function Espera_Votacao(playerId: string, opcao: string[]) {
   const data = JSON.stringify({"opcao": opcao})
   console.log("mandando: ", data)

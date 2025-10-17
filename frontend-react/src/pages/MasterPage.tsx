@@ -22,10 +22,10 @@ export function Master(){
             <section>
                 <div>
                     <form action="">
-                        <button id="btnRolagem" onClick={handleClickDados}>Rolar dado</button>
+                        <button className="button" id="btnRolagem" onClick={handleClickDados}>Rolar dado</button>
                     </form>
                     <form action="">
-                        <button id="btnEscolhas" onClick={handleClickVota}>Criar Votação</button>
+                        <button className="button" id="btnEscolhas" onClick={handleClickVota}>Criar Votação</button>
                     </form>
                 </div>   
             </section>

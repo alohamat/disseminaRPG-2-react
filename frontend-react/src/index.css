@@ -130,19 +130,8 @@ h1 {
     flex-direction: column;
 }
 
-#formExibirRolagens input {
-    background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));
-    color: var(--font-claro);
-    font-size: 1.5rem;
-    padding: 1rem 2rem;
-    margin: 1rem 0;
-    border-radius: 10px;
-    border: 0px solid var(--cor-principal);
-    transition: 0.2s ease;
 
-}
-
-#ExibirOpcoes input[type="text"] {
+input[type="text"] {
     padding: 10px 15px;       
     border-radius: 10px;
     border: none;           
@@ -152,10 +141,11 @@ h1 {
     color: var(--font-claro);       
     width: 250px;
     padding: 1rem;
-    transition: 0.2s ease
+    transition: 0.2s ease;
+    margin: 5px;
 }
 
-#ExibirOpcoes input[type="text"]:focus {
+input[type="text"]:focus {
     box-shadow: 0 0 8px var(--cor-principal); 
  
 }
