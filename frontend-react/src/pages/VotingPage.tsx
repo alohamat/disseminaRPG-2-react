@@ -1,12 +1,18 @@
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { useParams } from "react-router-dom";
-import { Cria_Votacao, Espera_Votacao, Votacao_Estado } from "../components/Dados";
+import { Cria_Votacao, Espera_Votacao } from "../components/Dados";
 import { useState } from "react";
+import { api } from "../services/ApiService";
+
+interface votosEstado {
+  votosTotal: number
+}
 
 export function VotingPage() {
   const { id } = useParams();
   const [opcoes, setOpcoes] = useState<string[]>([]);
+  const [estado, setEstado] = useState<votosEstado>()
 
   function AdicionarOpcao() {
     setOpcoes([...opcoes, ""]);
@@ -21,6 +27,11 @@ export function VotingPage() {
   function RemoverOpcao(index: number) {
     const novasOpcoes = opcoes.filter((_, i) => i !== index);
     setOpcoes(novasOpcoes);
+  }
+
+  const Ver_Estado = async () => {
+    const res = await api.get(`mestre/jogador${id}/votacaoEstado`);
+      setEstado(res.data)
   }
 
   return (
@@ -69,9 +80,13 @@ export function VotingPage() {
 
         <div
           className="button"
-          onClick={() => (id === undefined ? null : Votacao_Estado(id))}
+          onClick={Ver_Estado}
         >
           Votação estado
+        </div>
+        <br />
+        <div>
+          <h1>Votos Total: {estado?.votosTotal}</h1>
         </div>
       </section>
 
