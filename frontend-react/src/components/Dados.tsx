@@ -4,8 +4,18 @@ export async function Ver_Votacao(playerId: string) {
   try {
     const res = await api.post(`jogador/jogador${playerId}/votacao`);
     console.log("votacao: ", res.data)
+    return res.data as string[];
   } catch (err: any) {
     console.error("falhou em puxar votacao: ", err.data)
+  }
+}
+
+export async function Deposita_Votos(playerId: string, opcao: string) {
+  try {
+    const res = await api.post(`jogador/jogador${playerId}/votacao/${opcao}`);
+    console.log("mandei depositar: ", res.data);
+  } catch(err: any) {
+    console.error("erro ao depositar voto: ", err.data)
   }
 }
 

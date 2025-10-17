@@ -2,7 +2,8 @@ import { Header } from "../components/Header"
 import { Footer } from "../components/Footer"
 import { useParams } from "react-router-dom"
 import { api } from "../services/ApiService";
-import { useState } from "react";
+import { useState } from "react"
+import { useNavigate } from "react-router-dom";
 
 interface dadosPlayer {
     resultado: {
@@ -15,6 +16,7 @@ interface dadosPlayer {
 
 export function Player(){
     const { id } = useParams();
+    const navigate = useNavigate();
     const [dados, setDados] = useState<dadosPlayer>();
 
     const handleClickDados = async (e: any) => {
@@ -38,7 +40,7 @@ export function Player(){
                     <button id="btnRolagem" className="button" onClick={handleClickDados}>Rolar dado</button>
                 </form>
                 <form action="">
-                    <button id="btnEscolhas" className="button">Escolher ação</button>
+                    <button id="btnEscolhas" className="button" onClick={() => navigate(`/player/${id}/acoes`)}>Escolher ação</button>
                 </form>
                 <div id="modal">
                     <div className="result">
