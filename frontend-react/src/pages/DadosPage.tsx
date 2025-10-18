@@ -24,8 +24,7 @@ export function Dados() {
 
   const getD6Value = () => {
     if (!dados?.d6_rolls) return 0;
-    const index = dados.d6_rolls.findIndex((val) => val === 1);
-    return index !== -1 ? index + 1 : 0;
+    return dados?.total.charAt(0);
   };
 
   const getD10_1Value = () => {
