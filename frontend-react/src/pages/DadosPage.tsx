@@ -1,13 +1,13 @@
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { useParams } from "react-router-dom";
-
 import { Reseta_dados } from "../components/Dados";
 import { Tranca_dados } from "../components/Dados";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export function Dados() {
   const { id } = useParams();
+  const bonusRef = useRef<HTMLInputElement>(null);
 
   interface DadosResultado {
     total: string;
@@ -40,6 +40,17 @@ export function Dados() {
     return index !== -1 ? index + 1 : 0;
   };
 
+  const handleTrancarDados = async () => {
+    if (!id) return null;
+    
+    // Pega o valor atual diretamente do input
+    const bonusValue = bonusRef.current ? Number(bonusRef.current.value) : 0;
+    console.log("Bonus enviado:", bonusValue);
+    
+    const resultado = await Tranca_dados(id, bonusValue);
+    setDados(resultado);
+  };
+
   return (
     <div id="tudo">
       <Header />
@@ -52,11 +63,17 @@ export function Dados() {
           >
             Liberar Rolagem
           </div>
+          <div>
+            <p>Digite o bônus de rolagem</p>
+            <input 
+              type="number" 
+              ref={bonusRef}
+              defaultValue={0}
+            />
+          </div>
           <div
             className="button"
-            onClick={async () =>
-              id == undefined ? null : setDados(await Tranca_dados(id))
-            }
+            onClick={handleTrancarDados} 
           >
             Trancar Rolagem
           </div>

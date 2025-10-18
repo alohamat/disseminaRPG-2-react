@@ -38,13 +38,21 @@ export async function Cria_Votacao(playerId: string) {
   }
 }
 
-export async function Tranca_dados(playerId: string) {
+export async function Tranca_dados(playerId: string, bonus: number) {
   try {
-    const res = await api.post(`mestre/jogador${playerId}/exibeRolagem`);
-    console.log("tranquei dados: ", res.data);
+    console.log("Enviando bonus para API:", bonus);
+    const res = await api.post(`mestre/jogador${playerId}/exibeRolagem`, {
+      bonus: bonus
+    }, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    
+    console.log("Resposta da API:", res.data);
     return res.data;
   } catch (err: any) {
-    console.error("erro ao trancar dados: ", err.data);
+    console.error("erro ao trancar dados: ", err.response?.data || err.message);
   }
 }
 
