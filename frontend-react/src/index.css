@@ -94,6 +94,10 @@ h1 {
     text-align: center;
 }
 
+#close {
+    width: 10%;
+}
+
 .buttonindisponivel {
     background-color: gray;
     font-weight: bold;
@@ -183,6 +187,20 @@ input[type="text"]:focus {
 div.grafico {
     width: 80vw;
     margin: 1vh 0;
+}
+
+.modal {
+    height: 99%;
+    width: 99%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: rgba(0, 0, 0, 0.753);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translate(-50%, -50%);
 }
 
 .modal_resultado {

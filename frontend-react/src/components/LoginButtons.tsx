@@ -9,7 +9,7 @@ type MasterProps = {
 const jogadores: string[] = ["Zenchi", "Atnos", "Sam"];
 
 export function CharButtons( { CharNumber } : CharProps) {
-    console.log("Jogadores:", jogadores);
+    // console.log("Jogadores:", jogadores);
     const navigate = useNavigate();
 
     const handleClick = () => {
