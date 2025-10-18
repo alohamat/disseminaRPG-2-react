@@ -1,13 +1,15 @@
 import { useNavigate } from "react-router-dom"
 
 type CharProps = {
-    CharNumber: string;
+    CharNumber: number;
 }
 type MasterProps = {
-    MasterNumber: string;
+    MasterNumber: number;
 }
+const jogadores: string[] = ["Zenchi", "Atnos", "Sam"];
 
 export function CharButtons( { CharNumber } : CharProps) {
+    console.log("Jogadores:", jogadores);
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -19,7 +21,7 @@ export function CharButtons( { CharNumber } : CharProps) {
                 <legend> Jogador {CharNumber} </legend>
                 <form action="" onSubmit={(e) => e.preventDefault()}>
                     <button onClick={handleClick}>
-                        <img src="" alt="Player1" />
+                        <span>{jogadores[CharNumber - 1]}</span>
                     </button>
                 </form>
             </fieldset>
@@ -39,7 +41,7 @@ export function MasterButtons( { MasterNumber } : MasterProps) {
                 <legend> Jogador {MasterNumber} </legend>
                 <form action="" onSubmit={(e) => e.preventDefault()}>
                     <button onClick={handleClick}>
-                        <img src="" alt="Player1" />
+                        <span>Mestre do {jogadores[MasterNumber - 1]}</span>
                     </button>
                 </form>
             </fieldset>

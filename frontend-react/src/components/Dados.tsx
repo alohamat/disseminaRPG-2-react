@@ -23,6 +23,7 @@ export async function Reseta_dados(playerId: string) {
   try {
     const res = await api.get(`mestre/jogador${playerId}/resetaDados`)
     console.log("reseta dados: ", res.data)
+    return res.data;
   } catch (err: any) {
     console.error("erro: ", err.data)
   }
@@ -41,6 +42,7 @@ export async function Tranca_dados(playerId: string) {
   try {
     const res = await api.post(`mestre/jogador${playerId}/exibeRolagem`);
     console.log("tranquei dados: ", res.data);
+    return res.data;
   } catch (err: any) {
     console.error("erro ao trancar dados: ", err.data);
   }

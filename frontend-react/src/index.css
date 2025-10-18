@@ -16,8 +16,7 @@
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    padding-top: 80px;
-    padding-bottom: 60px;
+
 }
 body {
     margin: 0;
@@ -30,17 +29,14 @@ body {
 }
 
 header {
-     position: fixed; /* fica no topo sempre */
-  top: 0;
-  left: 0;
-  width: 100%;
+     position: static;
+  width: 100vw;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* ícone esquerda, texto central */
+  justify-content: space-between; 
   padding: 1rem 2rem;
   font-weight: bold;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* sombra opcional */
-  z-index: 1000; /* sempre sobreposto */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 footer {
@@ -85,6 +81,21 @@ h1 {
 .button {
     background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));
     color: var(--font-claro);
+    font-weight: bold;
+    padding: 1.7rem 2.6rem;
+    margin: 1rem 0;
+    width: 60vw;
+    max-width: 400px;
+    font-size: 1.7rem;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 0px solid var(--cor-principal);
+    transition: 0.2s ease;
+    text-align: center;
+}
+
+.buttonindisponivel {
+    background-color: gray;
     font-weight: bold;
     padding: 1.7rem 2.6rem;
     margin: 1rem 0;
