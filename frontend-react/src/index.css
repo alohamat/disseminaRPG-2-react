@@ -30,15 +30,17 @@ body {
 }
 
 header {
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    font-weight: bold;
-    padding: 1rem 0;
-    background-color: #121212;
+     position: fixed; /* fica no topo sempre */
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* ícone esquerda, texto central */
+  padding: 1rem 2rem;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* sombra opcional */
+  z-index: 1000; /* sempre sobreposto */
 }
 
 footer {
@@ -77,29 +79,7 @@ h1 {
 }
 
 #btnVoltar {
-  all: unset;
-  position: absolute;
-  left: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));
-  color: var(--font-claro);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 35px;
-  height: 35px;
-  border-radius: 20%;
-  font-size: 1.3rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.2s ease;
-  box-shadow: 0 0 3px var(--cor-principal);
-}
-
-#btnVoltar:hover {
-  transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 0 6px var(--cor-principal);
+    cursor: pointer;
 }
 
 .button {
@@ -116,6 +96,23 @@ h1 {
     border: 0px solid var(--cor-principal);
     transition: 0.2s ease;
     text-align: center;
+}
+
+#btnRolagemBloqueado {
+    background: gray;
+    color: var(--font-claro);
+    font-weight: bold;
+    padding: 1.7rem 2.6rem;
+    margin: 1rem 0;
+    width: 60vw;
+    max-width: 400px;
+    font-size: 1.7rem;
+    border-radius: 10px;
+    cursor: not-allowed;
+    border: 0px solid var(--cor-principal);
+    transition: 0.2s ease;
+    text-align: center;
+    pointer-events: none;
 }
 
 .button:hover {

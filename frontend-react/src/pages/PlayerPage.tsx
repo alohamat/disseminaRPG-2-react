@@ -18,6 +18,7 @@ export function Player(){
     const { id } = useParams();
     const navigate = useNavigate();
     const [dados, setDados] = useState<dadosPlayer>();
+    const [podeRolar, setPodeRolar] = useState(true);
 
     const handleClickDados = async (e: any) => {
         e.preventDefault()
@@ -25,6 +26,7 @@ export function Player(){
           const res = await api.post(`jogador/jogador${id}/full`);
           const data = res.data
             setDados(data)
+            setPodeRolar(false)
         console.log(data)
         } catch (err: any) {
           console.error("erro: ", err.data)
@@ -37,7 +39,9 @@ export function Player(){
             <section>
                 <h1>Jogador {id}</h1>
                 <form action="">
-                    <button id="btnRolagem" className="button" onClick={handleClickDados}>Rolar dado</button>
+                    {podeRolar ? (
+                        <button id="btnRolagem" className="button" onClick={handleClickDados} >Rolar dado</button>
+                    ) : <button id="btnRolagemBloqueado">Você já votou</button>}
                 </form>
                 <form action="">
                     <button id="btnEscolhas" className="button" onClick={() => navigate(`/player/${id}/acoes`)}>Escolher ação</button>

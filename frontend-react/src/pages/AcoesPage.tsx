@@ -34,7 +34,7 @@ function AcoesPage() {
                     <div className="button" key={index} onClick={() => id != undefined ? Deposita_Votos(id, opcao) : null}>{opcao}</div>
                 ))
             ) : (
-                <div> <h2>Nenhuma votação encontrada</h2> </div>
+                <div> <h2>Nenhuma votação encontrada, tente apertar o botão acima</h2> </div>
             )}
             <Footer />
         </div>

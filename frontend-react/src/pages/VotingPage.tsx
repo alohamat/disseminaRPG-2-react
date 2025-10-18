@@ -6,7 +6,8 @@ import { useState } from "react";
 import { api } from "../services/ApiService";
 
 interface votosEstado {
-  votosTotal: number
+  votosTotal: number;
+  result: Array<{ opcao: string; votos: number }>;
 }
 
 export function VotingPage() {
@@ -32,6 +33,7 @@ export function VotingPage() {
   const Ver_Estado = async () => {
     const res = await api.get(`mestre/jogador${id}/votacaoEstado`);
       setEstado(res.data)
+      console.log("recebi votacao: ", res.data)
   }
 
   return (
@@ -76,6 +78,7 @@ export function VotingPage() {
           }
         >
           Atualizar opções
+          <p>(aperte aqui sem criar opcoes para resetar votacao)</p>
         </div>
 
         <div
@@ -87,9 +90,13 @@ export function VotingPage() {
         <br />
         <div>
           <h1>Votos Total: {estado?.votosTotal}</h1>
+          {estado?.result.map((res, index) => (
+            <h2 key={index}>
+              Opção: {res.opcao} - Votos: {res.votos}
+            </h2>
+          ))}
         </div>
       </section>
-
       <Footer />
     </div>
   );
