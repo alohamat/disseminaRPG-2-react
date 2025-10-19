@@ -42,12 +42,7 @@ export function VotingPage() {
       <h1>Criar Votação - Jogador {id}</h1>
 
       <section>
-        <div 
-          className="button"
-          onClick={() => (id === undefined ? null : Cria_Votacao(id))}
-        >
-          Criar votação
-        </div>
+        
 
         <div 
           className="button" 
@@ -71,21 +66,28 @@ export function VotingPage() {
           </div>
         ))}
 
+        {opcoes.length > 0 && (
         <div
           className="button"
           onClick={() =>
             id === undefined ? null : Espera_Votacao(id, opcoes)
           }
         >
-          Atualizar opções
-          <p>(aperte aqui sem criar opcoes para resetar votacao)</p>
+          Atualizar votação
         </div>
+        )}
 
+          <div 
+          className="button"
+          onClick={() => (id === undefined ? null : Espera_Votacao(id, []))}
+        >
+          Reiniciar Votação
+        </div>
         <div
           className="button"
           onClick={Ver_Estado}
         >
-          Votação estado
+          Estado da votação
         </div>
         <br />
         <div>
