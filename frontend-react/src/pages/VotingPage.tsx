@@ -1,7 +1,7 @@
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { useParams } from "react-router-dom";
-import { Cria_Votacao, Espera_Votacao } from "../components/Dados";
+import { Espera_Votacao } from "../components/Dados";
 import { useState } from "react";
 import { api } from "../services/ApiService";
 
