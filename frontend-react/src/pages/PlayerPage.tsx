@@ -13,11 +13,18 @@ export function Player(){
     const { id } = useParams();
     const navigate = useNavigate();
     const [dados, setDados] = useState<DadosResultado>();
+    const [erro, setErro] = useState<string | null>(null);
 
     const handleClickDados = async (e: any) => {
         e.preventDefault()
-        const res = await Rolar_todos(id!);
-        setDados(res.resultado);
+        try {
+            const res = await Rolar_todos(id!);
+            setDados(res.resultado);
+            setErro(null);
+        } catch (err: any) {
+            setErro(err.message);
+            setDados(undefined);
+        }
       }
 
     return (
@@ -31,10 +38,11 @@ export function Player(){
                 <form action="">
                     <button id="btnEscolhas" className="button" onClick={() => navigate(`/player/${id}/acoes`)}>Escolher ação</button>
                 </form>
+                {erro && (<h2>{erro}</h2>)}
                 {dados && (
                     <div id="modal">
                     <div className="result">
-                        <h1>Você rolou um {dados?.dado_acao}!</h1>
+                            <h2>Você rolou um {dados?.dado_acao}!</h2>
                     </div>
                 </div>
                 )}

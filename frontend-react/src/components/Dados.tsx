@@ -6,7 +6,7 @@ export async function Ver_Votacao(playerId: string) {
     console.log("votacao: ", res.data)
     return res.data as string[];
   } catch (err: any) {
-    console.error("falhou em puxar votacao: ", err.data)
+    console.error("falhou em puxar votacao: ", err.response.data)
   }
 }
 
@@ -15,7 +15,7 @@ export async function Deposita_Votos(playerId: string, opcao: string) {
     const res = await api.post(`jogador/jogador${playerId}/votacao/${opcao}`);
     console.log("mandei depositar: ", res.data);
   } catch(err: any) {
-    console.error("erro ao depositar voto: ", err.data)
+    console.error("erro ao depositar voto: ", err.response.data)
   }
 }
 
@@ -25,7 +25,8 @@ export async function Rolar_todos(playerId: string) {
     console.log("rolei todos os dados: ", res.data);
     return res.data;
   } catch (err: any) {
-    console.error("erro ao rolar todos os dados: ", err.data);
+    console.error("erro ao rolar todos os dados: ", err.response.data);
+    throw new Error("Rolagem bloqueada pelo mestre.");
   }
 }
 
@@ -35,7 +36,7 @@ export async function Inicia_rolagens(playerId: string) {
     console.log("reseta dados: ", res.data)
     return res.data;
   } catch (err: any) {
-    console.error("erro: ", err.data)
+    console.error("erro: ", err.response.data)
   }
 }
 
@@ -49,7 +50,7 @@ export async function Cria_Votacao(playerId: string, opcao: string[]) {
     });
     console.log("Criei uma votação!", res.data)
   } catch (err: any) {
-    console.error("Erro ao criar votacao", err.data)
+    console.error("Erro ao criar votacao", err.response.data)
   }
 }
 
@@ -91,6 +92,6 @@ export async function Votacao_Estado(playerId: string) {
     const res = await api.get(`mestre/jogador${playerId}/votacaoEstado`);
     console.log("estado da votacao: ", res.data);
   } catch (err:any) {
-    console.error("votacao estado erro: ", err.data)
+    console.error("votacao estado erro: ", err.response.data)
   }
 }
