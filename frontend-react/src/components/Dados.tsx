@@ -4,7 +4,7 @@ export async function Ver_Votacao(playerId: string) {
   try {
     const res = await api.post(`jogador/jogador${playerId}/votacao`);
     console.log("votacao: ", res.data)
-    return res.data as string[];
+    return res.data;
   } catch (err: any) {
     console.error("falhou em puxar votacao: ", err.response.data)
   }
@@ -41,7 +41,8 @@ export async function Inicia_rolagens(playerId: string) {
 }
 
 export async function Cria_Votacao(playerId: string, opcao: string[]) {
-  const data = JSON.stringify({"opcao": opcao})
+  const data = JSON.stringify({"opcoes": opcao})
+  console.log("criando votacao com: ", data);
   try {
     const res = await api.post(`mestre/jogador${playerId}/criaVotacao`, data, {
       headers: {
@@ -89,8 +90,9 @@ export async function Tranca_dados(playerId: string, bonus: number) {
 
 export async function Votacao_Estado(playerId: string) {
   try {
-    const res = await api.get(`mestre/jogador${playerId}/votacaoEstado`);
+    const res = await api.get(`mestre/jogador${playerId}/exibeVotacao`);
     console.log("estado da votacao: ", res.data);
+    return res.data;
   } catch (err:any) {
     console.error("votacao estado erro: ", err.response.data)
   }

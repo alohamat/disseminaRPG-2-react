@@ -2,7 +2,7 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { api } from "../services/ApiService";
+import { Votacao_Estado } from "../components/Dados";
 import { Cria_Votacao } from "../components/Dados";
 
 interface votosEstado {
@@ -31,9 +31,8 @@ export function VotingPage() {
   }
 
   const Ver_Estado = async () => {
-    const res = await api.get(`mestre/jogador${id}/votacaoEstado`);
-      setEstado(res.data)
-      console.log("recebi votacao: ", res.data)
+    const res = await Votacao_Estado(id!);
+    setEstado(res);
   }
 
   return (
@@ -70,7 +69,7 @@ export function VotingPage() {
           className="button"
           onClick={() =>
             id === undefined ? null : Cria_Votacao(id, opcoes)
-          }
+          } 
         >
           Criar votação
         </div>
