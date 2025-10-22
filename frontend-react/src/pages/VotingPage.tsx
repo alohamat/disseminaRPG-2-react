@@ -1,9 +1,9 @@
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { useParams } from "react-router-dom";
-import { Espera_Votacao } from "../components/Dados";
 import { useState } from "react";
 import { api } from "../services/ApiService";
+import { Cria_Votacao } from "../components/Dados";
 
 interface votosEstado {
   votosTotal: number;
@@ -65,24 +65,16 @@ export function VotingPage() {
             </button>
           </div>
         ))}
-
         {opcoes.length > 0 && (
         <div
           className="button"
           onClick={() =>
-            id === undefined ? null : Espera_Votacao(id, opcoes)
+            id === undefined ? null : Cria_Votacao(id, opcoes)
           }
         >
-          Atualizar votação
+          Criar votação
         </div>
         )}
-
-          <div 
-          className="button"
-          onClick={() => (id === undefined ? null : Espera_Votacao(id, []))}
-        >
-          Reiniciar Votação
-        </div>
         <div
           className="button"
           onClick={Ver_Estado}
