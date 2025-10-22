@@ -1,34 +1,23 @@
 import { Header } from "../components/Header"
 import { Footer } from "../components/Footer"
 import { useParams } from "react-router-dom"
-import { api } from "../services/ApiService";
+import { Rolar_todos } from "../components/Dados"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 
-interface dadosPlayer {
-    resultado: {
-        D6: number,
-        D10_1: number,
-        D10_2: number
-    },
-    resolucao: string;
-}
+interface DadosResultado {
+    dado_acao: number;
+  }
 
 export function Player(){
     const { id } = useParams();
     const navigate = useNavigate();
-    const [dados, setDados] = useState<dadosPlayer>();
+    const [dados, setDados] = useState<DadosResultado>();
 
     const handleClickDados = async (e: any) => {
         e.preventDefault()
-        try {
-          const res = await api.post(`jogador/jogador${id}/full`);
-          const data = res.data
-            setDados(data)
-        console.log(data)
-        } catch (err: any) {
-          console.error("erro: ", err.data)
-        }
+        const res = await Rolar_todos(id!);
+        setDados(res.resultado);
       }
 
     return (
@@ -45,10 +34,7 @@ export function Player(){
                 {dados && (
                     <div id="modal">
                     <div className="result">
-                        <h1>Dado de Ação: {dados?.resultado.D6} </h1>
-                        <h1>Dado de desafio 1: {dados?.resultado.D10_1}</h1>
-                        <h1>Dado de Desafio 2: {dados?.resultado.D10_2}</h1>
-                        <h1>Resolução: {dados?.resolucao}</h1>
+                        <h1>Você rolou um {dados?.dado_acao}!</h1>
                     </div>
                 </div>
                 )}

@@ -19,9 +19,19 @@ export async function Deposita_Votos(playerId: string, opcao: string) {
   }
 }
 
-export async function Reseta_dados(playerId: string) {
+export async function Rolar_todos(playerId: string) {
   try {
-    const res = await api.get(`mestre/jogador${playerId}/resetaDados`)
+    const res = await api.get(`jogador/jogador${playerId}/rolaTodos`);
+    console.log("rolei todos os dados: ", res.data);
+    return res.data;
+  } catch (err: any) {
+    console.error("erro ao rolar todos os dados: ", err.data);
+  }
+}
+
+export async function Inicia_rolagens(playerId: string) {
+  try {
+    const res = await api.post(`mestre/jogador${playerId}/iniciaRolagens`)
     console.log("reseta dados: ", res.data)
     return res.data;
   } catch (err: any) {

@@ -1,7 +1,7 @@
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { useParams } from "react-router-dom";
-import { Reseta_dados } from "../components/Dados";
+import { Inicia_rolagens } from "../components/Dados";
 import { Tranca_dados } from "../components/Dados";
 import { useState, useRef } from "react";
 
@@ -11,33 +11,12 @@ export function Dados() {
 
   interface DadosResultado {
     total: string;
-    desafio1: number;
-    desafio2: number;
-    resolucao: string;
-    d6_rolls: number[];
-    d10_1: number[];
-    d10_2: number[];
+    valor_acao: string;
     jogador: string;
   }
 
   const [dados, setDados] = useState<DadosResultado>();
 
-  const getD6Value = () => {
-    if (!dados?.d6_rolls) return 0;
-    return dados?.total.charAt(0);
-  };
-
-  const getD10_1Value = () => {
-    if (!dados?.d10_1) return 0;
-    const index = dados.d10_1.findIndex((val) => val === 1);
-    return index !== -1 ? index + 1 : 0;
-  };
-
-  const getD10_2Value = () => {
-    if (!dados?.d10_2) return 0;
-    const index = dados.d10_2.findIndex((val) => val === 1);
-    return index !== -1 ? index + 1 : 0;
-  };
 
   const handleTrancarDados = async () => {
     if (!id) return null;
@@ -58,7 +37,7 @@ export function Dados() {
         <div>
           <div
             className="button"
-            onClick={() => (id == undefined ? null : Reseta_dados(id))}
+            onClick={() => (id == undefined ? null : Inicia_rolagens(id))}
           >
             Liberar Rolagem
           </div>
@@ -80,12 +59,10 @@ export function Dados() {
         {dados && (
           <div id="modal">
             <div className="result">
+              <h2>Resultado da rolagem</h2>
               <div>
-                <h1>Dado de Ação: {getD6Value()} </h1>
-                <h1>Dado de Desafio 1: {getD10_1Value()}</h1>
-                <h1>Dado de Desafio 2: {getD10_2Value()}</h1>
                 <h1>Total: {dados?.total}</h1>
-                <h1>Resolução: {dados?.resolucao}</h1>
+                <h1>Valor ação: {dados?.valor_acao}</h1>
               </div>
             </div>
           </div>
