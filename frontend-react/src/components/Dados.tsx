@@ -30,7 +30,7 @@ export async function Rolar_todos(playerId: string) {
   }
 }
 
-export async function Inicia_rolagens(playerId: string) {
+export async function Inicia_rolagens(playerId: string, bonus: number) {
   try {
     const res = await api.post(`mestre/jogador${playerId}/iniciaRolagens`)
     console.log("reseta dados: ", res.data)
@@ -55,22 +55,14 @@ export async function Cria_Votacao(playerId: string, opcao: string[]) {
   }
 }
 
-export async function Tranca_dados(playerId: string, bonus: number) {
+export async function Exibe_rolagem(playerId: string) {
   try {
-    console.log("Enviando bonus para API:", bonus);
-    const res = await api.post(`mestre/jogador${playerId}/exibeRolagem`, {
-      bonus: bonus
-    }, {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-    
-    console.log("Resposta da API:", res.data);
+    const res = await api.get(`mestre/jogador${playerId}/exibeRolagem`);
+    console.log("recebi a rolagem: ", res.data)
     return res.data;
-  } catch (err: any) {
-    console.error("erro ao trancar dados: ", err.response?.data || err.message);
-  }
+    } catch(err: any) {
+      console.error("erro ao exibir rolagem: ", err.response.data);
+    }
 }
 
 // export async function Espera_Votacao(playerId: string, opcao: string[]) {

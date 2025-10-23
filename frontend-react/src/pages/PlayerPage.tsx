@@ -6,8 +6,8 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 
 interface DadosResultado {
-    dado_acao: number;
-  }
+    rolagem_atual: string
+}
 
 export function Player(){
     const { id } = useParams();
@@ -19,7 +19,7 @@ export function Player(){
         e.preventDefault()
         try {
             const res = await Rolar_todos(id!);
-            setDados(res.resultado);
+            setDados(res.resultado_acao);
             setErro(null);
         } catch (err: any) {
             setErro(err.message);
@@ -42,7 +42,7 @@ export function Player(){
                 {dados && (
                     <div id="modal">
                     <div className="result">
-                            <h2>Você rolou um {dados?.dado_acao}!</h2>
+                            <h2>Você rolou um {dados?.rolagem_atual}!</h2>
                     </div>
                 </div>
                 )}

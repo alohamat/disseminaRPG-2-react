@@ -2,33 +2,43 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { useParams } from "react-router-dom";
 import { Inicia_rolagens } from "../components/Dados";
-import { Tranca_dados } from "../components/Dados";
+import { Exibe_rolagem } from "../components/Dados";
 import { useState, useRef } from "react";
 
 export function Dados() {
   const { id } = useParams();
   const bonusRef = useRef<HTMLInputElement>(null);
 
-  interface DadosResultado {
+  interface Moda {
+    name: string;
+    valor: number;
+    bonus: number;
     total: string;
-    valor_acao: string;
-    jogador: string;
   }
+
+  interface DadosResultado {
+    total_de_rolagens: number;
+    jogador: string;
+    modas: Moda[];
+  }
+
 
   const [dados, setDados] = useState<DadosResultado>();
 
 
-  const handleTrancarDados = async () => {
+  const handleIniciaRolagem = async () => {
     if (!id) return null;
-    
+
     // Pega o valor atual diretamente do input
     const bonusValue = bonusRef.current ? Number(bonusRef.current.value) : 0;
     console.log("Bonus enviado:", bonusValue);
-    
-    const resultado = await Tranca_dados(id, bonusValue);
-    setDados(resultado);
+
+    Inicia_rolagens(id, bonusValue);
   };
 
+  const handleTrancaRolagem = async () => {
+    setDados(await Exibe_rolagem(id!));
+  }
   return (
     <div id="tudo">
       <Header />
@@ -37,21 +47,21 @@ export function Dados() {
         <div>
           <div
             className="button"
-            onClick={() => (id == undefined ? null : Inicia_rolagens(id))}
+            onClick={() => (id == undefined ? null : handleIniciaRolagem())}
           >
             Liberar Rolagem
           </div>
           <div>
             <p>Digite o bônus de rolagem</p>
-            <input 
-              type="number" 
+            <input
+              type="number"
               ref={bonusRef}
               defaultValue={0}
             />
           </div>
           <div
             className="button"
-            onClick={handleTrancarDados} 
+            onClick={handleTrancaRolagem}
           >
             Trancar Rolagem
           </div>
@@ -61,8 +71,13 @@ export function Dados() {
             <div className="result">
               <h2>Resultado da rolagem</h2>
               <div>
-                <h1>Total: {dados?.total}</h1>
-                <h1>Valor ação: {dados?.valor_acao}</h1>
+                <h1>Total de rolagens: {dados.total_de_rolagens}</h1>
+                {dados.modas.map((item, i) => (
+                  <div key={i}>
+                    <h2>{item.name}</h2>
+                    <h2>{item.total}</h2>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
