@@ -1,11 +1,25 @@
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-export function Header() {
+type HeaderProps = {
+  isMaster?: boolean
+}
+
+export function Header({isMaster = false}: HeaderProps) {
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  const handleClick = () => {
+    if (isMaster) {
+      navigate(`/master/${id}`);
+    } else {
+      navigate(`/player/${id}`);
+    }
+  }
 
   return (
     <div>
-      <header onClick={() => navigate("/login")}>
+      <header onClick={handleClick}>
         <span className="material-symbols-outlined" id="btnVoltar">home</span>
         <h3>
         Dissemina-IFF RPGzão 2

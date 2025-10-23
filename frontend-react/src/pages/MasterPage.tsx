@@ -17,7 +17,7 @@ export function Master(){
 
     return (
         <div id="tudo">
-            <Header />
+            <Header isMaster={true} />
             <h1>Mestre - Jogador {id}</h1>
             <section>
                 <div>

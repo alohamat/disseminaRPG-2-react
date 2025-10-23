@@ -37,7 +37,7 @@ export function VotingPage() {
 
   return (
     <div id="tudo">
-      <Header />
+      <Header isMaster={true} />
       <h1>Criar Votação - Jogador {id}</h1>
 
       <section>
