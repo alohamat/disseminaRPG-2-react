@@ -58,7 +58,7 @@ function AcoesPage() {
         {loading ? (
             <div>Carregando votação...</div>
         ) : (
-            <div>
+            <div id="centralizar-botao">
                 {podeVotar && (
 
                     <div className="button" onClick={handleVerVotacao}>
