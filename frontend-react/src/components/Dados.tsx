@@ -31,8 +31,9 @@ export async function Rolar_todos(playerId: string) {
 }
 
 export async function Inicia_rolagens(playerId: string, bonus: number) {
+  const data = JSON.stringify({"bonus": bonus})
   try {
-    const res = await api.post(`mestre/jogador${playerId}/iniciaRolagens`)
+    const res = await api.post(`mestre/jogador${playerId}/iniciaRolagens`, data)
     console.log("reseta dados: ", res.data)
     return res.data;
   } catch (err: any) {
