@@ -3,11 +3,11 @@ import { Footer } from "../components/Footer";
 import { useParams } from "react-router-dom";
 import { Inicia_rolagens } from "../components/Dados";
 import { Exibe_rolagem } from "../components/Dados";
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 export function Dados() {
   const { id } = useParams();
-  const bonusRef = useRef<HTMLInputElement>(null);
+  const [bonus, setBonus] = useState(0);
 
   interface Moda {
     name: string;
@@ -28,12 +28,7 @@ export function Dados() {
 
   const handleIniciaRolagem = async () => {
     if (!id) return null;
-
-    // Pega o valor atual diretamente do input
-    const bonusValue = bonusRef.current ? Number(bonusRef.current.value) : 0;
-    console.log("Bonus enviado:", bonusValue);
-
-    Inicia_rolagens(id, bonusValue);
+    await Inicia_rolagens(id, bonus)
   };
 
   const handleTrancaRolagem = async () => {
@@ -47,7 +42,7 @@ export function Dados() {
         <div>
           <div
             className="button"
-            onClick={() => (id == undefined ? null : handleIniciaRolagem())}
+            onClick={() => (id == undefined ? console.log("id é null, nao iniciamos rolagem") : handleIniciaRolagem())}
           >
             Liberar Rolagem
           </div>
@@ -55,8 +50,7 @@ export function Dados() {
             <p>Digite o bônus de rolagem</p>
             <input
               type="number"
-              ref={bonusRef}
-              defaultValue={0}
+              onChange={(e) => setBonus(Number(e.target.value))}
             />
           </div>
           <div
