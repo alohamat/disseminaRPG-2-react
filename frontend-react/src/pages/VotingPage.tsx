@@ -59,9 +59,7 @@ export function VotingPage() {
             <button 
               id="btnDeleteOpcao"
               onClick={() => RemoverOpcao(index)}
-            >
-              X
-            </button>
+            >X</button>
           </div>
         ))}
         {opcoes.length > 0 && (

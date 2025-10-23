@@ -95,8 +95,10 @@ h1 {
 }
 
 #close {
-    width: 10%;
-}
+    display: flex;
+    justify-content: center;
+    width: 50px;
+}   
 
 .buttonindisponivel {
     background-color: gray;
@@ -193,6 +195,7 @@ div.grafico {
     height: 99%;
     width: 99%;
     position: absolute;
+    z-index: 50;
     top: 50%;
     left: 50%;
     background-color: rgba(0, 0, 0, 0.753);
@@ -227,7 +230,9 @@ div.grafico {
 
 fieldset {
     font-size: 30px;
+    width: 20px;
 }
+
 #login_page {
     display: flex;
     flex-direction: column;
@@ -262,6 +267,7 @@ fieldset {
     flex: 1 1 300px;
     text-align: center;
     transition: transform 0.2s ease;
+    background-color: black;
 }
 
 .char_buttons fieldset:hover {
@@ -311,4 +317,13 @@ fieldset {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+img {
+    width: 200px    ;
+}
+
+.card_jogador {
+    display: flex;
+    justify-content: center;
 }

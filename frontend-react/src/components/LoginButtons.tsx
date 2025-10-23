@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom"
+import Atnos from "../assets/Atnos.jpg"
+
 
 type CharProps = {
     CharNumber: number;
@@ -16,12 +18,13 @@ export function CharButtons( { CharNumber } : CharProps) {
         navigate(`/player/${CharNumber}`);
     }
     return (
-        <div>
+        <div className="card_jogador">
             <fieldset>
-                <legend> Jogador {CharNumber} </legend>
+
+                <img src={Atnos} alt="" />
                 <form action="" onSubmit={(e) => e.preventDefault()}>
                     <button onClick={handleClick}>
-                        <span>{jogadores[CharNumber - 1]}</span>
+                        <span>Jogar com {jogadores[CharNumber - 1]}</span>
                     </button>
                 </form>
             </fieldset>
