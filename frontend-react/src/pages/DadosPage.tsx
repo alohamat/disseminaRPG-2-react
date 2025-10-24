@@ -46,7 +46,7 @@ export function Dados() {
           >
             Liberar Rolagem
           </div>
-          <div>
+          <div id="input-number">
             <p>Digite o bônus de rolagem</p>
             <input
               type="number"
