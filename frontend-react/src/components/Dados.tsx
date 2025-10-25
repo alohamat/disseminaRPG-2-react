@@ -2,7 +2,7 @@ import { api } from "../services/ApiService";
 
 export async function Ver_Votacao(playerId: string) {
   try {
-    const res = await api.post(`jogador/jogador${playerId}/votacao`);
+    const res = await api.get(`jogador/jogador${playerId}/votacao`);
     console.log("votacao: ", res.data)
     return res.data;
   } catch (err: any) {

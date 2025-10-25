@@ -14,9 +14,12 @@ function AcoesPage() {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        
+        let uid = localStorage.getItem("uid");
+        if (!uid) {
+            uid = crypto.randomUUID();
+            localStorage.setItem("uid", uid);
+        }
         handleVerVotacao();
-        
     }, []);
     
     const handleVerVotacao = async () => {

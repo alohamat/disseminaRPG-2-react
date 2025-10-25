@@ -7,7 +7,7 @@ import { Cria_Votacao } from "../components/Dados";
 
 interface votosEstado {
   votosTotal: number;
-  result: Array<{ opcao: string; votos: number }>;
+  result: Array<{ name: string; votos: number }>;
 }
 
 export function VotingPage() {
@@ -76,14 +76,14 @@ export function VotingPage() {
           className="button"
           onClick={Ver_Estado}
         >
-          Estado da votação
+          Fechar votação e ver resultados
         </div>
         <br />
         <div>
           <h1>Votos Total: {estado?.votosTotal}</h1>
           {estado?.result.map((res, index) => (
             <h2 key={index}>
-              Opção: {res.opcao} - Votos: {res.votos}
+              Opção: {res.name} - Votos: {res.votos}
             </h2>
           ))}
         </div>
