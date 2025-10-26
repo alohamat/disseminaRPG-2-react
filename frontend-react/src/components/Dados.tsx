@@ -1,4 +1,5 @@
 import { api } from "../services/ApiService";
+import type { DadoCustomizado } from "../pages/DadosPage";
 
 export async function Ver_Votacao(playerId: string) {
   try {
@@ -30,12 +31,13 @@ export async function Rolar_todos(playerId: string) {
   }
 }
 
-export async function Inicia_rolagens(playerId: string, bonus: number) {
+export async function Inicia_rolagens(playerId: string, bonus: number, dadosCustomizados: DadoCustomizado[]) {
   try {
-    console.log("enviando: ", bonus)
+    console.log("iniciando rolagens com: ", dadosCustomizados);
     const res = await api.post(`mestre/jogador${playerId}/iniciaRolagens`, {
+      "dados_customizados": dadosCustomizados,
       "bonus_acao": bonus
-    })
+    });
     console.log("reseta dados: ", res.data)
     return res.data;
   } catch (err: any) {

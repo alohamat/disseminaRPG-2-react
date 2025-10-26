@@ -5,6 +5,12 @@ import { Inicia_rolagens } from "../components/Dados";
 import { Exibe_rolagem } from "../components/Dados";
 import { useState } from "react";
 
+export interface DadoCustomizado {
+  nome: string;
+  lados: number;
+  quantidade: number;
+  bonus?: number;
+}
 export function Dados() {
   const { id } = useParams();
   const [bonus, setBonus] = useState(0);
@@ -22,12 +28,6 @@ export function Dados() {
     modas: Moda[];
   }
 
-  interface DadoCustomizado {
-    nome: string;
-    lados: number;
-    quantidade: number;
-    bonus?: number;
-  }
 
   const [dados, setDados] = useState<DadosResultado>();
   const [dadosCustomizados, setDadosCustomizados] = useState<DadoCustomizado[]>(
@@ -36,7 +36,7 @@ export function Dados() {
 
   const handleIniciaRolagem = async () => {
     if (!id) return null;
-    //await Inicia_rolagens(id, bonus, dadosCustomizados);
+    await Inicia_rolagens(id, bonus, dadosCustomizados);
   };
 
   const handleTrancaRolagem = async () => {
@@ -107,7 +107,7 @@ export function Dados() {
                       atualizarDado(
                         index,
                         "lados",
-                        parseInt(e.target.value) || 0
+                        parseInt(e.target.value)
                       )
                     }
                   />
@@ -124,14 +124,14 @@ export function Dados() {
                       atualizarDado(
                         index,
                         "quantidade",
-                        parseInt(e.target.value) || 0
+                        parseInt(e.target.value)
                       )
                     }
                   />
                 </div>
 
                 <div className="input-group">
-                  <p>Bônus (opcional)</p>
+                  <p>Bônus individual</p>
                   <input
                     id="input-number"
                     type="number"
