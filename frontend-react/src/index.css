@@ -329,13 +329,6 @@ img {
 }
 
 #input-number {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-}
-
-#input-number input{
     padding: 10px 15px;       
     border-radius: 10px;
     border: none;           
@@ -344,7 +337,45 @@ img {
     background-color: var(--input-fundo);
     color: var(--font-claro);
     height: 100%;       
-    padding: 1rem;
+    padding: 0.5rem;
     transition: 0.2s ease;
     margin: 5px;
 }
+
+.button-remover {
+    color: var(--font-claro);
+    background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));
+    margin-top: 10px;
+    padding: 4px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.button-remover:hover {
+    transform: scale(1.05);
+    color: var(--cinza-escuro);
+    transition: all 0.2s ease-in-out;
+}
+
+#dados-customizados {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+
+.dado-item {
+    display: flex;
+    align-items: center;
+}
+
+#dado-item-interno {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
