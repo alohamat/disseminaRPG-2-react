@@ -6,7 +6,7 @@ import { Exibe_rolagem } from "../components/Dados";
 import { useState } from "react";
 
 export interface DadoCustomizado {
-  nome: string;
+  name: string;
   lados: number;
   quantidade: number;
   bonus?: number;
@@ -47,7 +47,7 @@ export function Dados() {
     setDadosCustomizados([
       ...dadosCustomizados,
       {
-        nome: "",
+        name: "",
         lados: 0,
         quantidade: 0,
         bonus: 0,
@@ -91,8 +91,8 @@ export function Dados() {
               <input
                 type="text"
                 placeholder="Nome do dado"
-                value={dado.nome}
-                onChange={(e) => atualizarDado(index, "nome", e.target.value)}
+                value={dado.name}
+                onChange={(e) => atualizarDado(index, "name", e.target.value)}
               />
 
               <div id="dado-item-interno">

@@ -5,9 +5,16 @@ import { Rolar_todos } from "../components/Dados"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 
-interface DadosResultado {
-    rolagem_atual: string
+interface Rolagem {
+  name: string;
+  rolagem_atual: number;
+  todas_rolagem: number[];
 }
+
+interface DadosResultado {
+  resultados: Rolagem[];
+}
+
 
 export function Player(){
     const { id } = useParams();
@@ -19,7 +26,8 @@ export function Player(){
         e.preventDefault()
         try {
             const res = await Rolar_todos(id!);
-            setDados(res.resultado_acao);
+            setDados(res);
+            console.log("dados rolados: ", res);
             setErro(null);
         } catch (err: any) {
             setErro(err.message);
@@ -42,7 +50,11 @@ export function Player(){
                 {dados && (
                     <div id="modal">
                     <div className="result">
-                            <h2>Você rolou um {dados?.rolagem_atual}!</h2>
+                        {dados?.resultados?.map((rolagem, index) => (
+                            <div>
+                                <h2 key={index}>O {rolagem.name} caiu em {rolagem.rolagem_atual}!</h2>
+                            </div>
+                        ))}
                     </div>
                 </div>
                 )}

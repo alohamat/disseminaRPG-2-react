@@ -22,9 +22,9 @@ export async function Deposita_Votos(playerId: string, opcao: string) {
 
 export async function Rolar_todos(playerId: string) {
   try {
-    const res = await api.get(`jogador/jogador${playerId}/rolaTodos`);
+    const res = await api.post(`jogador/jogador${playerId}/rolaTodos`);
     console.log("rolei todos os dados: ", res.data);
-    return res.data;
+    return res.data; // []
   } catch (err: any) {
     console.error("erro ao rolar todos os dados: ", err.response.data);
     throw new Error("Rolagem bloqueada pelo mestre.");
@@ -33,12 +33,12 @@ export async function Rolar_todos(playerId: string) {
 
 export async function Inicia_rolagens(playerId: string, bonus: number, dadosCustomizados: DadoCustomizado[]) {
   try {
-    console.log("iniciando rolagens com: ", dadosCustomizados);
-    const res = await api.post(`mestre/jogador${playerId}/iniciaRolagens`, {
-      "dados_customizados": dadosCustomizados,
-      "bonus_acao": bonus
-    });
-    console.log("reseta dados: ", res.data)
+    const payload = {
+      "bonus_acao": bonus,
+      "dados": dadosCustomizados,
+    }
+    console.log("enviando", payload);
+    const res = await api.post(`mestre/jogador${playerId}/iniciaRolagens`, payload)
     return res.data;
   } catch (err: any) {
     console.error("erro: ", err.response.data)
