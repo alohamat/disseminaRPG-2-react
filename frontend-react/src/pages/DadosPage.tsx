@@ -28,7 +28,6 @@ export function Dados() {
     modas: Moda[];
   }
 
-
   const [dados, setDados] = useState<DadosResultado>();
   const [dadosCustomizados, setDadosCustomizados] = useState<DadoCustomizado[]>(
     []
@@ -104,11 +103,7 @@ export function Dados() {
                     placeholder="Lados"
                     value={dado.lados}
                     onChange={(e) =>
-                      atualizarDado(
-                        index,
-                        "lados",
-                        parseInt(e.target.value)
-                      )
+                      atualizarDado(index, "lados", parseInt(e.target.value))
                     }
                   />
                 </div>
@@ -189,9 +184,16 @@ export function Dados() {
               <div>
                 <h1>Total de rolagens: {dados.total_de_rolagens}</h1>
                 {dados.modas.map((item, i) => (
-                  <div key={i}>
+                  <div key={i} style={{ marginBottom: "12px" }}>
                     <h2>{item.name}</h2>
-                    <h2>{item.total}</h2>
+                    <h2>Total: {item.total}</h2>
+                    <div className="flex">
+                      {Array.isArray(item.valor) ? (
+                        item.valor.map((v, j) => <h3 key={j}>Resultado {j + 2}: {v}</h3>)
+                      ) : (
+                        null
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
