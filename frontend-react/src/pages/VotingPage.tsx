@@ -37,10 +37,6 @@ export function VotingPage() {
             </div>
           </div>
         </div>
-
-        <div className="button" onClick={() => navigate(`/mestre/${id}`)}>
-          Voltar ao Painel do Mestre
-        </div>
       </section>
       <Footer />
     </div>

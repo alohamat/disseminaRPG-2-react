@@ -38,14 +38,17 @@ export function Master() {
       <h1>Mestre - Jogador {id}</h1>
       <section>
         <div>
-          <form onSubmit={handleAtualizarVida}>
-            <label htmlFor="vida">Vida do jogador {id}: </label>
+          <form onSubmit={handleAtualizarVida} className="bloco">
+            <div>
+            <label htmlFor="vida" style={{fontWeight: "bold"}}>Vida do jogador {id}: </label>
             <input
               type="number"
               value={vidaNova}
               onChange={(e) => setVidaNova(Number(e.target.value))}
-            />
-            <button type="submit" className="button">
+              id="input-number"
+              />
+              </div>
+            <button type="submit" className="botao-enviar">
               Atualizar Vida
             </button>
           </form>
