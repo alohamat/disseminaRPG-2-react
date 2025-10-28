@@ -153,7 +153,7 @@ export function Dados() {
           ))}
         </div>
 
-        <div>
+        <div className="conteudo">
           <div
             className="button"
             onClick={() =>

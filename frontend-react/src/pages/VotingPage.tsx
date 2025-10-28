@@ -12,13 +12,14 @@ export function VotingPage() {
       <section>
         <h1>Escolher Tipo de Votação - Personagem {id}</h1>
         
-        <div className="escolha-tipo">
+        <div className="conteudo">
           <div className="opcao-tipo">
             <h2>Votação Normal</h2>
             <p>Os jogadores votam apenas escolhendo entre opções de texto.</p>
             <div 
               className="button" 
               onClick={() => navigate(`/votacao-normal/${id}`)}
+              style={{justifySelf: "center"}}
             >
               Criar Votação Normal
             </div>
@@ -30,6 +31,7 @@ export function VotingPage() {
             <div 
               className="button" 
               onClick={() => navigate(`/votacao-dados/${id}`)}
+              style={{justifySelf: "center"}}
             >
               Criar Votação com Dados
             </div>
