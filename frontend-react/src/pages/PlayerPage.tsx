@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Rolar_todos } from "../components/Dados";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSSE } from "../services/SSEService";
 
 interface Rolagem {
   name: string;
@@ -20,6 +21,8 @@ export function Player() {
   const navigate = useNavigate();
   const [dados, setDados] = useState<DadosResultado>();
   const [erro, setErro] = useState<string | null>(null);
+  const { vida, connected } = useSSE(id);
+  console.log("SSE vida:", vida, " | connected:", connected);
 
   const handleClickDados = async (e: any) => {
     e.preventDefault();
