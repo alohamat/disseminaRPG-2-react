@@ -3,6 +3,7 @@ import { Deposita_Votos } from "../components/Dados";
 import { Deposita_Votos_Com_Dado } from "../components/Dados";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { jogadores } from "../components/LoginButtons";
 
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
@@ -131,7 +132,7 @@ function AcoesPage() {
             <Header />
             <div id="centralizar-botao">
                 <div className="votacao-info">
-                    <h1>Votação - Personagem {id}</h1>
+                    <h1>Votação - Personagem {jogadores[Number(id) - 1]}</h1>
 
                     {mensagem && (
                         <div className={`mensagem ${mensagem.includes('✅') ? 'mensagem-sucesso' : mensagem.includes('❌') ? 'mensagem-erro' : 'mensagem-info'}`} style={{fontSize: "22px"}}>

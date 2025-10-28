@@ -1,6 +1,7 @@
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { useParams, useNavigate } from "react-router-dom";
+import { jogadores } from "../components/LoginButtons";
 
 export function VotingPage() {
   const { id } = useParams();
@@ -10,7 +11,7 @@ export function VotingPage() {
     <div id="tudo">
       <Header isMaster={true} />
       <section>
-        <h1>Escolher Tipo de Votação - Personagem {id}</h1>
+        <h1>Escolher Tipo de Votação - Personagem {jogadores[Number(id) - 1]}</h1>
         
         <div className="conteudo">
           <div className="opcao-tipo">

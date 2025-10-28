@@ -5,6 +5,7 @@ import { Rolar_todos } from "../components/Dados";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSSE } from "../services/SSEService";
+import { jogadores } from "../components/LoginButtons";
 
 interface Rolagem {
   name: string;
@@ -41,7 +42,7 @@ export function Player() {
     <div id="tudo">
       <Header />
       <section>
-        <h1>Jogador {id}</h1>
+        <h1>Jogador do {jogadores[Number(id) - 1]}</h1>
         <h2>Vida: {vida !== null ? vida : "Carregando..."}</h2>
         <form action="">
           <button id="btnRolagem" className="button" onClick={handleClickDados}>

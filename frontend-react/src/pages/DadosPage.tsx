@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Inicia_rolagens } from "../components/Dados";
 import { Exibe_rolagem } from "../components/Dados";
 import { useState } from "react";
+import { jogadores } from "../components/LoginButtons";
 
 export interface DadoCustomizado {
   name: string;
@@ -77,7 +78,7 @@ export function Dados() {
     <div id="tudo">
       <Header isMaster={true} />
       <section>
-        <h1>Controle dos Dados - Personagem {id}</h1>
+        <h1>Controle dos Dados - Personagem {jogadores[Number(id) - 1]}</h1>
 
         <h2>Dados Customizados</h2>
         <div className="button" onClick={adicionarDado}>

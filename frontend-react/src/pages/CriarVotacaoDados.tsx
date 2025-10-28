@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { api } from "../services/ApiService";
 import { Votacao_Estado } from "../components/Dados";
+import { jogadores } from "../components/LoginButtons";
 
 interface DadoVotacao {
   lados: number;
@@ -134,7 +135,7 @@ export function VotacaoComDados() {
     <div id="tudo">
       <Header isMaster={true} />
       <section>
-        <h1>Votação com Dados - Personagem {id}</h1>
+        <h1>Votação com Dados - Personagem {jogadores[Number(id) - 1]}</h1>
 
         {/* Configuração da Votação */}
         <div className="votacao-config">

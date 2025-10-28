@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { api } from "../services/ApiService";
+import { jogadores } from "../components/LoginButtons";
 
 export function Master() {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ export function Master() {
   return (
     <div id="tudo">
       <Header isMaster={true} />
-      <h1>Mestre - Jogador {id}</h1>
+      <h1>Mestre - {jogadores[Number(id) - 1]}</h1>
       <section>
         <div>
           <form onSubmit={handleAtualizarVida} className="bloco">

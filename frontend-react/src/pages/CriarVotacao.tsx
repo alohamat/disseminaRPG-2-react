@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Votacao_Estado } from "../components/Dados";
 import { api } from "../services/ApiService";
+import { jogadores } from "../components/LoginButtons";
 
 interface ResultadoVotacao {
   name: string;
@@ -81,7 +82,7 @@ export function VotacaoNormal() {
     <div id="tudo">
       <Header isMaster={true} />
       <section>
-        <h1>Votação Normal - Personagem {id}</h1>
+        <h1>Votação Normal - Personagem {jogadores[Number(id) - 1]}</h1>
 
         {/* Configuração da Votação */}
         <div className="votacao-config">
