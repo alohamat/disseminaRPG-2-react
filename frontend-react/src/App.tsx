@@ -5,6 +5,9 @@ import { Dados } from './pages/DadosPage';
 import { LoginMaster } from './pages/LoginMestrePage';
 import { Master } from './pages/MasterPage';
 import { VotingPage } from './pages/VotingPage';
+import { VotacaoNormal } from './pages/CriarVotacao';
+import { VotacaoComDados } from './pages/CriarVotacaoDados';
+
 import AcoesPage from './pages/AcoesPage';
 
 
@@ -20,6 +23,8 @@ function App() {
       <Route path='/master/:id' element={<Master />} />
       <Route path='/master/:id/dados' element={<Dados />} />
       <Route path='/master/:id/criar-votacao' element={<VotingPage />} />
+      <Route path="/votacao-normal/:id" element={<VotacaoNormal />} />
+      <Route path="/votacao-dados/:id" element={<VotacaoComDados />} />
     </Routes>
   );
 }

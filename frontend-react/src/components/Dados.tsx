@@ -1,22 +1,62 @@
 import { api } from "../services/ApiService";
 import type { DadoCustomizado } from "../pages/DadosPage";
 
+export interface DadoVotacao {
+  lados: number;
+  quantidade: number;
+  name: string;
+  bonus?: number;
+}
+
+export interface OpcaoComDado {
+  name: string;
+  dados: DadoVotacao;
+}
+
+export interface ResultadoVotacao {
+  name: string;
+  votos: number;
+  rolagens?: {
+    name: string;
+    moda: number | number[];
+  };
+}
+
+// Função para ver votação (agora suporta ambos os tipos)
 export async function Ver_Votacao(playerId: string) {
   try {
     const res = await api.get(`jogador/jogador${playerId}/votacao`);
-    console.log("votacao: ", res.data)
+    console.log("Resposta da votação:", res.data);
     return res.data;
   } catch (err: any) {
-    console.error("falhou em puxar votacao: ", err.response.data)
+    console.error("erro: ", err.response?.data || err.message);
+    throw err;
   }
 }
 
-export async function Deposita_Votos(playerId: string, opcao: string) {
+// Função para votação normal
+export async function Deposita_Votos(playerId: string, voto: string) {
   try {
-    const res = await api.post(`jogador/jogador${playerId}/votacao/${opcao}`);
-    console.log("mandei depositar: ", res.data);
-  } catch(err: any) {
-    console.error("erro ao depositar voto: ", err.response.data)
+    const uid = localStorage.getItem("uid");
+    const res = await api.post(`jogador/jogador${playerId}/votacao/${voto}`, { uid });
+    console.log("Voto depositado:", res.data);
+    return res.data;
+  } catch (err: any) {
+    console.error("erro: ", err.response?.data || err.message);
+    throw err;
+  }
+}
+
+// Nova função para votação com dados
+export async function Deposita_Votos_Com_Dado(playerId: string, voto: string) {
+  try {
+    const uid = localStorage.getItem("uid");
+    const res = await api.post(`jogador/jogador${playerId}/votacaoComDado/${voto}`, { uid });
+    console.log("Voto com dado depositado:", res.data);
+    return res.data;
+  } catch (err: any) {
+    console.error("erro: ", err.response?.data || err.message);
+    throw err;
   }
 }
 
