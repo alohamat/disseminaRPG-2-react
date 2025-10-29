@@ -165,13 +165,12 @@ export function VotacaoComDados() {
         <div className="votacao-config">
           <h2>Configurar Opções com Dados</h2>
 
-          <div
-            className="button"
+          <button
+            className="button add-option"
             onClick={adicionarOpcao}
-            style={{ justifySelf: "center" }}
           >
             Adicionar Opção
-          </div>
+          </button>
 
           <div id="dados-customizados">
             {opcoes?.map((opcao, opcaoIndex) => (
@@ -215,6 +214,7 @@ export function VotacaoComDados() {
                                 </div>
 
                                 <div className="input-group">
+                                    <br />
                                     <label>Lados:</label>
                                     <input
                                         type="number"
@@ -288,7 +288,7 @@ export function VotacaoComDados() {
                         onClick={() => adicionarDadoAOpcao(opcaoIndex)}
                         style={{ marginTop: '10px', width: 'fit-content' }}
                     >
-                        + Adicionar Dado a {opcao.name || 'esta opção'}
+                        Adicionar + Dado a {opcao.name || 'esta opção'}
                     </div>
 
                 </div>
@@ -336,20 +336,22 @@ export function VotacaoComDados() {
                 return (
                 <div key={index} className="resultado-item">
                   <div className="resultado-header">
-                    <h3>{item.name}</h3>
-                    <span className="votos-count">{item.votos} votos</span>
+                    <h3>{item.name}:</h3>
+                    <span className="votos-count">{item.votos} votos</span>
                   </div>
                     
                   {item.rolagens && (
                     <div className="rolagens-info">
-                      <strong>Rolagens Detalhadas: </strong>
+                      <strong>Rolagens: </strong>
                       <div className="rolagem-detalhes">
+    <br />
                         {Array.isArray(item.rolagens) && item.rolagens.map((rolagemItem, rIndex) => (
                             <span key={rIndex}>
-                                <span>{rolagemItem.name}: </span>
+                                <strong>{rolagemItem.name}: </strong>
                                 {Array.isArray(rolagemItem.moda)
                                     ? rolagemItem.moda.join(" + ")
                                     : rolagemItem.moda}
+                                    <br />
                             </span>
                         ))}
                       </div>

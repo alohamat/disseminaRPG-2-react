@@ -29,8 +29,9 @@ export function CharButtons( { CharNumber } : CharProps) {
     return (
         <div className="card_jogador">
             <fieldset >
-                <div style={{display: "flex"}}>
+                <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
                 <img src={imagens[CharNumber - 1]} alt="" />
+                <br />
                 <h2>{descricoes[CharNumber - 1]}</h2>
                 </div>
                 <form action="" onSubmit={(e) => e.preventDefault()}>
