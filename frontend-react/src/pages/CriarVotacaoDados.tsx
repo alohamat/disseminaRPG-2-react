@@ -219,7 +219,7 @@ export function VotacaoComDados() {
                                     <input
                                         type="number"
                                         placeholder="Ex: 20"
-                                        value={dado.lados} 
+                                        value={dado.lados}
                                         onChange={(e) =>
                                             atualizarDadosOpcao(
                                                 opcaoIndex,
@@ -228,7 +228,7 @@ export function VotacaoComDados() {
                                                 parseInt(e.target.value) || 0
                                             )
                                         }
-                                        className="dado-item"
+                                        className="dado-item input"
                                     />
                                 </div>
 

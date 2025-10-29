@@ -477,6 +477,8 @@ img {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-top: 10px;
+  margin-bottom: 10px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: #fd1f53;
@@ -484,6 +486,7 @@ img {
   border-radius: 10px;
   min-width: 250px;
   max-width: 300px;
+  padding: 0.5rem;
 }
 
 #dado-item-interno {

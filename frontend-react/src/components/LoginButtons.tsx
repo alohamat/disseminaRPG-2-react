@@ -14,8 +14,8 @@ export const jogadores: string[] = ["Zenchi", "Atnos", "Sam"];
 const imagens: string[] = [Zenchi, Atnos, Sam];
 const descricoes: string[] = [
 "Um jovem espadachim e aprendiz de feiticeiro. Ele é extrovertido e engraçado, gosta de festas e aventuras, mas não foge de uma boa luta.",
-"23 anos,  bem sarcástico, muito confiante,  faz piada com tudo na maior parte do tempo tá de bom humor.",
-"Cerca de 30 anos, baixo, mais calmo e reservado. Costuma agir mais escondido do que os outros."
+"Cerca de 30 anos, baixo, mais calmo e reservado. Costuma agir mais escondido do que os outros.",
+"23 anos,  bem sarcástico, muito confiante,  faz piada com tudo na maior parte do tempo tá de bom humor."
 
 ]
 
