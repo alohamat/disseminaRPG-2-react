@@ -16,7 +16,7 @@ interface DadoVotacao {
 
 interface OpcaoComDado {
   name: string;
-  dados: DadoVotacao[]; // Array de Dados (Correto)
+  dados: DadoVotacao[]; // Array de Dados
 }
 
 interface ResultadoVotacao {
@@ -48,15 +48,13 @@ export function VotacaoComDados() {
         quantidade: 1,
         bonus: 0,
     });
-    
-    // --- FUNÇÕES DE GERENCIAMENTO DE OPÇÕES ---
 
   const adicionarOpcao = () => {
     setOpcoes([
       ...opcoes,
       {
         name: "",
-        dados: [getNewDadoPadrao()], // Inicializa com 1 dado
+        dados: [getNewDadoPadrao()]
       },
     ]);
   };
@@ -73,8 +71,6 @@ export function VotacaoComDados() {
     setOpcoes(novasOpcoes);
   };
 
-    // --- FUNÇÕES DE GERENCIAMENTO DE DADOS DENTRO DA OPÇÃO ---
-    
   const adicionarDadoAOpcao = (opcaoIndex: number) => {
     const novasOpcoes = [...opcoes];
     novasOpcoes[opcaoIndex].dados.push(getNewDadoPadrao());
@@ -92,7 +88,6 @@ export function VotacaoComDados() {
   };
 
 
-    // Corrigido para receber o dadoIndex e usar indexação por chave
   const atualizarDadosOpcao = (
     opcaoIndex: number,
     dadoIndex: number, 
@@ -100,24 +95,20 @@ export function VotacaoComDados() {
     valor: number | string
   ) => {
     const novasOpcoes = [...opcoes];
-    // Acessa o dado específico pelo índice
     const dadoParaAtualizar = novasOpcoes[opcaoIndex].dados[dadoIndex]; 
 
     if (campo === "name") {
       dadoParaAtualizar.name = valor as string;
     } else {
-        // Usa indexação por chave para atualizar lados, quantidade ou bônus
       (dadoParaAtualizar[campo] as number) = valor as number; 
     }
     setOpcoes(novasOpcoes);
   };
 
-    // --- FUNÇÕES DE API ---
 
   const criarVotacaoComDados = async () => {
     if (!id) return;
 
-    // A validação agora checa se CADA opção tem pelo menos um dado válido
     const opcoesValidas = opcoes.filter(
       (opcao) => {
         const todosOsDadosValidos = opcao.dados.every(dado => 
@@ -171,7 +162,6 @@ export function VotacaoComDados() {
       <section>
         <h1>Votação com Dados - Personagem {jogadores[Number(id) - 1]}</h1>
 
-        {/* Configuração da Votação */}
         <div className="votacao-config">
           <h2>Configurar Opções com Dados</h2>
 
@@ -185,7 +175,7 @@ export function VotacaoComDados() {
 
           <div id="dados-customizados">
             {opcoes?.map((opcao, opcaoIndex) => (
-              <div key={opcaoIndex} className="opcao-container"> {/* Container de Opção */}
+              <div key={opcaoIndex} className="opcao-container">
                 <div className="opcao-header">
                   <input
                     type="text"
@@ -206,10 +196,8 @@ export function VotacaoComDados() {
                 <div className="dados-config">
                   <h4>Dados associados à "{opcao.name || 'Nova Opção'}":</h4>
                     
-                    {/* NOVO LOOP: Itera sobre o array de dados */}
                     {opcao.dados.map((dado, dadoIndex) => (
                         <div key={dadoIndex} className="dado-inputs-row">
-                            {/* Adiciona um separador se houver mais de um dado */}
                             {dadoIndex > 0 && <hr style={{ borderTop: '1px solid #ccc', margin: '10px 0' }} />}
                             
                             <div className="dado-item-group">
@@ -335,7 +323,6 @@ export function VotacaoComDados() {
               {resultado?.result?.map((item, index) => {
                 let totalModa = 0;
                 
-                // 2. ADIÇÃO: Processa o array de rolagens para calcular a soma
                 if (item.rolagens && Array.isArray(item.rolagens)) {
                     item.rolagens.forEach(rolagemItem => {
                         const modaValue = Array.isArray(rolagemItem.moda)
@@ -357,12 +344,11 @@ export function VotacaoComDados() {
                     <div className="rolagens-info">
                       <strong>Rolagens Detalhadas: </strong>
                       <div className="rolagem-detalhes">
-                        {/* Assumindo que item.rolagens é um array de {name, moda} */}
                         {Array.isArray(item.rolagens) && item.rolagens.map((rolagemItem, rIndex) => (
                             <span key={rIndex}>
                                 <span>{rolagemItem.name}: </span>
                                 {Array.isArray(rolagemItem.moda)
-                                    ? rolagemItem.moda.join(" + ") // Exibe elementos separados
+                                    ? rolagemItem.moda.join(" + ")
                                     : rolagemItem.moda}
                             </span>
                         ))}
