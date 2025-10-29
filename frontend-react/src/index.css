@@ -96,7 +96,8 @@ h1 {
 #close {
     display: flex;
     justify-content: center;
-    width: 50px;
+    width: 25px;
+    
 }   
 
 .buttonindisponivel {
@@ -191,31 +192,119 @@ div.grafico {
 }
 
 .modal {
-    height: 99%;
-    width: 99%;
+    min-height: 99vh;
+    padding-top: 200px;
+    width: 99vw;
     position: absolute;
     z-index: 50;
     top: 50%;
     left: 50%;
-    background-color: rgba(0, 0, 0, 0.753);
-    display: flex;
-    flex-direction: column;
+    background-color: rgba(22, 22, 22, 0.79);    display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     transform: translate(-50%, -50%);
 }
 
 .modal_resultado {
-    position: fixed;
+    
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    width: 80%;
+    gap: 10px;
+    
     display: flex;
     justify-content: center;
+    
     align-items: center;
     z-index: 2;
+}
+
+@media screen and (max-width: 400px){
+    .modal {
+        flex-wrap: wrap;
+    }
+    .modal_resultado {
+        flex-direction: column;
+    }
+}
+
+/* Fundo escurecido do modal */
+.dice-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  backdrop-filter: blur(4px);
+}
+
+/* Container do conteúdo */
+.dice-modal__content {
+  background: #121212;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 16px;
+  padding: 24px 32px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  animation: slideUp 0.3s ease-out;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+/* Cada bloco de resultado */
+.dice-result {
+  background-color: #1f1f1f;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  transition: transform 0.2s ease;
+}
+
+.dice-result:hover {
+  transform: scale(1.02);
+}
+
+/* Área de valores individuais */
+.dice-result__values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dice-result__value {
+  background-color: #292929;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+/* Animação de entrada */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  .dice-modal__content {
+    padding: 16px 20px;
+  }
+
+  .dice-result__values {
+    flex-direction: column;
+  }
 }
 
 .resultado-header {

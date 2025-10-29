@@ -10,7 +10,7 @@ import { jogadores } from "../components/LoginButtons";
 interface Rolagem {
   name: string;
   rolagem_atual: number;
-  todas_rolagem: number[];
+  todas_rolagem: number[][];
 }
 
 interface DadosResultado {
@@ -22,6 +22,7 @@ export function Player() {
   const navigate = useNavigate();
   const [dados, setDados] = useState<DadosResultado>();
   const [erro, setErro] = useState<string | null>(null);
+  const [modal, setModal] = useState<boolean>(false);
   const { vida, connected } = useSSE(id);
   console.log("SSE vida:", vida, " | connected:", connected);
 
@@ -30,6 +31,7 @@ export function Player() {
     try {
       const res = await Rolar_todos(id!);
       setDados(res);
+      setModal(false)
       console.log("dados rolados: ", res);
       setErro(null);
     } catch (err: any) {
@@ -59,35 +61,36 @@ export function Player() {
           </button>
         </form>
         {erro && <h2>{erro}</h2>}
-        {dados && (
-          <div id="modal">
-            <div className="result">
-              {dados?.resultados?.map((rolagem, index) => {
-                const { name, rolagem_atual } = rolagem;
 
+
+        {(dados && !modal) && (
+          <div className="modal">
+            <button  className="button" id="close" onClick={() => setModal(true)}>x</button>
+            <div className="modal_resultado">
+              
+              {dados?.resultados?.map((rolagem, index) => {
+                const { name, rolagem_atual, todas_rolagem } = rolagem;
                 return (
-                  <div key={index} style={{ marginBottom: "16px" }}>
-                    <h2>
+                  <div key={index} style={{ marginBottom: "16px"}}>
+                    
+                    <h1>
                       🎲 {name} rolou{" "}
                       {Array.isArray(rolagem_atual)
-                        ? `${rolagem_atual.length} dados`
-                        : "1 dado"}
-                    </h2>
+                        ? `${rolagem_atual.length}d${todas_rolagem[0].length}`
+                        : `1d${todas_rolagem[0].length}`}
+                    </h1>
 
                     {Array.isArray(rolagem_atual) ? (
                       <>
-                        <p>
-                          <strong>Principal:</strong> {rolagem_atual[0]}
-                        </p>
-                        <p>
-                          <strong>Outras rolagens:</strong>{" "}
-                          {rolagem_atual.slice(1).join(", ")}
-                        </p>
+                        <h2>
+                          <strong>Valores das rolagens: </strong>{" "}
+                          {rolagem_atual.join(", ")}
+                        </h2>
                       </>
                     ) : (
-                      <p>
+                      <h2>
                         <strong>Resultado:</strong> {rolagem_atual}
-                      </p>
+                      </h2>
                     )}
                   </div>
                 );

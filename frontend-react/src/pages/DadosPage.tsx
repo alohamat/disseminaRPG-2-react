@@ -33,6 +33,7 @@ export function Dados() {
   const [dadosCustomizados, setDadosCustomizados] = useState<DadoCustomizado[]>(
     []
   );
+  const [modal, setModal] = useState<boolean>(false);
 
   const handleIniciaRolagem = async () => {
     if (!id) return null;
@@ -40,6 +41,7 @@ export function Dados() {
   };
 
   const handleTrancaRolagem = async () => {
+    setModal(false)
     setDados(await Exibe_rolagem(id!));
   };
 
@@ -178,19 +180,20 @@ export function Dados() {
             Trancar Rolagem
           </div>
         </div>
-        {dados && (
-          <div id="modal">
-            <div className="result">
-              <h2>Resultado da rolagem</h2>
+        {(dados && !modal) && (
+          <div className="dice-modal">
+            <div className="dice-modal__content" id="dados">
+              <button className="button" id="close" onClick={() => setModal(true)}>x</button>
+              <h1>Resultado da rolagem</h1>
               <div>
                 <h1>Total de rolagens: {dados.total_de_rolagens}</h1>
                 {dados.modas.map((item, i) => (
-                  <div key={i} style={{ marginBottom: "12px" }}>
+                  <div key={i} className="dice-result" style={{ marginBottom: "12px" }}>
                     <h2>{item.name}</h2>
                     <h2>Total: {item.total}</h2>
-                    <div className="flex">
+                    <div className="dice-result__values">
                       {Array.isArray(item.valor) ? (
-                        item.valor.map((v, j) => <h3 key={j}>Resultado {j + 2}: {v}</h3>)
+                        item.valor.map((v, j) => <h3 className="dice-result__value" key={j}>Resultado {j + 1}: {v}</h3>)
                       ) : (
                         null
                       )}
