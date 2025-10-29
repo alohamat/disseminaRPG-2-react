@@ -152,9 +152,6 @@ export function VotacaoNormal() {
             Ações Padrão
           </div>
 
-          <div className="button" onClick={() => navigate(`/escolher-votacao/${id}`)}>
-            Voltar
-          </div>
         </div>
 
         {/* Resultado da Votação */}

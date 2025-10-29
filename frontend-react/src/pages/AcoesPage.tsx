@@ -29,7 +29,6 @@ function AcoesPage() {
     const { id } = useParams();
     const [votacao, setVotacao] = useState<string[] | null>(null);
     const [votacaoComDado, setVotacaoComDado] = useState<OpcaoComDado[] | null>(null);
-    const [podeVotar, setPodeVotar] = useState<boolean>(true);
     const [votoComputado, setVotoComputado] = useState<boolean>(false);
     const [loading, setLoading] = useState(false);
     const [mensagem, setMensagem] = useState<string>("");
@@ -52,6 +51,7 @@ function AcoesPage() {
         try {
             const resultado = await Ver_Votacao(id) as VotacaoResponse | null;
             console.log("Resultado da votacao:", resultado);
+            setVotoComputado(false);
             
             if (resultado?.opcoesComDado && resultado.opcoesComDado.length > 0) {
                 setVotacaoComDado(resultado.opcoesComDado);
@@ -66,8 +66,6 @@ function AcoesPage() {
                 setVotacaoComDado(null);
                 setMensagem(resultado?.mensagem || "Nenhuma votação ativa no momento.");
             }
-            
-            setPodeVotar(resultado?.votacaoAberta ?? false);
         } catch (error) {
             console.error("Erro ao buscar votação:", error);
             setMensagem("Erro ao carregar votação. Tente novamente.");
@@ -77,7 +75,7 @@ function AcoesPage() {
     };
 
     const handleVotar = async (opcao: string) => {
-        if (!id || !podeVotar || votoComputado) return;
+        if (!id || votoComputado) return;
         
         try {
             setLoading(true);
@@ -98,7 +96,7 @@ function AcoesPage() {
     };
 
     const handleVotarComDado = async (opcao: OpcaoComDado) => {
-        if (!id || !podeVotar || votoComputado) return;
+        if (!id || votoComputado) return;
         
         try {
             setLoading(true);
@@ -156,9 +154,9 @@ function AcoesPage() {
                         <div className="opcoes-grid">
                             {votacaoComDado.map((opcao, index) => (
                                 <div 
-                                    className={`opcao-voto ${podeVotar && !votoComputado ? "opcao-ativa" : "opcao-inativa"}`} 
+                                    className={`opcao-voto ${!votoComputado ? "opcao-ativa" : "opcao-inativa"}`} 
                                     key={index} 
-                                    onClick={() => podeVotar && !votoComputado && handleVotarComDado(opcao)}
+                                    onClick={() => !votoComputado && handleVotarComDado(opcao)}
                                 >
                                     <div className="opcao-conteudo">
                                         <strong className="opcao-nome">{opcao.name}</strong>
@@ -181,11 +179,11 @@ function AcoesPage() {
                         <div className="opcoes-grid">
                             {votacao.map((opcao, index) => (
                                 <div 
-                                    className={`opcao-voto ${podeVotar && !votoComputado ? "opcao-ativa" : "opcao-inativa"}`} 
+                                    className={`opcao-voto ${!votoComputado ? "opcao-ativa" : "opcao-inativa"}`} 
                                     key={index} 
-                                    onClick={() => podeVotar && !votoComputado && handleVotar(opcao)}
+                                    onClick={() => !votoComputado && handleVotar(opcao)}
                                 >
-                                    <div className="opcao-conteudo">
+                                    <div className="button">
                                         {opcao}
                                     </div>
                                 </div>
