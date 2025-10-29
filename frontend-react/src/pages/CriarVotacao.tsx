@@ -29,6 +29,27 @@ export function VotacaoNormal() {
   const [mostrarResultado, setMostrarResultado] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  //Estados e funções do modal de ações padrão
+  const [acoesPadrao, setAcoesPadrao] = useState<string[]>([]);
+  const [mostrarModalAcoes, setMostrarModalAcoes] = useState(false);
+
+  const abrirAcoesPadrao = async () => {
+    if (!id) return;
+    try {
+      const response = await api.get(`mestre/jogador${id}/opcoesSalvas`);
+      setAcoesPadrao(response.data.opcoesSalvas || []);
+      setMostrarModalAcoes(true);
+    } catch (error) {
+      console.error("Erro ao buscar ações padrão:", error);
+      alert("Erro ao buscar ações padrão");
+    }
+  };
+
+  const adicionarAcaoPadrao = (acao: string) => {
+    setOpcoes([...opcoes, acao]);
+    setMostrarModalAcoes(false);
+  };
+
   const adicionarOpcao = () => {
     if (novaOpcao.trim() !== "") {
       setOpcoes([...opcoes, novaOpcao.trim()]);
@@ -125,6 +146,12 @@ export function VotacaoNormal() {
           <div className="button" onClick={verResultadoVotacao}>
             {loading ? "Carregando..." : "Ver Resultado"}
           </div>
+
+          {/*Botão de Ações Padrão */}
+          <div className="button" onClick={abrirAcoesPadrao}>
+            Ações Padrão
+          </div>
+
           <div className="button" onClick={() => navigate(`/escolher-votacao/${id}`)}>
             Voltar
           </div>
@@ -185,6 +212,37 @@ export function VotacaoNormal() {
         {mostrarResultado && !resultado && (
           <div className="nenhuma-votacao">
             <p>Nenhuma votação ativa ou resultado disponível</p>
+          </div>
+        )}
+
+        {/* Modal de Ações Padrão */}
+        {mostrarModalAcoes && (
+          <div className="modal">
+            <div className="modalVotacao">
+              <div>
+                <h2>Ações Padrão</h2>
+                {acoesPadrao.length > 0 ? (
+                  acoesPadrao.map((acao, index) => (
+                    <div
+                      key={index}
+                      className="button"
+                      onClick={() => adicionarAcaoPadrao(acao)}
+                      style={{ margin: "10px 0", width: "100%" }}
+                    >
+                      {acao}
+                    </div>
+                  ))
+                ) : (
+                  <p>Nenhuma ação padrão encontrada.</p>
+                )}
+                <button
+                  className="button-remover"
+                  onClick={() => setMostrarModalAcoes(false)}
+                >
+                  Fechar
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </section>

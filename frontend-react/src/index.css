@@ -80,7 +80,7 @@ h1 {
 
 .button {
     background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));
-    color: var(--font-claro);
+    color: white;
     font-weight: bold;
     padding: 1.7rem 2.6rem;
     margin: 1rem 0;
@@ -218,6 +218,7 @@ div.grafico {
     align-items: center;
     z-index: 2;
 }
+
 .modal_resultado div {
     background-color: var(--cinza-escuro);
     padding: 20px;
@@ -227,7 +228,20 @@ div.grafico {
     transition: 0.2s ease;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-
+.modalVotacao{
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    background-color: var(--cinza-escuro);
+    padding: 20px;
+    color: var(--font-claro);
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.2s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
 fieldset {
     font-size: 30px;
     width: 50px;
