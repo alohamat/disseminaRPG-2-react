@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { useParams } from "react-router-dom";
@@ -7,312 +8,386 @@ import { Votacao_Estado } from "../components/Dados";
 import { jogadores } from "../components/LoginButtons";
 
 interface DadoVotacao {
-  lados: number;
-  quantidade: number;
-  name: string;
-  bonus?: number;
+  lados: number;
+  quantidade: number;
+  name: string;
+  bonus?: number;
 }
 
 interface OpcaoComDado {
-  name: string;
-  dados: DadoVotacao;
+  name: string;
+  dados: DadoVotacao[]; // Array de Dados (Correto)
 }
 
 interface ResultadoVotacao {
-  name: string;
-  votos: number;
-  rolagens?: {
-    name: string;
-    moda: number | number[];
-  };
+  name: string;
+  votos: number;
+  rolagens?: {
+    name: string;
+    moda: number | number[];
+  };
 }
 
 interface VotacaoEstadoResponse {
-  votosTotal: number;
-  result: ResultadoVotacao[];
+  votosTotal: number;
+  result: ResultadoVotacao[];
 }
 
 export function VotacaoComDados() {
-  const { id } = useParams();
-  const [opcoes, setOpcoes] = useState<OpcaoComDado[]>([]);
-  const [resultado, setResultado] = useState<VotacaoEstadoResponse | null>(
-    null
-  );
-  const [mostrarResultado, setMostrarResultado] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const { id } = useParams();
+  const [opcoes, setOpcoes] = useState<OpcaoComDado[]>([]);
+  const [resultado, setResultado] = useState<VotacaoEstadoResponse | null>(
+    null
+  );
+  const [mostrarResultado, setMostrarResultado] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const adicionarOpcao = () => {
-    setOpcoes([
-      ...opcoes,
-      {
+    const getNewDadoPadrao = (): DadoVotacao => ({
         name: "",
-        dados: {
-          name: "",
-          lados: 0,
-          quantidade: 1,
-          bonus: 0,
-        },
-      },
-    ]);
-  };
+        lados: 0,
+        quantidade: 1,
+        bonus: 0,
+    });
+    
+    // --- FUNÇÕES DE GERENCIAMENTO DE OPÇÕES ---
 
-  const removerOpcao = (index: number) => {
-    const novasOpcoes = [...opcoes];
-    novasOpcoes.splice(index, 1);
-    setOpcoes(novasOpcoes);
-  };
+  const adicionarOpcao = () => {
+    setOpcoes([
+      ...opcoes,
+      {
+        name: "",
+        dados: [getNewDadoPadrao()], // Inicializa com 1 dado
+      },
+    ]);
+  };
 
-  const atualizarNomeOpcao = (index: number, valor: string) => {
-    const novasOpcoes = [...opcoes];
-    novasOpcoes[index].name = valor;
-    setOpcoes(novasOpcoes);
-  };
+  const removerOpcao = (index: number) => {
+    const novasOpcoes = [...opcoes];
+    novasOpcoes.splice(index, 1);
+    setOpcoes(novasOpcoes);
+  };
 
-  const atualizarDadosOpcao = (
-    index: number,
-    campo: keyof DadoVotacao,
-    valor: number | string
-  ) => {
-    const novasOpcoes = [...opcoes];
-    if (campo === "name") {
-      novasOpcoes[index].dados.name = valor as string;
-    } else {
-      novasOpcoes[index].dados[campo] = valor as number;
+  const atualizarNomeOpcao = (index: number, valor: string) => {
+    const novasOpcoes = [...opcoes];
+    novasOpcoes[index].name = valor;
+    setOpcoes(novasOpcoes);
+  };
+
+    // --- FUNÇÕES DE GERENCIAMENTO DE DADOS DENTRO DA OPÇÃO ---
+    
+  const adicionarDadoAOpcao = (opcaoIndex: number) => {
+    const novasOpcoes = [...opcoes];
+    novasOpcoes[opcaoIndex].dados.push(getNewDadoPadrao());
+    setOpcoes(novasOpcoes);
+  };
+    
+  const removerDadoDaOpcao = (opcaoIndex: number, dadoIndex: number) => {
+    const novasOpcoes = [...opcoes];
+    if (novasOpcoes[opcaoIndex].dados.length > 1) {
+      novasOpcoes[opcaoIndex].dados.splice(dadoIndex, 1);
+      setOpcoes(novasOpcoes);
+    } else {
+      alert("Toda opção precisa de pelo menos um dado!");
     }
-    setOpcoes(novasOpcoes);
-  };
+  };
 
-  const criarVotacaoComDados = async () => {
-    if (!id) return;
 
-    const opcoesValidas = opcoes.filter(
-      (opcao) =>
-        opcao.name.trim() !== "" &&
-        opcao.dados.name.trim() !== "" &&
-        opcao.dados.lados > 0 &&
-        opcao.dados.quantidade > 0
-    );
+    // Corrigido para receber o dadoIndex e usar indexação por chave
+  const atualizarDadosOpcao = (
+    opcaoIndex: number,
+    dadoIndex: number, 
+    campo: keyof DadoVotacao,
+    valor: number | string
+  ) => {
+    const novasOpcoes = [...opcoes];
+    // Acessa o dado específico pelo índice
+    const dadoParaAtualizar = novasOpcoes[opcaoIndex].dados[dadoIndex]; 
 
-    if (opcoesValidas.length === 0) {
-      alert("Adicione pelo menos uma opção válida!");
-      return;
-    }
+    if (campo === "name") {
+      dadoParaAtualizar.name = valor as string;
+    } else {
+        // Usa indexação por chave para atualizar lados, quantidade ou bônus
+      (dadoParaAtualizar[campo] as number) = valor as number; 
+    }
+    setOpcoes(novasOpcoes);
+  };
 
-    try {
-      const data = {
-        opcoes: opcoesValidas,
-      };
+    // --- FUNÇÕES DE API ---
 
-      console.log("Criando votação com dados:", data);
-      await api.post(`/mestre/jogador${id}/criaVotacaoComDado`, data);
-      alert("Votação com dados criada com sucesso!");
-      setResultado(null);
-      setMostrarResultado(false);
-    } catch (error) {
-      console.error("Erro:", error);
-      alert("Erro ao criar votação");
-    }
-  };
+  const criarVotacaoComDados = async () => {
+    if (!id) return;
 
-  const verResultadoVotacao = async () => {
-    if (!id) return;
+    // A validação agora checa se CADA opção tem pelo menos um dado válido
+    const opcoesValidas = opcoes.filter(
+      (opcao) => {
+        const todosOsDadosValidos = opcao.dados.every(dado => 
+            dado.name.trim() !== "" && dado.lados > 0 && dado.quantidade > 0
+        );
+        return opcao.name.trim() !== "" && todosOsDadosValidos;
+      }
+    );
 
-    setLoading(true);
-    try {
-      const resultado = await Votacao_Estado(id);
-      setResultado(resultado);
-      setMostrarResultado(true);
-      console.log("Resultado da votação:", resultado);
-    } catch (error) {
-      console.error("Erro ao buscar resultado:", error);
-      alert("Erro ao buscar resultado da votação");
-    } finally {
-      setLoading(false);
-    }
-  };
+    if (opcoesValidas.length === 0) {
+      alert("Adicione pelo menos uma opção com dados válidos!");
+      return;
+    }
 
-  return (
-    <div id="tudo">
-      <Header isMaster={true} />
-      <section>
-        <h1>Votação com Dados - Personagem {jogadores[Number(id) - 1]}</h1>
+    try {
+      const data = {
+        opcoes: opcoesValidas,
+      };
 
-        {/* Configuração da Votação */}
-        <div className="votacao-config">
-          <h2>Configurar Opções com Dados</h2>
+      console.log("Criando votação com dados:", data);
+      await api.post(`/mestre/jogador${id}/criaVotacaoComDado`, data);
+      alert("Votação com dados criada com sucesso!");
+      setResultado(null);
+      setMostrarResultado(false);
+    } catch (error) {
+      console.error("Erro:", error);
+      alert("Erro ao criar votação");
+    }
+  };
 
-          <div
-            className="button"
-            onClick={adicionarOpcao}
-            style={{ justifySelf: "center" }}
-          >
-            Adicionar Opção
-          </div>
+  const verResultadoVotacao = async () => {
+    if (!id) return;
 
-          <div id="dados-customizados">
-            {opcoes?.map((opcao, index) => (
-              <div key={index}>
-                <div className="opcao-header">
-                  <input
-                    type="text"
-                    placeholder="Nome da opção (ex: Ataque, Defesa)"
-                    value={opcao.name}
-                    onChange={(e) => atualizarNomeOpcao(index, e.target.value)}
-                    className="opcao-nome"
-                  />
-                  <div
-                    className="button-remover"
-                    onClick={() => removerOpcao(index)}
-                  >
-                    Remover
-                  </div>
-                </div>
+    setLoading(true);
+    try {
+      const resultado = await Votacao_Estado(id);
+      setResultado(resultado);
+      setMostrarResultado(true);
+      console.log("Resultado da votação:", resultado);
+    } catch (error) {
+      console.error("Erro ao buscar resultado:", error);
+      alert("Erro ao buscar resultado da votação");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-                <div className="dados-config">
-                  <h4>Dados para esta opção:</h4>
-                  <div id="dados">
-                    <div className="input-group">
-                      <label style={{ fontWeight: "bold" }}>Dado de:</label>
-                      <input
-                        type="text"
-                        placeholder="Ex: Dano, Cura"
-                        value={opcao.dados.name}
-                        onChange={(e) =>
-                          atualizarDadosOpcao(index, "name", e.target.value)
-                        }
-                      />
+  return (
+    <div id="tudo">
+      <Header isMaster={true} />
+      <section>
+        <h1>Votação com Dados - Personagem {jogadores[Number(id) - 1]}</h1>
+
+        {/* Configuração da Votação */}
+        <div className="votacao-config">
+          <h2>Configurar Opções com Dados</h2>
+
+          <div
+            className="button"
+            onClick={adicionarOpcao}
+            style={{ justifySelf: "center" }}
+          >
+            Adicionar Opção
+          </div>
+
+          <div id="dados-customizados">
+            {opcoes?.map((opcao, opcaoIndex) => (
+              <div key={opcaoIndex} className="opcao-container"> {/* Container de Opção */}
+                <div className="opcao-header">
+                  <input
+                    type="text"
+                    placeholder="Nome da opção (ex: Ataque, Defesa)"
+                    value={opcao.name}
+                    onChange={(e) => atualizarNomeOpcao(opcaoIndex, e.target.value)}
+                    className="opcao-nome input"
+                  />
+                  <div
+                    className="button-remover"
+                    onClick={() => removerOpcao(opcaoIndex)}
+                    style={{ padding: '8px' }}
+                  >
+                    Remover Opção
+                  </div>
+                </div>
+
+                <div className="dados-config">
+                  <h4>Dados associados à "{opcao.name || 'Nova Opção'}":</h4>
+                    
+                    {/* NOVO LOOP: Itera sobre o array de dados */}
+                    {opcao.dados.map((dado, dadoIndex) => (
+                        <div key={dadoIndex} className="dado-inputs-row">
+                            {/* Adiciona um separador se houver mais de um dado */}
+                            {dadoIndex > 0 && <hr style={{ borderTop: '1px solid #ccc', margin: '10px 0' }} />}
+                            
+                            <div className="dado-item-group">
+                                
+                                <div className="input-group">
+                                    <label style={{ fontWeight: "bold" }}>Dado Nome:</label>
+                                    <input
+                                        type="text"
+                                        placeholder="Ex: Dano Físico"
+                                        value={dado.name} 
+                                        onChange={(e) =>
+                                            atualizarDadosOpcao(opcaoIndex, dadoIndex, "name", e.target.value)
+                                        }
+                                    />
+                                </div>
+
+                                <div className="input-group">
+                                    <label>Lados:</label>
+                                    <input
+                                        type="number"
+                                        placeholder="Ex: 20"
+                                        value={dado.lados} 
+                                        onChange={(e) =>
+                                            atualizarDadosOpcao(
+                                                opcaoIndex,
+                                                dadoIndex,
+                                                "lados",
+                                                parseInt(e.target.value) || 0
+                                            )
+                                        }
+                                        className="dado-item"
+                                    />
+                                </div>
+
+                                <div className="input-group">
+                                    <label>Quantidade:</label>
+                                    <input
+                                        type="number"
+                                        placeholder="Ex: 1"
+                                        value={dado.quantidade} 
+                                        onChange={(e) =>
+                                            atualizarDadosOpcao(
+                                                opcaoIndex,
+                                                dadoIndex,
+                                                "quantidade",
+                                                parseInt(e.target.value) || 1
+                                            )
+                                        }
+                                        className="dado-item"
+                                    />
+                                </div>
+
+                                <div className="input-group">
+                                    <label>Bônus (opcional):</label>
+                                    <input
+                                        type="number"
+                                        placeholder="0"
+                                        value={dado.bonus || 0} 
+                                        onChange={(e) =>
+                                            atualizarDadosOpcao(
+                                                opcaoIndex,
+                                                dadoIndex,
+                                                "bonus",
+                                                parseInt(e.target.value) || 0
+                                            )
+                                        }
+                                        className="dado-item"
+                                    />
+                                </div>
+                                
+                                {/* Botão de Remover Dado (só aparece se houver mais de um) */}
+                                {opcao.dados.length > 1 && (
+                                    <div 
+                                        className="button-remover"
+                                        onClick={() => removerDadoDaOpcao(opcaoIndex, dadoIndex)}
+                                        style={{ alignSelf: 'flex-end', padding: '5px' }}
+                                    >
+                                        Remover Dado
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    ))}
+                    
+                    {/* Botão de Adicionar Dado */}
+                    <div 
+                        className="button"
+                        onClick={() => adicionarDadoAOpcao(opcaoIndex)}
+                        style={{ marginTop: '10px', width: 'fit-content' }}
+                    >
+                        + Adicionar Dado a {opcao.name || 'esta opção'}
                     </div>
 
-                    <div className="input-group">
-                      <label>Lados:</label>
-                      <input
-                        type="number"
-                        placeholder="Ex: 20"
-                        value={opcao.dados.lados}
-                        onChange={(e) =>
-                          atualizarDadosOpcao(
-                            index,
-                            "lados",
-                            parseInt(e.target.value) || 0
-                          )
-                        }
-                        className="dado-item"
-                      />
-                    </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
 
-                    <div className="input-group">
-                      <label>Quantidade:</label>
-                      <input
-                        type="number"
-                        placeholder="Ex: 1"
-                        value={opcao.dados.quantidade}
-                        onChange={(e) =>
-                          atualizarDadosOpcao(
-                            index,
-                            "quantidade",
-                            parseInt(e.target.value) || 1
-                          )
-                        }
-                        className="dado-item"
-                      />
-                    </div>
+        {/* Controles da Votação */}
+        <div className="controles-votacao">
+          <div className="button" onClick={criarVotacaoComDados}>
+            Criar Votação com Dados ({opcoes.length} opções)
+          </div>
 
-                    <div className="input-group">
-                      <label>Bônus (opcional):</label>
-                      <input
-                        type="number"
-                        placeholder="0"
-                        value={opcao.dados.bonus || 0}
-                        onChange={(e) =>
-                          atualizarDadosOpcao(
-                            index,
-                            "bonus",
-                            parseInt(e.target.value) || 0
-                          )
-                        }
-                        className="dado-item"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+          <div className="button" onClick={verResultadoVotacao}>
+            {loading ? "Carregando..." : "Ver Resultado"}
+          </div>
+        </div>
 
-        {/* Controles da Votação */}
-        <div className="controles-votacao">
-          <div className="button" onClick={criarVotacaoComDados}>
-            Criar Votação com Dados ({opcoes.length} opções)
-          </div>
+        {/* Resultado da Votação */}
+        {mostrarResultado && resultado && (
+          <div className="resultado-votacao">
+            <h2>Resultado da Votação</h2>
 
-          <div className="button" onClick={verResultadoVotacao}>
-            {loading ? "Carregando..." : "Ver Resultado"}
-          </div>
-        </div>
+            <div className="resumo">
+              <p>
+                <strong>Total de votos:</strong> {resultado.votosTotal}
+              </p>
+            </div>
 
-        {/* Resultado da Votação */}
-        {mostrarResultado && resultado && (
-          <div className="resultado-votacao">
-            <h2>Resultado da Votação</h2>
+            <div className="resultados-detalhados">
+              {resultado?.result?.map((item, index) => {
+                let totalModa = 0;
+                
+                // 2. ADIÇÃO: Processa o array de rolagens para calcular a soma
+                if (item.rolagens && Array.isArray(item.rolagens)) {
+                    item.rolagens.forEach(rolagemItem => {
+                        const modaValue = Array.isArray(rolagemItem.moda)
+                            ? rolagemItem.moda.reduce((acc: number, val: number) => acc + val, 0)
+                            : rolagemItem.moda;
 
-            <div className="resumo">
-              <p>
-                <strong>Total de votos:</strong> {resultado.votosTotal}
-              </p>
-            </div>
-
-            <div className="resultados-detalhados">
-              {resultado?.result?.map((item, index) => (
-                <div key={index} className="resultado-item">
-                  <div className="resultado-header">
-                    <h3>{item.name}</h3>
-                    <span className="votos-count">{item.votos} votos</span>
-                  </div>
-
-                  {item.rolagens && (
-                    <div className="rolagens-info">
-                      <strong>Rolagens:</strong>
-                      <div className="rolagem-detalhes">
-                        <span>{item.rolagens.name}: </span>
-                        {Array.isArray(item.rolagens.moda)
-                          ? item.rolagens.moda.join(" + ")
-                          : item.rolagens.moda}
+                        totalModa += modaValue;
+                    });
+                }
+                
+                return (
+                <div key={index} className="resultado-item">
+                  <div className="resultado-header">
+                    <h3>{item.name}</h3>
+                    <span className="votos-count">{item.votos} votos</span>
+                  </div>
+                    
+                  {item.rolagens && (
+                    <div className="rolagens-info">
+                      <strong>Rolagens Detalhadas: </strong>
+                      <div className="rolagem-detalhes">
+                        {/* Assumindo que item.rolagens é um array de {name, moda} */}
+                        {Array.isArray(item.rolagens) && item.rolagens.map((rolagemItem, rIndex) => (
+                            <span key={rIndex}>
+                                <span>{rolagemItem.name}: </span>
+                                {Array.isArray(rolagemItem.moda)
+                                    ? rolagemItem.moda.join(" + ") // Exibe elementos separados
+                                    : rolagemItem.moda}
+                            </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {totalModa > 0 && (
+                      <div className="total-moda-calculado">
+                          <strong>Total:</strong> {totalModa}
                       </div>
-                    </div>
                   )}
+                </div>
+                );
+            })}
+            </div>
+          </div>
+        )}
 
-                  <div className="progresso-container">
-                    <div
-                      className="progresso-barra"
-                      style={{
-                        width:
-                          resultado.votosTotal > 0
-                            ? `${(item.votos / resultado.votosTotal) * 100}%`
-                            : "0%",
-                      }}
-                    ></div>
-                    <span className="progresso-texto">
-                      {resultado.votosTotal > 0
-                        ? `${Math.round(
-                            (item.votos / resultado.votosTotal) * 100
-                          )}%`
-                        : "0%"}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {mostrarResultado && !resultado && (
-          <div className="nenhuma-votacao">
-            <p>Nenhuma votação ativa ou resultado disponível</p>
-          </div>
-        )}
-      </section>
-      <Footer />
-    </div>
-  );
+        {mostrarResultado && !resultado && (
+          <div className="nenhuma-votacao">
+            <p>Nenhuma votação ativa ou resultado disponível</p>
+          </div>
+        )}
+      </section>
+      <Footer />
+    </div>
+  );
 }

@@ -7,8 +7,7 @@ import { Master } from './pages/MasterPage';
 import { VotingPage } from './pages/VotingPage';
 import { VotacaoNormal } from './pages/CriarVotacao';
 import { VotacaoComDados } from './pages/CriarVotacaoDados';
-
-import AcoesPage from './pages/AcoesPage';
+import { AcoesPage } from './pages/AcoesPage';
 
 
 function App() {

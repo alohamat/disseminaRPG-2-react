@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 import { Ver_Votacao } from "../components/Dados";
 import { Deposita_Votos } from "../components/Dados";
 import { Deposita_Votos_Com_Dado } from "../components/Dados";
@@ -8,14 +9,15 @@ import { jogadores } from "../components/LoginButtons";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 
-interface OpcaoComDado {
-  name: string;
-  dado: {
+interface DadoVotacaoInfo {
     name: string;
     lados: number;
     quantidade: number;
     bonus?: number;
-  };
+}
+interface OpcaoComDado {
+  name: string;
+  dados: DadoVotacaoInfo[];
 }
 
 interface VotacaoResponse {
@@ -25,11 +27,10 @@ interface VotacaoResponse {
   mensagem?: string;
 }
 
-function AcoesPage() {
+export function AcoesPage() {
     const { id } = useParams();
     const [votacao, setVotacao] = useState<string[] | null>(null);
     const [votacaoComDado, setVotacaoComDado] = useState<OpcaoComDado[] | null>(null);
-    const [podeVotar, setPodeVotar] = useState<boolean>(true);
     const [votoComputado, setVotoComputado] = useState<boolean>(false);
     const [loading, setLoading] = useState(false);
     const [mensagem, setMensagem] = useState<string>("");
@@ -52,6 +53,7 @@ function AcoesPage() {
         try {
             const resultado = await Ver_Votacao(id) as VotacaoResponse | null;
             console.log("Resultado da votacao:", resultado);
+            setVotoComputado(false);
             
             if (resultado?.opcoesComDado && resultado.opcoesComDado.length > 0) {
                 setVotacaoComDado(resultado.opcoesComDado);
@@ -66,8 +68,6 @@ function AcoesPage() {
                 setVotacaoComDado(null);
                 setMensagem(resultado?.mensagem || "Nenhuma votação ativa no momento.");
             }
-            
-            setPodeVotar(resultado?.votacaoAberta ?? false);
         } catch (error) {
             console.error("Erro ao buscar votação:", error);
             setMensagem("Erro ao carregar votação. Tente novamente.");
@@ -77,7 +77,7 @@ function AcoesPage() {
     };
 
     const handleVotar = async (opcao: string) => {
-        if (!id || !podeVotar || votoComputado) return;
+        if (!id || votoComputado) return;
         
         try {
             setLoading(true);
@@ -98,7 +98,7 @@ function AcoesPage() {
     };
 
     const handleVotarComDado = async (opcao: OpcaoComDado) => {
-        if (!id || !podeVotar || votoComputado) return;
+        if (!id || votoComputado) return;
         
         try {
             setLoading(true);
@@ -155,20 +155,26 @@ function AcoesPage() {
                         
                         <div className="opcoes-grid">
                             {votacaoComDado.map((opcao, index) => (
-                                <div 
-                                    className={`opcao-voto ${podeVotar && !votoComputado ? "opcao-ativa" : "opcao-inativa"}`} 
-                                    key={index} 
-                                    onClick={() => podeVotar && !votoComputado && handleVotarComDado(opcao)}
-                                >
-                                    <div className="opcao-conteudo">
-                                        <strong className="opcao-nome">{opcao.name}</strong>
-                                        <div className="dado-info">
-                                            🎲 {opcao.dado.name} ({opcao.dado.quantidade}d{opcao.dado.lados}
-                                            {opcao.dado.bonus ? ` + ${opcao.dado.bonus}` : ''})
+                                <div 
+                                    // CORREÇÃO CRÍTICA: Se votoComputado for TRUE, a classe deve ser 'opcao-inativa'
+                                    className={`opcao-voto ${!votoComputado ? "opcao-ativa" : "opcao-inativa"}`} 
+                                    key={index} 
+                                    // O onClick também depende de votoComputado
+                                    onClick={() => !votoComputado && handleVotarComDado(opcao)}
+                                >
+                                    <div className="opcao-conteudo">
+                                        <button className="opcao-nome button">{opcao.name}</button>
+                                        <div className="dados-lista">
+                                            {opcao.dados?.map((d, dIndex) => (
+                                                <div key={dIndex} className="dado-info">
+                                                    🎲 {d.name} ({d.quantidade}D{d.lados}
+                                                    {d.bonus ? ` + ${d.bonus}` : ''})
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
-                                </div>
-                            ))}
+                                </div>
+                            ))}
                         </div>
                     </div>
                 )} 
@@ -181,11 +187,11 @@ function AcoesPage() {
                         <div className="opcoes-grid">
                             {votacao.map((opcao, index) => (
                                 <div 
-                                    className={`opcao-voto ${podeVotar && !votoComputado ? "opcao-ativa" : "opcao-inativa"}`} 
+                                    className={`opcao-voto ${!votoComputado ? "opcao-ativa" : "opcao-inativa"}`} 
                                     key={index} 
-                                    onClick={() => podeVotar && !votoComputado && handleVotar(opcao)}
+                                    onClick={() => !votoComputado && handleVotar(opcao)}
                                 >
-                                    <div className="opcao-conteudo">
+                                    <div className="button">
                                         {opcao}
                                     </div>
                                 </div>
@@ -205,5 +211,3 @@ function AcoesPage() {
         </div>
     );
 }
-
-export default AcoesPage;
