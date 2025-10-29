@@ -1,6 +1,6 @@
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { Votacao_Estado } from "../components/Dados";
 import { api } from "../services/ApiService";
@@ -22,7 +22,6 @@ interface VotacaoEstadoResponse {
 
 export function VotacaoNormal() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [opcoes, setOpcoes] = useState<string[]>([]);
   const [novaOpcao, setNovaOpcao] = useState("");
   const [resultado, setResultado] = useState<VotacaoEstadoResponse | null>(null);
