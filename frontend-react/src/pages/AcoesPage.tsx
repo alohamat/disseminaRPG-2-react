@@ -34,6 +34,7 @@ export function AcoesPage() {
     const [votoComputado, setVotoComputado] = useState<boolean>(false);
     const [loading, setLoading] = useState(false);
     const [mensagem, setMensagem] = useState<string>("");
+    const [result, setResultado] = useState<any>()
 
     // Inicializar UID
     useEffect(() => {
@@ -84,6 +85,7 @@ export function AcoesPage() {
             await Deposita_Votos(id, opcao);
             setVotoComputado(true);
             setMensagem(`✅ Voto computado para: ${opcao}`);
+            
         } catch (error: any) {
             console.error("Erro ao votar:", error);
             if (error.response?.status === 403) {
@@ -104,15 +106,14 @@ export function AcoesPage() {
             setLoading(true);
             const resultado = await Deposita_Votos_Com_Dado(id, opcao.name);
             setVotoComputado(true);
-            
+            setResultado(resultado);
             let mensagemRolagem = `✅ Voto computado para: ${opcao.name}`;
-            if (resultado?.valoresDasRolagem) {
-                const rolagens = resultado.valoresDasRolagem.map((r: any) => 
-                    `${r.name}: ${Array.isArray(r.rolagem) ? r.rolagem.join(' + ') : r.rolagem}`
-                ).join(' | ');
-                mensagemRolagem += ` | 🎲 Rolagens: ${rolagens}`;
-            }
-            
+            // if (resultado?.valoresDasRolagem) {
+            //     const rolagens = resultado.valoresDasRolagem.map((r: any) => 
+            //         `${r.name}: ${Array.isArray(r.rolagem) ? r.rolagem.join(' + ') : r.rolagem}`
+            //     ).join(' | ');
+            //     mensagemRolagem += ` | 🎲 Rolagens: ${rolagens}`;
+            // }
             setMensagem(mensagemRolagem);
         } catch (error: any) {
             console.error("Erro ao votar com dado:", error);
@@ -175,6 +176,25 @@ export function AcoesPage() {
                                     </div>
                                 </div>
                             ))}
+                        {(result && mensagem) && (
+                            <div className="modal">
+                                <div style={{display: "flex", flexDirection: "column", alignItems:  "center"}}>
+                                    <button className="button" onClick={() => setResultado(null)}>X</button>
+                                    <h1>{mensagem}</h1>
+                                    <div className="modal_resultado">
+                                        {result.valoresDasRolagem.map((d:any, i:any) => {
+                                            return (
+                                            <div className="dado-opt">
+                                                <h2>{d.name}</h2>
+                                                <h3>Rolagens</h3>
+                                                <h3>{Array.isArray(d.rolagem) ? d.rolagem.join(", "): d.rolagem}</h3>
+                                            </div>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
+                        </div>
+                        )}
                         </div>
                     </div>
                 )} 
@@ -206,6 +226,7 @@ export function AcoesPage() {
                         <p>Clique em "Atualizar Votação" quando o mestre iniciar uma nova votação</p>
                     </div>
                 )}
+                
             </div>
             <Footer />
         </div>

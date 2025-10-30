@@ -250,20 +250,20 @@ div.grafico {
     left: 0;
     width: 80%;
     gap: 10px;
-    
     display: flex;
-    justify-content: center;
-    
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
+    flex-wrap: wrap;
     z-index: 2;
 }
 
+.dado-opt {
+    width: 100%;
+}
 @media screen and (max-width: 400px){
     .modal {
         flex-wrap: wrap;
-    }
-    .modal_resultado {
-        flex-direction: column;
     }
    .portrait {
     display: none;
