@@ -229,6 +229,34 @@ div.grafico {
     }
 }
 
+/*ctrl C + ctrl V mais desgraçado e porco que eu já fiz, mas dane-se é para um bem maior*/
+.result-options-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.65);
+    display: flex;
+    flex-direction: column; /*Literalmente só mudei essa merda porque não queria css inline e estava com preguiça de criar uma 'classe' e adicionar nos outros modais*/
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    backdrop-filter: blur(4px);
+}
+
+.result-options-modal-content {
+    background: #121212;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 16px;
+    padding: 24px 32px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    animation: slideUp 0.3s ease-out;
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
 /* Fundo escurecido do modal */
 .dice-modal {
   position: fixed;
@@ -309,9 +337,12 @@ div.grafico {
 
 .resultado-header {
     display: flex;
-    justify-content: center;
     align-items: center;
     gap: 10px;
+}
+
+.rolagem-detalhes {
+    margin-top: 15px;
 }
 
 .modal_resultado div {
