@@ -27,6 +27,7 @@ export function VotacaoNormal() {
   const [resultado, setResultado] = useState<VotacaoEstadoResponse | null>(null);
   const [mostrarResultado, setMostrarResultado] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [maisVotado, setMaisVotado] = useState<number>(0);
 
   //Estados e funções do modal de ações padrão
   const [acoesPadrao, setAcoesPadrao] = useState<string[]>([]);
@@ -163,11 +164,13 @@ export function VotacaoNormal() {
             </div>
 
             <div className="resultados-detalhados">
-              {resultado?.result?.map((item, index) => (
+              {resultado?.result?.map((item, index) => {
+                if (item.votos > maisVotado) setMaisVotado(item.votos);
+                return(
                 <div key={index} className="resultado-item">
                   <div className="resultado-header">
                     <h3>{item.name}</h3>
-                    <span className="votos-count">{item.votos} votos</span>
+                    <span className={`votos-count ${item.votos == maisVotado ? `maior-resultado` : ""}`}>{item.votos} votos</span>
                   </div>
                   
                   {item.rolagens && (
@@ -200,7 +203,7 @@ export function VotacaoNormal() {
                     </span>
                   </div>
                 </div>
-              ))}
+                )})}
             </div>
           </div>
         )}
