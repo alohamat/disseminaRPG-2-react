@@ -687,15 +687,32 @@ img {
     align-items: center; 
     flex-direction: column;
     background: rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--cor-principal);
     border-radius: 1rem;
     padding: 1rem;
+
+
+    input[type="number"]{
+        text-align: center;
+        margin: 20px 0;
+    }
+
 }
 
 .botao-enviar {
-    padding: 0.5rem;
-    align-self: flex-end;
+    padding: 1rem;
     background-color: #fd1f53;
+    border: none;
     color: white;
     font-weight: bold;
     border-radius: 0.5rem;
+}
+
+.votacao-container{
+    margin: 100px 0;
+}
+
+#dado-item-interno{
+    display: flex;
+    flex-flow: column;
 }

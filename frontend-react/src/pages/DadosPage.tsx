@@ -101,7 +101,7 @@ export function Dados() {
                 <div className="input-group">
                   <p>Número de Lados</p>
                   <input
-                    id="input-number"
+                    className="input-number"
                     type="number"
                     placeholder="Lados"
                     value={dado.lados}
@@ -114,7 +114,7 @@ export function Dados() {
                 <div className="input-group">
                   <p>Quantidade</p>
                   <input
-                    id="input-number"
+                    className="input-number"
                     type="number"
                     placeholder="Quantidade"
                     value={dado.quantidade}
@@ -131,7 +131,7 @@ export function Dados() {
                 <div className="input-group">
                   <p>Bônus individual</p>
                   <input
-                    id="input-number"
+                    className="input-number"
                     type="number"
                     placeholder="0"
                     value={dado.bonus || ""}
@@ -171,7 +171,7 @@ export function Dados() {
             <h2>Digite o bônus de rolagem</h2>
             <input
               type="number"
-              id="input-number"
+              className="input-number"
               placeholder="0"
               onChange={(e) => setBonus(Number(e.target.value))}
             />
@@ -180,23 +180,35 @@ export function Dados() {
             Trancar Rolagem
           </div>
         </div>
-        {(dados && !modal) && (
+        {dados && !modal && (
           <div className="dice-modal">
             <div className="dice-modal__content" id="dados">
-              <button className="button" id="close" onClick={() => setModal(true)}>x</button>
+              <button
+                className="button"
+                id="close"
+                onClick={() => setModal(true)}
+              >
+                x
+              </button>
               <h1>Resultado da rolagem</h1>
               <div>
                 <h1>Total de rolagens: {dados.total_de_rolagens}</h1>
                 {dados.modas.map((item, i) => (
-                  <div key={i} className="dice-result" style={{ marginBottom: "12px" }}>
+                  <div
+                    key={i}
+                    className="dice-result"
+                    style={{ marginBottom: "12px" }}
+                  >
                     <h2>{item.name}</h2>
                     <h2>Total: {item.total}</h2>
                     <div className="dice-result__values">
-                      {Array.isArray(item.valor) ? (
-                        item.valor.map((v, j) => <h3 className="dice-result__value" key={j}>Resultado {j + 1}: {v}</h3>)
-                      ) : (
-                        null
-                      )}
+                      {Array.isArray(item.valor)
+                        ? item.valor.map((v, j) => (
+                            <h3 className="dice-result__value" key={j}>
+                              Resultado {j + 1}: {v}
+                            </h3>
+                          ))
+                        : null}
                     </div>
                   </div>
                 ))}
