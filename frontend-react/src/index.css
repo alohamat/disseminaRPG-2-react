@@ -178,7 +178,6 @@ input[type="text"]:focus {
     width: 50px;
     transition: 0.2s ease;
 }
-
 #opcoes > div {
     display: flex;
     align-items: center;
