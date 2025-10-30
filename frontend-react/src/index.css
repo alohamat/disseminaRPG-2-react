@@ -344,6 +344,10 @@ div.grafico {
     color: white;
 }
 
+.maior-resultado {
+    color: green;
+}
+
 .resultado-header > h3 {
     word-wrap: break-word;
 }

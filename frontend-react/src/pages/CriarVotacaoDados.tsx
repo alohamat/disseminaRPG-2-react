@@ -161,6 +161,7 @@ export function VotacaoComDados() {
     const [loading, setLoading] = useState<boolean>(false);
     const [acoesPadrao, setAcoesPadrao] = useState<OpcaoComDado[]>([]);
     const [mostrarModalAcoes, setMostrarModalAcoes] = useState<boolean>(false);
+    const [maisVotado, setMaisVotado] = useState<number>(0);
 
     const abrirAcoesPadrao = () => {
         if (!id) return;
@@ -358,12 +359,12 @@ export function VotacaoComDados() {
               <div className="result-options-item-container">
               {resultado?.result?.map((item, index) => {
                 const totalModa: number[] = [];
+                if (item.votos > maisVotado) setMaisVotado(item.votos);
                 return (
-                  
                   <div key={index} className="resultado-item">
                     <div>
                       <h1>{item.name}: </h1>
-                      <h2 className="dado-mestre"><strong> Votos: {item.votos}</strong></h2>
+                      <h2 className={`dado-mestre ${item.votos == maisVotado ? `maior-resultado` : ""}`}><strong> Votos: {item.votos}</strong></h2>
                     </div>
                     {item.rolagens && (
                       <div className="rolagens-info">
