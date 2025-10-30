@@ -157,10 +157,10 @@ export function VotacaoComDados() {
     const { id } = useParams();
     const [opcoes, setOpcoes] = useState<OpcaoComDado[]>([]);
     const [resultado, setResultado] = useState<VotacaoEstadoResponse | null>(null);
-    const [mostrarResultado, setMostrarResultado] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [mostrarResultado, setMostrarResultado] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
     const [acoesPadrao, setAcoesPadrao] = useState<OpcaoComDado[]>([]);
-    const [mostrarModalAcoes, setMostrarModalAcoes] = useState(false);
+    const [mostrarModalAcoes, setMostrarModalAcoes] = useState<boolean>(false);
 
     const abrirAcoesPadrao = () => {
         if (!id) return;
