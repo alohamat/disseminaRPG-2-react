@@ -180,15 +180,15 @@ export function VotacaoComDados() {
         setMostrarModalAcoes(false);
     };
 
-    const getNewDadoPadrao = (): DadoVotacao => ({
-        name: "",
-        lados: 0,
-        quantidade: 1,
-        bonus: 0,
+    const getNewDadoPadrao = (dado:DadoVotacao|null): DadoVotacao => ({
+        name: dado? dado.name: "",
+        lados: dado? dado.lados: 0,
+        quantidade: dado? dado.quantidade: 1,
+        bonus: dado? dado.bonus: 0,
     });
 
     const adicionarOpcao = () => {
-        setOpcoes([...opcoes, { name: "", dados: [getNewDadoPadrao()] }]);
+        setOpcoes([...opcoes, { name: "", dados:[] }]);
     };
 
     const removerOpcao = (index: number) => {
@@ -203,9 +203,9 @@ export function VotacaoComDados() {
         setOpcoes(novasOpcoes);
     };
 
-    const adicionarDadoAOpcao = (opcaoIndex: number) => {
+    const adicionarDadoAOpcao = (opcaoIndex: number, dado:DadoVotacao|null) => {
         const novasOpcoes = [...opcoes];
-        novasOpcoes[opcaoIndex].dados.push(getNewDadoPadrao());
+        novasOpcoes[opcaoIndex].dados.push(getNewDadoPadrao(dado));
         setOpcoes(novasOpcoes);
     };
 
@@ -335,7 +335,8 @@ export function VotacaoComDados() {
                                             <div className="button-remover" onClick={() => removerDadoDaOpcao(opcaoIndex, dadoIndex)}>Remover Dado</div>
                                         </div>
                                     ))}
-                                    <div className="button" onClick={() => adicionarDadoAOpcao(opcaoIndex)}>Adicionar + Dado</div>
+                                    <div className="button" onClick={() => adicionarDadoAOpcao(opcaoIndex, null)}>Adicionar + Dado</div>
+                                    <div className="button" onClick={() => adicionarDadoAOpcao(opcaoIndex, {lados: 20, quantidade:1, bonus: 0, name:"Teste"})}>Dado de Teste</div>
                                 </div>
                             </div>
                         ))}
