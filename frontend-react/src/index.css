@@ -257,16 +257,42 @@ div.grafico {
     backdrop-filter: blur(4px);
 }
 
+.dado-mestre {
+    text-indent: 75px;
+}
+
 .result-options-modal-content {
     background: #121212;
     width: 90%;
-    max-width: 600px;
+    max-width: 80%;
     border-radius: 16px;
     padding: 24px 32px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     animation: slideUp 0.3s ease-out;
     overflow-y: auto;
     max-height: 90vh;
+}
+
+.result-options-item-container {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.resultado-item h1 {
+    text-align: center;
+}
+#total {
+    text-align: center;
+    margin-left: -100px;
+}
+.resultado-item {
+    border-radius: 2%;
+    background-color: #1a1a1a;
+    min-width: 400px;
+    width: 40%;
 }
 
 /* Fundo escurecido do modal */
@@ -288,7 +314,7 @@ div.grafico {
 .dice-modal__content {
   background: #121212;
   width: 90%;
-  max-width: 600px;
+  max-width: 1200px;
   border-radius: 16px;
   padding: 24px 32px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
@@ -296,6 +322,8 @@ div.grafico {
   overflow-y: auto;
   max-height: 90vh;
 }
+
+
 
 /* Cada bloco de resultado */
 .dice-result {
@@ -314,6 +342,7 @@ div.grafico {
 .dice-result__values {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   gap: 10px;
 }
 
@@ -322,6 +351,17 @@ div.grafico {
   padding: 8px 12px;
   border-radius: 8px;
   font-size: 0.9rem;
+}
+
+#votacao-resultado {
+    font-size: 50px;
+    text-align: center;
+}
+
+#total-votacao {
+    margin-top: -20px;
+    font-size: 40px;
+    text-align: center;
 }
 
 /* Animação de entrada */
@@ -345,12 +385,6 @@ div.grafico {
   .dice-result__values {
     flex-direction: column;
   }
-}
-
-.resultado-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
 }
 
 .rolagem-detalhes {
@@ -572,7 +606,7 @@ img {
 }
 
 
-#input-number {
+.input-number, #ilados {
     padding: 10px 15px;       
     border-radius: 10px;
     border: none;           

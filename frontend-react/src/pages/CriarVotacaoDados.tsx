@@ -175,6 +175,7 @@ export function VotacaoComDados() {
 
     const adicionarAcaoPadrao = (acao: OpcaoComDado) => {
         const novaAcao = JSON.parse(JSON.stringify(acao));
+        console.log(acao)
         setOpcoes((prev) => [...prev, novaAcao]);
         setMostrarModalAcoes(false);
     };
@@ -241,7 +242,7 @@ export function VotacaoComDados() {
 
         try {
             const data = { opcoes: opcoesValidas };
-            await api.post(`/mestre/jogador/${id}/criaVotacaoComDado`, data);
+            await api.post(`/mestre/jogador${id}/criaVotacaoComDado`, data);
             alert("Votação criada com sucesso!");
             setResultado(null);
             setMostrarResultado(false);
@@ -297,21 +298,38 @@ export function VotacaoComDados() {
                                                 onChange={(e) => atualizarDadosOpcao(opcaoIndex, dadoIndex, "name", e.target.value)}
                                             />
                                             <input
-                                                type="number"
+                                                type="text"
+                                                id="ilados"
                                                 placeholder="Lados"
-                                                value={dado.lados}
+                                                list="lados-list"
+                                                value={dado.lados >0 ? dado.lados: ""}
                                                 onChange={(e) => atualizarDadosOpcao(opcaoIndex, dadoIndex, "lados", parseInt(e.target.value) || 0)}
                                             />
+                                            <datalist id="lados-list">
+                                                <option >2</option>
+                                                <option >4</option>
+                                                <option >6</option>
+                                                <option >8</option>
+                                                <option >10</option>
+                                                <option >12</option>
+                                                <option>14</option>
+                                                <option >16</option>
+                                                <option >18</option>
+                                                <option >20</option>
+                                            </datalist>
                                             <input
                                                 type="number"
                                                 placeholder="Quantidade"
-                                                value={dado.quantidade}
+                                                className="input-number"
+                                                value={dado.quantidade>0 ? dado.quantidade: ""}
+                                                min={0}
                                                 onChange={(e) => atualizarDadosOpcao(opcaoIndex, dadoIndex, "quantidade", parseInt(e.target.value) || 1)}
                                             />
                                             <input
                                                 type="number"
+                                                className="input-number"
+                                                value={dado.bonus && dado.bonus> 0? dado.bonus: ""}
                                                 placeholder="Bônus"
-                                                value={dado.bonus}
                                                 onChange={(e) => atualizarDadosOpcao(opcaoIndex, dadoIndex, "bonus", parseInt(e.target.value) || 0)}
                                             />
                                             <div className="button-remover" onClick={() => removerDadoDaOpcao(opcaoIndex, dadoIndex)}>Remover Dado</div>
@@ -329,7 +347,61 @@ export function VotacaoComDados() {
                     <div className="button" onClick={criarVotacaoComDados}>Criar Votação ({opcoes.length} opções)</div>
                     <div className="button" onClick={verResultadoVotacao}>{loading ? "Carregando..." : "Ver Resultado"}</div>
                 </div>
-
+                
+                {mostrarResultado && resultado && (
+          <div className="result-options-modal">
+            <div className="result-options-modal-content">
+                <button className="button" onClick={() => setMostrarResultado(false)}>X</button>
+              <h1 id="votacao-resultado">Resultado da Votação</h1>
+              <h2 id="total-votacao">Total de votos: {resultado.votosTotal}</h2>
+              <div className="result-options-item-container">
+              {resultado?.result?.map((item, index) => {
+                const totalModa: number[] = [];
+                return (
+                  
+                  <div key={index} className="resultado-item">
+                    <div>
+                      <h1>{item.name}: </h1>
+                      <h2 className="dado-mestre"><strong> Votos: {item.votos}</strong></h2>
+                    </div>
+                    {item.rolagens && (
+                      <div className="rolagens-info">
+                        <div className="rolagem-detalhes">
+                          {item.rolagens.map((rolagemItem, rIndex) => {
+                            totalModa.push(rolagemItem.total || 0);
+                            return (
+                              <h2 className="dado-mestre" key={rIndex}>
+                                <strong>{rolagemItem.name}: </strong>
+                                <h3 id="total">{`${Array.isArray(rolagemItem.moda) ? rolagemItem.moda.join(" + ") : rolagemItem.moda} + ${rolagemItem.bonus || 0} = ${rolagemItem.total}`}</h3>
+                              </h2>
+                            );
+                          })}
+                          <br />
+                          <div className="progresso-container">
+                            <div 
+                              className="progresso-barra"
+                              style={{
+                                width: resultado.votosTotal > 0 ? `${(item.votos / resultado.votosTotal) * 100}%` : '0%'
+                              }}
+                            ></div>
+                            <h2 className="dado-mestre">
+                              Porcentagem de votos: 
+                              <span className="progresso-texto">
+                                {resultado.votosTotal > 0 ? ` ${Math.round((item.votos / resultado.votosTotal) * 100)}%` : '0%'}
+                              </span>
+                            </h2>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                
+                );
+              })}
+              </div>
+            </div>
+          </div>
+        )}
                 {mostrarModalAcoes && (
                     <div className="modal">
                         <div className="modalVotacao">
