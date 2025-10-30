@@ -11,7 +11,7 @@ type MasterProps = {
     MasterNumber: number;
 }
 export const jogadores: string[] = ["Zenchi", "Atnos", "Sam"];
-const imagens: string[] = [Zenchi, Atnos, Sam];
+export const imagens: string[] = [Zenchi, Atnos, Sam];
 const descricoes: string[] = [
 "Um jovem espadachim e aprendiz de feiticeiro. Ele é extrovertido e engraçado, gosta de festas e aventuras, mas não foge de uma boa luta.",
 "Cerca de 30 anos, baixo, mais calmo e reservado. Costuma agir mais escondido do que os outros.",

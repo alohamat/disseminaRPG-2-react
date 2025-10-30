@@ -45,7 +45,7 @@ export function Player() {
       <Header />
       <section>
         <h1>Jogador do {jogadores[Number(id) - 1]}</h1>
-        <h2>Vida: {vida !== null ? vida : "Carregando..."}</h2>
+        <h2 id="vida">Vida: {vida !== null ? vida : "Carregando..."}</h2>
         <form action="">
           <button id="btnRolagem" className="button" onClick={handleClickDados}>
             Rolar dado

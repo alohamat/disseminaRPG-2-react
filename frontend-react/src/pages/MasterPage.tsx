@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { api } from "../services/ApiService";
-import { jogadores } from "../components/LoginButtons";
+import { imagens, jogadores } from "../components/LoginButtons";
+
 
 export function Master() {
   const navigate = useNavigate();
@@ -36,8 +37,9 @@ export function Master() {
   return (
     <div id="tudo">
       <Header isMaster={true} />
+      <img src={imagens[Number(id) - 1]} id="img1" className="portrait" alt="" />
+      <section className="principal">
       <h1>Mestre - {jogadores[Number(id) - 1]}</h1>
-      <section>
         <div>
           <form onSubmit={handleAtualizarVida} className="bloco">
             <h2  style={{ fontWeight: "bold" }}>
@@ -74,12 +76,14 @@ export function Master() {
               className="button"
               id="btnEscolhas"
               onClick={handleClickVota}
-            >
+              >
               Criar Votação
             </button>
           </form>
         </div>
       </section>
+         <img src={imagens[Number(id) - 1]} id="img2" className="portrait" alt="" />
+
       <Footer />
     </div>
   );
