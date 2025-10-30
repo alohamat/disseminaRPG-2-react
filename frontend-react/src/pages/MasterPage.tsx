@@ -10,7 +10,7 @@ import { imagens, jogadores } from "../components/LoginButtons";
 export function Master() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [vidaNova, setVidaNova] = useState<number | "">("");
+  const [vidaNova, setVidaNova] = useState<number | "">(Number(localStorage.getItem("vida")));
 
   const handleClickDados = () => {
     navigate(`/master/${id}/dados`);
@@ -29,6 +29,7 @@ export function Master() {
         "vidaNova": vidaNova
       })
       console.log("Vida enviada:", res.data);
+      localStorage.setItem("vida", vidaNova+"")
     } catch (err) {
       console.error("Erro ao atualizar vida:", err);
     }
@@ -46,7 +47,7 @@ export function Master() {
               Vida do jogador {id}{" "}
             </h2>
             {/* Precisa pegar o get da vida atual e colocar aqui */}
-            <h3>Vida atual: ??</h3>
+            <h3>Vida atual: {vidaNova}</h3>
             <div style={{display: "flex", flexFlow:"column", alignItems:'center'}}>
               <label htmlFor="vida">Modificar vida atual</label>
               <input
