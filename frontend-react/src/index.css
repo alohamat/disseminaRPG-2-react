@@ -90,6 +90,7 @@ h1 {
     font-size: 1.7rem;
     border-radius: 10px;
     cursor: pointer;
+    text-align: center;
     border: 0px solid var(--cor-principal);
     transition: 0.2s ease;
 }
@@ -165,6 +166,26 @@ input[type="text"]:focus {
  
 }
 
+.opcoes-list {
+    background-color: #292929;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 400px;
+}
+
+.opcao-item {
+    margin-top: 20px;
+}
+
+.opcao-item > span {
+    color: white;
+    display: inline-block;
+    max-width: 360px;
+    word-wrap: break-word;
+    font-size: 1.5rem;
+
+}
+
 #btnDeleteOpcao {
     margin-left: 10px;
     background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));
@@ -217,6 +238,9 @@ div.grafico {
     box-shadow: 0 0 15px rgba(0,0,0,0.5);
 }
 
+.adicionar-opcao > input {
+    width: 390px;
+}
 
 .modal_resultado {
     
@@ -281,6 +305,10 @@ div.grafico {
     flex-wrap: wrap;
 }
 
+.resultado-votacao {
+    max-width: 400px;
+}
+
 .resultado-item h1 {
     text-align: center;
 }
@@ -290,9 +318,16 @@ div.grafico {
 }
 .resultado-item {
     border-radius: 2%;
+    padding: 0 10px;
     background-color: #1a1a1a;
     min-width: 400px;
     width: 40%;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.resultado-header > h3 {
+    word-wrap: break-word;
 }
 
 /* Fundo escurecido do modal */
