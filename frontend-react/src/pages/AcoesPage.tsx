@@ -183,6 +183,7 @@ export function AcoesPage() {
                                     <h1>{mensagem}</h1>
                                     <div className="modal_resultado">
                                         {result.valoresDasRolagem.map((d:any, i:any) => {
+                                            console.log(`dado ${i}\n${d}`)
                                             return (
                                             <div className="dado-opt">
                                                 <h2>{d.name}</h2>
