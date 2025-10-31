@@ -25,7 +25,7 @@ export function Header({isMaster = false}: HeaderProps) {
   return (
     <div>
       <header onClick={handleClick}>
-        <span className="material-symbols-outlined" id="btnVoltar">home</span>
+        <span className="material-symbols-outlined" id="btnVoltar" role="button" aria-label="Voltar para o inicio">home</span>
         <h3>
         Dissemina-IFF RPGzão 2
         </h3>

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { api } from "../services/ApiService";
-import { imagens, jogadores } from "../components/LoginButtons";
+import { descricoesImagens, imagens, jogadores } from "../components/LoginButtons";
 
 
 export function Master() {
@@ -83,7 +83,7 @@ export function Master() {
           </form>
         </div>
       </section>
-         <img src={imagens[Number(id) - 1]} id="img2" className="portrait" alt="" />
+         <img src={imagens[Number(id) - 1]} id="img2" className="portrait" alt={`${descricoesImagens[Number(id) - 1]}`} />
 
       <Footer />
     </div>
