@@ -8,9 +8,28 @@ import { VotingPage } from './pages/VotingPage';
 import { VotacaoNormal } from './pages/CriarVotacao';
 import { VotacaoComDados } from './pages/CriarVotacaoDados';
 import { AcoesPage } from './pages/AcoesPage';
+import { useEffect } from 'react';
+import { api } from './services/ApiService';
 
 
 function App() {
+  useEffect(() => {
+    const PING_INTERVAL = 5 * 60 * 1000; // 5 minutos
+    const ping = async () => {
+       try {
+        const res = await api.get("ping")
+        console.log("Ping enviado:", res.data);
+      } catch (err) {
+        console.error("Erro ao pingar o backend:", err);
+      }
+    };
+    ping();
+
+    const intervalId = setInterval(ping, PING_INTERVAL);
+
+    return () => clearInterval(intervalId);
+  }, [])
+
   return (
     <Routes>
       <Route path='*' element={<Navigate to="/login" replace />}  />
