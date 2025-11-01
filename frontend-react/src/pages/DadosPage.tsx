@@ -41,7 +41,7 @@ export function Dados() {
   };
 
   const handleTrancaRolagem = async () => {
-    setModal(false)
+    setModal(false);
     setDados(await Exibe_rolagem(id!));
   };
 
@@ -77,147 +77,149 @@ export function Dados() {
   };
 
   return (
-    <div id="tudo">
+    <div>
       <Header isMaster={true} />
-      <section>
-        <h1>Controle dos Dados - Personagem {jogadores[Number(id) - 1]}</h1>
+      <div id="tudo">
+        <section>
+          <h1>Controle dos Dados - Personagem {jogadores[Number(id) - 1]}</h1>
 
-        <h2>Dados Customizados</h2>
-        <div className="button" onClick={adicionarDado}>
-          Adicionar Dado
-        </div>
-
-        <div id="dados-customizados">
-          {dadosCustomizados.map((dado, index) => (
-            <div key={index} className="dado-item">
-              <input
-                type="text"
-                placeholder="Nome do dado"
-                value={dado.name}
-                onChange={(e) => atualizarDado(index, "name", e.target.value)}
-              />
-
-              <div id="dado-item-interno">
-                <div className="input-group">
-                  <p>Número de Lados</p>
-                  <input
-                    className="input-number"
-                    type="number"
-                    placeholder="Lados"
-                    value={dado.lados}
-                    onChange={(e) =>
-                      atualizarDado(index, "lados", parseInt(e.target.value))
-                    }
-                  />
-                </div>
-
-                <div className="input-group">
-                  <p>Quantidade</p>
-                  <input
-                    className="input-number"
-                    type="number"
-                    placeholder="Quantidade"
-                    value={dado.quantidade}
-                    onChange={(e) =>
-                      atualizarDado(
-                        index,
-                        "quantidade",
-                        parseInt(e.target.value)
-                      )
-                    }
-                  />
-                </div>
-
-                <div className="input-group">
-                  <p>Bônus individual</p>
-                  <input
-                    className="input-number"
-                    type="number"
-                    placeholder="0"
-                    value={dado.bonus || ""}
-                    onChange={(e) =>
-                      atualizarDado(
-                        index,
-                        "bonus",
-                        parseInt(e.target.value) || 0
-                      )
-                    }
-                  />
-                </div>
-
-                <div
-                  className="button-remover"
-                  onClick={() => removerDado(index)}
-                >
-                  Remover
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="conteudo">
-          <div
-            className="button"
-            onClick={() =>
-              id == undefined
-                ? console.log("id é null, nao iniciamos rolagem")
-                : handleIniciaRolagem()
-            }
-          >
-            Liberar Rolagem
+          <h2>Dados Customizados</h2>
+          <div className="button" onClick={adicionarDado}>
+            Adicionar Dado
           </div>
-          <div>
-            <h2>Digite o bônus de rolagem</h2>
-            <input
-              type="number"
-              className="input-number"
-              placeholder="0"
-              onChange={(e) => setBonus(Number(e.target.value))}
-            />
-          </div>
-          <div className="button" onClick={handleTrancaRolagem}>
-            Trancar Rolagem
-          </div>
-        </div>
-        {dados && !modal && (
-          <div className="dice-modal">
-            <div className="dice-modal__content" id="dados">
-              <button
-                className="button"
-                id="close"
-                onClick={() => setModal(true)}
-              >
-                x
-              </button>
-              <h1>Resultado da rolagem</h1>
-              <div>
-                <h1>Total de rolagens: {dados.total_de_rolagens}</h1>
-                {dados.modas.map((item, i) => (
-                  <div
-                    key={i}
-                    className="dice-result"
-                    style={{ marginBottom: "12px" }}
-                  >
-                    <h2>{item.name}</h2>
-                    <h2>Total: {item.total}</h2>
-                    <div className="dice-result__values">
-                      {Array.isArray(item.valor)
-                        ? item.valor.map((v, j) => (
-                            <h3 className="dice-result__value" key={j}>
-                              Resultado {j + 1}: {v}
-                            </h3>
-                          ))
-                        : null}
-                    </div>
+
+          <div id="dados-customizados">
+            {dadosCustomizados.map((dado, index) => (
+              <div key={index} className="dado-item">
+                <input
+                  type="text"
+                  placeholder="Nome do dado"
+                  value={dado.name}
+                  onChange={(e) => atualizarDado(index, "name", e.target.value)}
+                />
+
+                <div id="dado-item-interno">
+                  <div className="input-group">
+                    <p>Número de Lados</p>
+                    <input
+                      className="input-number"
+                      type="number"
+                      placeholder="Lados"
+                      value={dado.lados}
+                      onChange={(e) =>
+                        atualizarDado(index, "lados", parseInt(e.target.value))
+                      }
+                    />
                   </div>
-                ))}
+
+                  <div className="input-group">
+                    <p>Quantidade</p>
+                    <input
+                      className="input-number"
+                      type="number"
+                      placeholder="Quantidade"
+                      value={dado.quantidade}
+                      onChange={(e) =>
+                        atualizarDado(
+                          index,
+                          "quantidade",
+                          parseInt(e.target.value)
+                        )
+                      }
+                    />
+                  </div>
+
+                  <div className="input-group">
+                    <p>Bônus individual</p>
+                    <input
+                      className="input-number"
+                      type="number"
+                      placeholder="0"
+                      value={dado.bonus || ""}
+                      onChange={(e) =>
+                        atualizarDado(
+                          index,
+                          "bonus",
+                          parseInt(e.target.value) || 0
+                        )
+                      }
+                    />
+                  </div>
+
+                  <div
+                    className="button-remover"
+                    onClick={() => removerDado(index)}
+                  >
+                    Remover
+                  </div>
+                </div>
               </div>
+            ))}
+          </div>
+
+          <div className="conteudo">
+            <div
+              className="button"
+              onClick={() =>
+                id == undefined
+                  ? console.log("id é null, nao iniciamos rolagem")
+                  : handleIniciaRolagem()
+              }
+            >
+              Liberar Rolagem
+            </div>
+            <div>
+              <h2>Digite o bônus de rolagem</h2>
+              <input
+                type="number"
+                className="input-number"
+                placeholder="0"
+                onChange={(e) => setBonus(Number(e.target.value))}
+              />
+            </div>
+            <div className="button" onClick={handleTrancaRolagem}>
+              Trancar Rolagem
             </div>
           </div>
-        )}
-      </section>
-      <Footer />
+          {dados && !modal && (
+            <div className="dice-modal">
+              <div className="dice-modal__content" id="dados">
+                <button
+                  className="button"
+                  id="close"
+                  onClick={() => setModal(true)}
+                >
+                  x
+                </button>
+                <h1>Resultado da rolagem</h1>
+                <div>
+                  <h1>Total de rolagens: {dados.total_de_rolagens}</h1>
+                  {dados.modas.map((item, i) => (
+                    <div
+                      key={i}
+                      className="dice-result"
+                      style={{ marginBottom: "12px" }}
+                    >
+                      <h2>{item.name}</h2>
+                      <h2>Total: {item.total}</h2>
+                      <div className="dice-result__values">
+                        {Array.isArray(item.valor)
+                          ? item.valor.map((v, j) => (
+                              <h3 className="dice-result__value" key={j}>
+                                Resultado {j + 1}: {v}
+                              </h3>
+                            ))
+                          : null}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </section>
+        <Footer />
+      </div>
     </div>
   );
 }
