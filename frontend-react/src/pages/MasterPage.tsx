@@ -17,12 +17,12 @@ export function Master() {
     Number(localStorage.getItem("vida"))
   );
 
-  const handleClickDados = () => {
-    navigate(`/master/${id}/dados`);
-  };
+  // const handleClickDados = () => {
+  //   navigate(`/master/${id}/dados`);
+  // };
 
   const handleClickVota = () => {
-    navigate(`/master/${id}/criar-votacao`);
+    navigate(`/votacao-dados/${id}`);
   };
   const handleAtualizarVida = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,7 +78,7 @@ export function Master() {
                 Atualizar Vida
               </button>
             </form>
-            <form>
+            {/* <form>
               <button
                 className="button"
                 id="btnRolagem"
@@ -86,14 +86,14 @@ export function Master() {
               >
                 Rolagem de dados
               </button>
-            </form>
+            </form> */}
             <form>
               <button
                 className="button"
                 id="btnEscolhas"
                 onClick={handleClickVota}
               >
-                Criar Votação
+                Criar Votação / Rolagem
               </button>
             </form>
           </div>

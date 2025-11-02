@@ -1,44 +1,44 @@
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { useParams } from "react-router-dom";
-import { Rolar_todos } from "../components/Dados";
-import { useState } from "react";
+// import { Rolar_todos } from "../components/Dados";
+// import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSSE } from "../services/SSEService";
 import { jogadores } from "../components/LoginButtons";
 
-interface Rolagem {
-  name: string;
-  rolagem_atual: number;
-  todas_rolagem: number[][];
-}
+// interface Rolagem {
+//   name: string;
+//   rolagem_atual: number;
+//   todas_rolagem: number[][];
+// }
 
-interface DadosResultado {
-  resultados: Rolagem[];
-}
+// interface DadosResultado {
+//   resultados: Rolagem[];
+// }
 
 export function Player() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [dados, setDados] = useState<DadosResultado>();
-  const [erro, setErro] = useState<string | null>(null);
-  const [modal, setModal] = useState<boolean>(false);
+  // const [dados, setDados] = useState<DadosResultado>();
+  // const [erro, setErro] = useState<string | null>(null);
+  // const [modal, setModal] = useState<boolean>(false);
   const { vida, connected } = useSSE(id);
   console.log("SSE vida:", vida, " | connected:", connected);
 
-  const handleClickDados = async (e: any) => {
-    e.preventDefault();
-    try {
-      const res = await Rolar_todos(id!);
-      setDados(res);
-      setModal(false);
-      console.log("dados rolados: ", res);
-      setErro(null);
-    } catch (err: any) {
-      setErro(err.message);
-      setDados(undefined);
-    }
-  };
+  // const handleClickDados = async (e: any) => {
+  //   e.preventDefault();
+  //   try {
+  //     const res = await Rolar_todos(id!);
+  //     setDados(res);
+  //     setModal(false);
+  //     console.log("dados rolados: ", res);
+  //     setErro(null);
+  //   } catch (err: any) {
+  //     setErro(err.message);
+  //     setDados(undefined);
+  //   }
+  // };
 
   return (
     <div>
@@ -47,7 +47,7 @@ export function Player() {
         <section>
           <h1>Jogador do {jogadores[Number(id) - 1]}</h1>
           <h2 id="vida">Vida: {vida !== null ? vida : "Carregando..."}</h2>
-          <form action="">
+          {/* <form action="">
             <button
               id="btnRolagem"
               className="button"
@@ -55,17 +55,17 @@ export function Player() {
             >
               Rolar dado
             </button>
-          </form>
+          </form> */}
           <form action="">
             <button
               id="btnEscolhas"
               className="button"
               onClick={() => navigate(`/player/${id}/acoes`)}
             >
-              Escolher ação
+              Escolher ação / rolagem
             </button>
           </form>
-          {erro && <h2>{erro}</h2>}
+          {/* {erro && <h2>{erro}</h2>}
 
           {dados && !modal && (
             <div className="modal">
@@ -105,7 +105,7 @@ export function Player() {
                 })}
               </div>
             </div>
-          )}
+          )} */}
         </section>
         <Footer />
       </div>
