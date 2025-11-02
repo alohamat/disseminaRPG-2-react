@@ -1,10 +1,11 @@
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { api } from "../services/ApiService";
 import { Votacao_Estado } from "../components/Dados";
 import { jogadores } from "../components/LoginButtons";
+import { useSSE } from "../services/SSEService";
 
 interface DadoVotacao {
   lados: number;
@@ -161,7 +162,10 @@ export function VotacaoComDados() {
   const [acoesPadrao, setAcoesPadrao] = useState<OpcaoComDado[]>([]);
   const [mostrarModalAcoes, setMostrarModalAcoes] = useState<boolean>(false);
   const [maisVotado, setMaisVotado] = useState<number>(0);
-
+  const [votAberta, setVotAberta] = useState<boolean>(false);
+  const { sseValue, connected } = useSSE(id, "votos");  
+  const navigate = useNavigate()
+  console.log("Conectou sse:"+ connected)
   const abrirAcoesPadrao = () => {
     if (!id) return;
     const acoes = acoesPadraoCompleta[id];
@@ -255,6 +259,7 @@ export function VotacaoComDados() {
       alert("Votação criada com sucesso!");
       setResultado(null);
       setMostrarResultado(false);
+      setVotAberta(true)
     } catch {
       alert("Erro ao criar votação");
     }
@@ -267,6 +272,7 @@ export function VotacaoComDados() {
       const resultado = await Votacao_Estado(id);
       setResultado(resultado);
       setMostrarResultado(true);
+      setVotAberta(false)
     } catch {
       alert("Erro ao buscar resultado da votação");
     } finally {
@@ -421,6 +427,12 @@ export function VotacaoComDados() {
             <div className="button" onClick={criarVotacaoComDados}>
               Criar Votação ({opcoes.length} opções)
             </div>
+            { votAberta &&
+            (
+            <div>
+              <h1>{loading ? "Carregando...": "Votos Totais: "+(sseValue ? sseValue: 0)}</h1>
+            </div>
+            )}
             <div className="button" onClick={verResultadoVotacao}>
               {loading ? "Carregando..." : "Ver Resultado"}
             </div>
@@ -431,7 +443,10 @@ export function VotacaoComDados() {
               <div className="result-options-modal-content">
                 <button
                   className="button"
-                  onClick={() => setMostrarResultado(false)}
+                  onClick={() => {
+                    setMostrarResultado(false)
+                    navigate(`/master/${id}`)
+                  }}
                 >
                   X
                 </button>

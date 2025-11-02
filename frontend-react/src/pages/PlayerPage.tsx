@@ -23,8 +23,8 @@ export function Player() {
   // const [dados, setDados] = useState<DadosResultado>();
   // const [erro, setErro] = useState<string | null>(null);
   // const [modal, setModal] = useState<boolean>(false);
-  const { vida, connected } = useSSE(id);
-  console.log("SSE vida:", vida, " | connected:", connected);
+  const { sseValue, connected } = useSSE(id, "vida");
+  console.log("SSE vida:", sseValue, " | connected:", connected);
 
   // const handleClickDados = async (e: any) => {
   //   e.preventDefault();
@@ -46,7 +46,7 @@ export function Player() {
       <div id="tudo">
         <section>
           <h1>Jogador do {jogadores[Number(id) - 1]}</h1>
-          <h2 id="vida">Vida: {vida !== null ? vida : "Carregando..."}</h2>
+          <h2 id="vida">Vida: {sseValue !== null ? sseValue : "Carregando..."}</h2>
           {/* <form action="">
             <button
               id="btnRolagem"
