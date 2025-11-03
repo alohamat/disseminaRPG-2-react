@@ -60,9 +60,13 @@ const acoesPadraoCompleta: Record<string, OpcaoComDado[]> = {
             dados: [{ name: "Dado Padrão", lados: 20, quantidade: 1, bonus: 0 }],
         },
         {
-            name: "Fugir",
+            name: "Fugir Covarde",
             dados: [{ name: "Dado Padrão", lados: 20, quantidade: 1, bonus: 0 }],
         },
+        {
+            name: "Poção de Cura",
+            dados: [{name: "Cura", lados: 6, quantidade: 3, bonus: 0}]
+        }
     ],
 
     "2": [
@@ -94,9 +98,17 @@ const acoesPadraoCompleta: Record<string, OpcaoComDado[]> = {
             dados: [{ name: "Dado Padrão", lados: 20, quantidade: 1, bonus: 0 }],
         },
         {
-            name: "Fugir",
+            name: "Fugir Covarde",
             dados: [{ name: "Dado Padrão", lados: 20, quantidade: 1, bonus: 0 }],
         },
+        {
+            name: "Toque Necrótico",
+            dados: [{name: "Dado Padrão", lados: 6, quantidade: 1, bonus: 5}]
+        },
+        {
+            name: "Poção de Cura",
+            dados: [{name: "Cura", lados: 6, quantidade: 3, bonus: 0}]
+        }
     ],
 
     "3": [
@@ -115,6 +127,24 @@ const acoesPadraoCompleta: Record<string, OpcaoComDado[]> = {
             ],
         },
         {
+            name: "Raio de Gelo",
+            dados: [
+                {name: "Dano", lados: 8, quantidade: 1, bonus:0}
+            ]
+        },
+        {
+            name: "Talho Mental",
+            dados: [
+                {name: "Dano", lados: 6, quantidade: 1, bonus: 0}
+            ]
+        },
+        {
+            name: "Orbe cromático",
+            dados: [
+                {name: "Dano", lados: 8, quantidade: 3, bonus: 0}
+            ]
+        },
+        {
             name: "Recuperar o Fôlego",
             dados: [{ name: "Cura", lados: 10, quantidade: 1, bonus: 3 }],
         },
@@ -127,9 +157,13 @@ const acoesPadraoCompleta: Record<string, OpcaoComDado[]> = {
             dados: [{ name: "Dado Padrão", lados: 20, quantidade: 1, bonus: 0 }],
         },
         {
-            name: "Fugir",
+            name: "Fugir Covarde",
             dados: [{ name: "Dado Padrão", lados: 20, quantidade: 1, bonus: 0 }],
         },
+        {
+            name: "Poção de Cura",
+            dados: [{name: "Cura", lados: 6, quantidade: 3, bonus: 0}]
+        }
     ],
 };
 
@@ -288,48 +322,51 @@ export function VotacaoComDados() {
                                                         )
                                                     }
                                                 />
-                                                <input
-                                                    type="text"
-                                                    id="ilados"
-                                                    placeholder="Lados"
-                                                    list="lados-list"
-                                                    value={dado.lados > 0 ? dado.lados : ""}
-                                                    onChange={(e) =>
-                                                        atualizarDadosOpcao(
-                                                            opcaoIndex,
-                                                            dadoIndex,
-                                                            "lados",
-                                                            parseInt(e.target.value) || 0
-                                                        )
-                                                    }
-                                                />
-                                                <datalist id="lados-list">
-                                                    <option>2</option>
-                                                    <option>4</option>
-                                                    <option>6</option>
-                                                    <option>8</option>
-                                                    <option>10</option>
-                                                    <option>12</option>
-                                                    <option>14</option>
-                                                    <option>16</option>
-                                                    <option>18</option>
-                                                    <option>20</option>
-                                                </datalist>
-                                                <input
-                                                    type="number"
-                                                    placeholder="Quantidade"
-                                                    className="input-number"
-                                                    value={dado.quantidade > 0 ? dado.quantidade : ""}
-                                                    min={0}
-                                                    onChange={(e) =>
-                                                        atualizarDadosOpcao(
-                                                            opcaoIndex,
-                                                            dadoIndex,
-                                                            "quantidade",
-                                                            parseInt(e.target.value) || 1
-                                                        )
-                                                    }
-                                                />
+                                                <div style={{display: "flex", alignItems: "center"}}>
+                                                        <input
+                                                            type="number"
+                                                            placeholder="Quantidade"
+                                                            className="input-number"
+                                                            value={dado.quantidade > 0 ? dado.quantidade : ""}
+                                                            min={0}
+                                                            onChange={(e) =>
+                                                                atualizarDadosOpcao(
+                                                                    opcaoIndex,
+                                                                    dadoIndex,
+                                                                    "quantidade",
+                                                                    parseInt(e.target.value) || 1
+                                                                )
+                                                            }
+                                                        />
+                                                        <span>D</span> 
+                                                    <input
+                                                        type="text"
+                                                        id="ilados"
+                                                        placeholder="Lados"
+                                                        list="lados-list"
+                                                        value={dado.lados > 0 ? dado.lados : ""}
+                                                        onChange={(e) =>
+                                                            atualizarDadosOpcao(
+                                                                opcaoIndex,
+                                                                dadoIndex,
+                                                                "lados",
+                                                                parseInt(e.target.value) || 0
+                                                            )
+                                                        }
+                                                    />
+                                                    <datalist id="lados-list">
+                                                        <option>2</option>
+                                                        <option>4</option>
+                                                        <option>6</option>
+                                                        <option>8</option>
+                                                        <option>10</option>
+                                                        <option>12</option>
+                                                        <option>14</option>
+                                                        <option>16</option>
+                                                        <option>18</option>
+                                                        <option>20</option>
+                                                    </datalist>
+                                                </div>
                                                 <input
                                                     type="number"
                                                     className="input-number"
