@@ -20,7 +20,7 @@ export function Master() {
     return id == "1" ? "Zenchi" : id == "2" ? "Atnos" : id == "3" ? "Sam" : ""
   });
   const [jeitinBrasileiro,] = useState<number>(() => {
-    return id == "1" ? 28 : id == "2" ? 25 : id == "3" ? 40 : 0
+    return id == "1" ? 28 : id == "2" ? 30 : id == "3" ? 41 : 0
   })
 
   const handleClickVota = () => {
