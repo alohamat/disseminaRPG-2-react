@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { api } from "../services/ApiService";
 import { jogadores } from "../components/LoginButtons";
-import { useSSE } from "../services/SSEService";
 import { toast } from "react-toastify";
 
 interface DadoVotacao {
