@@ -31,7 +31,8 @@ const acoesPadraoCompleta: Record<string, OpcaoComDado[]> = {
         {
             name: "Golpe Certeiro",
             dados: [
-                { name: "Teste (2d20, vantagem)", lados: 20, quantidade: 2, bonus: 5 },
+                { name: "Teste", lados: 20, quantidade: 1, bonus: 5 },
+                { name: "Vantagem", lados: 20, quantidade: 1, bonus: 5 },
                 { name: "Dano", lados: 8, quantidade: 1, bonus: 5 },
             ],
         },
