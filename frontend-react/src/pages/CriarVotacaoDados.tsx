@@ -60,6 +60,10 @@ const acoesPadraoCompleta: Record<string, OpcaoComDado[]> = {
             dados: [{ name: "Dado Padrão", lados: 20, quantidade: 1, bonus: 0 }],
         },
         {
+            name: "Sorte",
+            dados: [{name: "Dado Sorte", lados: 6, quantidade: 1, bonus: 0 }],
+        },
+        {
             name: "Fugir Covarde",
             dados: [{ name: "Dado Padrão", lados: 20, quantidade: 1, bonus: 0 }],
         },
@@ -96,6 +100,10 @@ const acoesPadraoCompleta: Record<string, OpcaoComDado[]> = {
         {
             name: "Usar Item",
             dados: [{ name: "Dado Padrão", lados: 20, quantidade: 1, bonus: 0 }],
+        },
+        {
+            name: "Sorte",
+            dados: [{name: "Dado Sorte", lados: 6, quantidade: 1, bonus: 0 }],
         },
         {
             name: "Fugir Covarde",
@@ -155,6 +163,10 @@ const acoesPadraoCompleta: Record<string, OpcaoComDado[]> = {
         {
             name: "Usar Item",
             dados: [{ name: "Dado Padrão", lados: 20, quantidade: 1, bonus: 0 }],
+        },
+        {
+            name: "Sorte",
+            dados: [{name: "Dado Sorte", lados: 6, quantidade: 1, bonus: 0 }],
         },
         {
             name: "Fugir Covarde",
