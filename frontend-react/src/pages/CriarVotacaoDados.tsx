@@ -139,11 +139,8 @@ export function VotacaoComDados() {
     const [opcoes, setOpcoes] = useState<OpcaoComDado[]>([]);
     const [acoesPadrao, setAcoesPadrao] = useState<OpcaoComDado[]>([]);
     const [mostrarModalAcoes, setMostrarModalAcoes] = useState<boolean>(false);
-    const { connected } = useSSE(id, "votos");
     const navigate = useNavigate()
-    
-    console.log("Conectou sse:" + connected)
-    
+        
     const abrirAcoesPadrao = () => {
         if (!id) return;
         const acoes = acoesPadraoCompleta[id];
