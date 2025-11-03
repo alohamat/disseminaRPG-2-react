@@ -10,6 +10,7 @@ import { VotacaoComDados } from './pages/CriarVotacaoDados';
 import { AcoesPage } from './pages/AcoesPage';
 import { useEffect } from 'react';
 import { api } from './services/ApiService';
+import { ToastContainer} from 'react-toastify';
 
 
 function App() {
@@ -31,7 +32,8 @@ function App() {
   }, [])
 
   return (
-    <Routes>
+    <div>
+      <Routes>
       <Route path='*' element={<Navigate to="/login" replace />}  />
       <Route path='/login' element={<Login /> }/>
       <Route path='/goiabada/login' element={<LoginMaster />} />
@@ -44,6 +46,20 @@ function App() {
       <Route path='/goiabada/:id/criar-votacao' element={<VotingPage />} />
       <Route path="/votacao-dados/:id" element={<VotacaoComDados />} />
     </Routes>
+    <ToastContainer
+      position="top-center"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick={false}
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="dark"
+    />
+    </div>
+   
   );
 }
 

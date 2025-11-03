@@ -5,6 +5,7 @@ import { useState } from "react";
 import { api } from "../services/ApiService";
 import { jogadores } from "../components/LoginButtons";
 import { useSSE } from "../services/SSEService";
+import { toast } from "react-toastify";
 
 interface DadoVotacao {
     lados: number;
@@ -147,7 +148,7 @@ export function VotacaoComDados() {
         if (!id) return;
         const acoes = acoesPadraoCompleta[id];
         if (!acoes) {
-            alert("Nenhuma ação padrão encontrada para este jogador!");
+            toast.error('Nenhuma ação encontrada');
             return;
         }
         setAcoesPadrao(acoes);
@@ -226,19 +227,19 @@ export function VotacaoComDados() {
         });
 
         if (opcoesValidas.length === 0) {
-            alert("Adicione pelo menos uma opção com dados válidos!");
+            toast.warn("Adicione pelo menos uma opção com dados válidos!");
             return;
         }
 
         try {
             const data = { opcoes: opcoesValidas };
             await api.post(`/mestre/jogador${id}/criaVotacaoComDado`, data);
-            alert("Votação criada com sucesso!");
+            toast.success("Votação criada com sucesso!");
             
             // REDIRECIONA PARA A PÁGINA DE AGUARDAR VOTAÇÃO
             navigate(`/goiabada/${id}/aguarda-votacao`);
         } catch {
-            alert("Erro ao criar votação");
+            toast.error("Erro ao criar votação");
         }
     };
 
