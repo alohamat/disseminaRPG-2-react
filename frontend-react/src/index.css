@@ -767,6 +767,11 @@ img {
     color: white;
     font-weight: bold;
     border-radius: 0.5rem;
+    transition: 0.2s ease-in-out;
+}
+.botao-enviar:hover{
+    cursor: pointer;
+    transform: scale(1.05);
 }
 
 .votacao-container{
