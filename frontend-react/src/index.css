@@ -7,7 +7,7 @@
 :root {
     --font-claro: white;
     --cinza-escuro: #121212;
-    --cor-principal:  #fd1f53;
+    --cor-principal: #fd1f53;
     --cor-sombra-1: #e31347;
     --input-fundo: #1a1a1a;
 }
@@ -15,7 +15,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 70vh;
     min-width: 100vw;
     overflow-x: hidden;
 }
@@ -27,6 +27,7 @@ body {
     display: flex;
     min-height: 100vh;
     justify-content: center;
+    font-size: large;
 }
 
 header {
@@ -300,7 +301,7 @@ div.grafico {
 }
 
 .dado-mestre {
-    text-indent: 75px;
+    text-indent: 0; /* CORRIGIDO - removido o 75px */
 }
 
 .result-options-modal-content {
@@ -797,4 +798,88 @@ img {
     border: #e31347;
     border-style: solid;
     border-radius: 20px;
+}
+
+/* ADICIONANDO APENAS O LAYOUT DO RESULTADO DO SEGUNDO CSS */
+.result-options-main-container {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.vencedor-container {
+    flex: 1;
+    min-width: 0;
+}
+
+.perdedores-container {
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex-shrink: 0;
+}
+
+.resultado-item.vencedor {
+    background: linear-gradient(145deg, #1a3a1a, #0d2c0d);
+    border: 2px solid #4CAF50;
+    border-radius: 16px;
+    padding: 25px;
+    color: #e8f5e8;
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+}
+
+.resultado-item.vencedor h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    color: #4CAF50;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.resultado-item.vencedor h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #a5d6a7;
+}
+
+.resultado-item.perdedor {
+    background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
+    border: 1px solid #555;
+    border-radius: 12px;
+    padding: 20px 15px;
+    color: #ccc;
+    text-align: center;
+}
+
+.resultado-item.perdedor h1 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+    color: #ff6b6b;
+}
+
+.resultado-item.perdedor h2 {
+    font-size: 1.1rem;
+    color: #ccc;
+    margin: 0;
+}
+
+@media (max-width: 968px) {
+    .result-options-main-container {
+        flex-direction: column;
+    }
+    
+    .perdedores-container {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .resultado-item.perdedor {
+        flex: 1;
+        min-width: 200px;
+        max-width: 250px;
+    }
 }

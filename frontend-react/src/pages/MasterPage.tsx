@@ -48,7 +48,7 @@ export function Master() {
           src={imagens[Number(id) - 1]}
           id="img1"
           className="portrait"
-          alt=""
+          alt={descricoesImagens[Number(id) - 1]}
         />
         <section className="principal">
           <h1>Mestre - {jogadores[Number(id) - 1]}</h1>
@@ -98,13 +98,6 @@ export function Master() {
             </form>
           </div>
         </section>
-        <img
-          src={imagens[Number(id) - 1]}
-          id="img2"
-          className="portrait"
-          alt={`${descricoesImagens[Number(id) - 1]}`}
-        />
-
         <Footer />
       </div>
     </div>

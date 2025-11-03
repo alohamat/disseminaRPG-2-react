@@ -12,9 +12,10 @@ export function useSSE(jogadorId: string | undefined, tipo: string) {
     if (!jogadorId) return;
     const isPlayerPage = location.pathname === `/player/${jogadorId}`;
     const isMasterPage = location.pathname === `/master/${jogadorId}`;
+    const isAguardaPage = location.pathname === `/master/${jogadorId}/aguarda-votacao`; // sim, tive que fazer isso
     const isVotePage = location.pathname === `/votacao-dados/${jogadorId}`;
 
-     if (!jogadorId || (!isPlayerPage && !isMasterPage && !isVotePage)) {
+     if (!jogadorId || (!isPlayerPage && !isMasterPage && !isVotePage &&!isAguardaPage)) {
       return;
     }
 
