@@ -88,8 +88,9 @@ const acoesPadraoCompleta: Record<string, OpcaoComDado[]> = {
         {
             name: "Ataque Furtivo",
             dados: [
-                { name: "Teste (2d20, vantagem)", lados: 20, quantidade: 2, bonus: 5 },
-                { name: "Dano", lados: 6, quantidade: 3, bonus: 5 },
+                { name: "Teste", lados: 20, quantidade: 1, bonus: 5 },
+                { name: "Vantagem", lados: 20, quantidade: 1, bonus: 5 },
+                { name: "Dano", lados: 6, quantidade: 4, bonus: 7 },
             ],
             infoExtra: "Só pode usar se estiver furtivo",
         },
@@ -147,9 +148,9 @@ const acoesPadraoCompleta: Record<string, OpcaoComDado[]> = {
             ]
         },
         {
-            name: "Orbe cromático",
+            name: "Raio de Bruxa",
             dados: [
-                {name: "Dano", lados: 8, quantidade: 3, bonus: 0}
+                {name: "Dano", lados: 12, quantidade: 2, bonus: 0}
             ]
         },
         {
