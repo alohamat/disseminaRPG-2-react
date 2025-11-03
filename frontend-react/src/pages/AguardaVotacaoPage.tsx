@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useSSE } from "../services/SSEService";
 import { jogadores } from "../components/LoginButtons";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Votacao_Estado } from "../components/Dados";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
@@ -31,16 +31,8 @@ export default function AguardaVotacaoPage() {
   const [loading, setLoading] = useState(false);
   const [mostrarResultado, setMostrarResultado] = useState(false);
   const [resultado, setResultado] = useState<VotacaoEstadoResponse | null>(null);
-  const [maisVotado, setMaisVotado] = useState(0);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (resultado?.result) {
-      const maxVotos = Math.max(...resultado.result.map(item => item.votos));
-      setMaisVotado(maxVotos);
-    }
-  }, [resultado]);
 
   const verResultadoVotacao = async () => {
     if (!id) return;
