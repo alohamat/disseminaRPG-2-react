@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Votacao_Estado } from "../components/Dados";
 import { api } from "../services/ApiService";
 import { jogadores } from "../components/LoginButtons";
+import { useNavigate } from "react-router-dom";
 
 interface ResultadoVotacao {
   name: string;
@@ -141,7 +142,7 @@ export function VotacaoNormal() {
 
           {/* Controles da Votação */}
           <div className="controles-votacao">
-            <div className="button" onClick={criarVotacao}>
+            <div className="button" onClick={() => {criarVotacao(); }}>
               Criar Votação ({opcoes.length} opções)
             </div>
 

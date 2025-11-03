@@ -3,7 +3,6 @@ import { Footer } from "../components/Footer";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { api } from "../services/ApiService";
-import { Votacao_Estado } from "../components/Dados";
 import { jogadores } from "../components/LoginButtons";
 import { useSSE } from "../services/SSEService";
 
@@ -18,23 +17,6 @@ interface OpcaoComDado {
   name: string;
   dados: DadoVotacao[];
   infoExtra?: string;
-}
-
-interface ResultadoVotacao {
-  name: string;
-  votos: number;
-  rolagens?: {
-    name: string;
-    moda: number | number[];
-    moda_geral?: number;
-    total?: number;
-    bonus?: number;
-  }[];
-}
-
-interface VotacaoEstadoResponse {
-  votosTotal: number;
-  result: ResultadoVotacao[];
 }
 
 const acoesPadraoCompleta: Record<string, OpcaoComDado[]> = {
@@ -154,18 +136,13 @@ const acoesPadraoCompleta: Record<string, OpcaoComDado[]> = {
 export function VotacaoComDados() {
   const { id } = useParams();
   const [opcoes, setOpcoes] = useState<OpcaoComDado[]>([]);
-  const [resultado, setResultado] = useState<VotacaoEstadoResponse | null>(
-    null
-  );
-  const [mostrarResultado, setMostrarResultado] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
   const [acoesPadrao, setAcoesPadrao] = useState<OpcaoComDado[]>([]);
-  const [mostrarModalAcoes, setMostrarModalAcoes] = useState<boolean>(false);
-  const [maisVotado, setMaisVotado] = useState<number>(0);
-  const [votAberta, setVotAberta] = useState<boolean>(false);
+  const [mostrarModalAcoes, setMostrarModalAcoes] = useState(false);
+  
   const { sseValue, connected } = useSSE(id, "votos");  
-  const navigate = useNavigate()
-  console.log("Conectou sse:"+ connected)
+  console.log("Votosse: ", sseValue, connected)
+  const navigate = useNavigate();
+  
   const abrirAcoesPadrao = () => {
     if (!id) return;
     const acoes = acoesPadraoCompleta[id];
@@ -179,7 +156,6 @@ export function VotacaoComDados() {
 
   const adicionarAcaoPadrao = (acao: OpcaoComDado) => {
     const novaAcao = JSON.parse(JSON.stringify(acao));
-    console.log(acao);
     setOpcoes((prev) => [...prev, novaAcao]);
     setMostrarModalAcoes(false);
   };
@@ -257,26 +233,9 @@ export function VotacaoComDados() {
       const data = { opcoes: opcoesValidas };
       await api.post(`/mestre/jogador${id}/criaVotacaoComDado`, data);
       alert("Votação criada com sucesso!");
-      setResultado(null);
-      setMostrarResultado(false);
-      setVotAberta(true)
+      navigate(`/master/${id}/aguarda-votacao`);
     } catch {
       alert("Erro ao criar votação");
-    }
-  };
-
-  const verResultadoVotacao = async () => {
-    if (!id) return;
-    setLoading(true);
-    try {
-      const resultado = await Votacao_Estado(id);
-      setResultado(resultado);
-      setMostrarResultado(true);
-      setVotAberta(false)
-    } catch {
-      alert("Erro ao buscar resultado da votação");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -427,104 +386,8 @@ export function VotacaoComDados() {
             <div className="button" onClick={criarVotacaoComDados}>
               Criar Votação ({opcoes.length} opções)
             </div>
-            { votAberta &&
-            (
-            <div>
-              <h1>{loading ? "Carregando...": "Votos Totais: "+(sseValue ? sseValue: 0)}</h1>
-            </div>
-            )}
-            <div className="button" onClick={verResultadoVotacao}>
-              {loading ? "Carregando..." : "Ver Resultado"}
-            </div>
           </div>
 
-          {mostrarResultado && resultado && (
-            <div className="result-options-modal">
-              <div className="result-options-modal-content">
-                <button
-                  className="button"
-                  onClick={() => {
-                    setMostrarResultado(false)
-                    navigate(`/master/${id}`)
-                  }}
-                >
-                  X
-                </button>
-                <h1 id="votacao-resultado">Resultado da Votação</h1>
-                <h2 id="total-votacao">
-                  Total de votos: {resultado.votosTotal}
-                </h2>
-                <div className="result-options-item-container">
-                  {resultado?.result?.map((item, index) => {
-                    const totalModa: number[] = [];
-                    if (item.votos > maisVotado) setMaisVotado(item.votos);
-                    return (
-                      <div key={index} className="resultado-item">
-                        <div>
-                          <h1>{item.name}: </h1>
-                          <h2
-                            className={`dado-mestre ${
-                              item.votos == maisVotado ? `maior-resultado` : ""
-                            }`}
-                          >
-                            <strong> Votos: {item.votos}</strong>
-                          </h2>
-                        </div>
-                        {item.rolagens && (
-                          <div className="rolagens-info">
-                            <div className="rolagem-detalhes">
-                              {item.rolagens.map((rolagemItem, rIndex) => {
-                                totalModa.push(rolagemItem.total || 0);
-                                return (
-                                  <h2 className="dado-mestre" key={rIndex}>
-                                    <strong>{rolagemItem.name}: </strong>
-                                    <h3 id="total">{`${
-                                      Array.isArray(rolagemItem.moda)
-                                        ? rolagemItem.moda.join(" + ")
-                                        : rolagemItem.moda
-                                    } + ${rolagemItem.bonus || 0} = ${
-                                      rolagemItem.total
-                                    }`}</h3>
-                                  </h2>
-                                );
-                              })}
-                              <br />
-                              <div className="progresso-container">
-                                <div
-                                  className="progresso-barra"
-                                  style={{
-                                    width:
-                                      resultado.votosTotal > 0
-                                        ? `${
-                                            (item.votos /
-                                              resultado.votosTotal) *
-                                            100
-                                          }%`
-                                        : "0%",
-                                  }}
-                                ></div>
-                                <h2 className="dado-mestre">
-                                  Porcentagem de votos:
-                                  <span className="progresso-texto">
-                                    {resultado.votosTotal > 0
-                                      ? ` ${Math.round(
-                                          (item.votos / resultado.votosTotal) *
-                                            100
-                                        )}%`
-                                      : "0%"}
-                                  </span>
-                                </h2>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          )}
           {mostrarModalAcoes && (
             <div className="modal">
               <div className="modalVotacao">

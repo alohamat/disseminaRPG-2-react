@@ -8,6 +8,7 @@ import { VotingPage } from './pages/VotingPage';
 import { VotacaoNormal } from './pages/CriarVotacao';
 import { VotacaoComDados } from './pages/CriarVotacaoDados';
 import { AcoesPage } from './pages/AcoesPage';
+import AguardaVotacaoPage from './pages/AguardaVotacaoPage';
 import { useEffect } from 'react';
 import { api } from './services/ApiService';
 
@@ -41,6 +42,7 @@ function App() {
       <Route path='/master/:id' element={<Master />} />
       <Route path='/master/:id/dados' element={<Dados />} />
       <Route path='/master/:id/criar-votacao' element={<VotingPage />} />
+      <Route path='/master/:id/aguarda-votacao' element={<AguardaVotacaoPage />} />
       <Route path="/votacao-normal/:id" element={<VotacaoNormal />} />
       <Route path="/votacao-dados/:id" element={<VotacaoComDados />} />
     </Routes>
