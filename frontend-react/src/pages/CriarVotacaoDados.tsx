@@ -126,7 +126,7 @@ const acoesPadraoCompleta: Record<string, OpcaoComDado[]> = {
             name: "Espada",
             dados: [
                 { name: "Teste", lados: 20, quantidade: 1, bonus: 5 },
-                { name: "Dano", lados: 10, quantidade: 1, bonus: 5 },
+                { name: "Dano", lados: 8, quantidade: 2, bonus: 5 },
             ],
         },
         {
