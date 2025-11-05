@@ -11,8 +11,8 @@ export function useSSE(jogadorId: string | undefined, tipo: string) {
     console.log(jogadorId)
     if (!jogadorId) return;
     const isPlayerPage = location.pathname === `/player/${jogadorId}`;
-    const isMasterPage = location.pathname === `/master/${jogadorId}`;
-    const isAguardaPage = location.pathname === `/master/${jogadorId}/aguarda-votacao`; // sim, tive que fazer isso
+    const isMasterPage = location.pathname === `/goiabada/${jogadorId}`;
+    const isAguardaPage = location.pathname === `/goiabada/${jogadorId}/aguarda-votacao`; // sim, tive que fazer isso
     const isVotePage = location.pathname === `/votacao-dados/${jogadorId}`;
 
      if (!jogadorId || (!isPlayerPage && !isMasterPage && !isVotePage &&!isAguardaPage)) {

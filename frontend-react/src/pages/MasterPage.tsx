@@ -16,10 +16,12 @@ export function Master() {
   const [vidaNova, setVidaNova] = useState<number | "">(
     Number(localStorage.getItem("vida"))
   );
-
-  // const handleClickDados = () => {
-  //   navigate(`/master/${id}/dados`);
-  // };
+  const [namePlayer,] = useState<string>(() => {
+    return id == "1" ? "Zenchi" : id == "2" ? "Atnos" : id == "3" ? "Sam" : ""
+  });
+  const [jeitinBrasileiro,] = useState<number>(() => {
+    return id == "1" ? 28 : id == "2" ? 30 : id == "3" ? 41 : 0
+  })
 
   const handleClickVota = () => {
     navigate(`/votacao-dados/${id}`);
@@ -48,15 +50,15 @@ export function Master() {
           src={imagens[Number(id) - 1]}
           id="img1"
           className="portrait"
-          alt=""
+          alt={descricoesImagens[Number(id) - 1]}
         />
         <section className="principal">
           <h1>Mestre - {jogadores[Number(id) - 1]}</h1>
           <div>
             <form onSubmit={handleAtualizarVida} className="bloco">
-              <h2 style={{ fontWeight: "bold" }}>Vida do jogador {id} </h2>
+              <h2 style={{ fontWeight: "bold" }}>Vida do {namePlayer} </h2>
               {/* Precisa pegar o get da vida atual e colocar aqui */}
-              <h3>Vida atual: {vidaNova}</h3>
+              <h3>Vida atual: {!vidaNova ? jeitinBrasileiro : vidaNova} / {jeitinBrasileiro}</h3>
               <div
                 style={{
                   display: "flex",
@@ -98,13 +100,6 @@ export function Master() {
             </form>
           </div>
         </section>
-        <img
-          src={imagens[Number(id) - 1]}
-          id="img2"
-          className="portrait"
-          alt={`${descricoesImagens[Number(id) - 1]}`}
-        />
-
         <Footer />
       </div>
     </div>

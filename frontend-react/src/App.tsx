@@ -10,7 +10,9 @@ import { AcoesPage } from './pages/AcoesPage';
 import AguardaVotacaoPage from './pages/AguardaVotacaoPage';
 import { useEffect } from 'react';
 import { api } from './services/ApiService';
-
+import { ToastContainer} from 'react-toastify';
+import { SixSevenProviderF } from './context/SixSevenProviderF';
+import { SixSevenPlayerPage } from './pages/SixSevenPlayerPage';
 
 function App() {
   useEffect(() => {
@@ -31,19 +33,35 @@ function App() {
   }, [])
 
   return (
-    <Routes>
+    <div>
+      <Routes>
       <Route path='*' element={<Navigate to="/login" replace />}  />
       <Route path='/login' element={<Login /> }/>
-      <Route path='/master/login' element={<LoginMaster />} />
+      <Route path='/goiabada/login' element={<LoginMaster />} />
       <Route path="/player/:id" element={<Player />} />
       <Route path="/player/:id/dados" element={<Dados />} />
-      <Route path='/player/:id/acoes' element={<AcoesPage />} />
-      <Route path='/master/:id' element={<Master />} />
-      <Route path='/master/:id/dados' element={<Dados />} />
-      <Route path='/master/:id/criar-votacao' element={<VotingPage />} />
-      <Route path='/master/:id/aguarda-votacao' element={<AguardaVotacaoPage />} />
+      <Route path='/player/:id/acoes' element={ <SixSevenProviderF> <AcoesPage /> </SixSevenProviderF>} />
+      <Route path='/goiabada/:id' element={<Master />} />
+      <Route path='/goiabada/:id/aguarda-votacao' element={<AguardaVotacaoPage />} />
+      <Route path='/goiabada/:id/dados' element={<Dados />} />
+      <Route path='/goiabada/:id/criar-votacao' element={<VotingPage />} />
       <Route path="/votacao-dados/:id" element={<VotacaoComDados />} />
+      <Route path="/player/sixSevenPlayer" element={<SixSevenPlayerPage />} />
     </Routes>
+    <ToastContainer
+      position="top-center"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick={false}
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="dark"
+    />
+    </div>
+   
   );
 }
 

@@ -15,7 +15,7 @@ export function Header({isMaster = false}: HeaderProps) {
       console.log("Usuário não identificado")
     } else {
       if (isMaster) {
-        navigate(`/master/${id}`);
+        navigate(`/goiabada/${id}`);
       } else {
         navigate(`/player/${id}`);
       }

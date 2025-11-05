@@ -2,12 +2,15 @@
 import { Ver_Votacao } from "../components/Dados";
 import { Deposita_Votos } from "../components/Dados";
 import { Deposita_Votos_Com_Dado } from "../components/Dados";
-import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
 import { jogadores } from "../components/LoginButtons";
 
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+
+import { toast } from "react-toastify";
+import { SixSevenContext } from "../context/SixSevenContext";
 
 interface DadoVotacaoInfo {
   name: string;
@@ -37,6 +40,8 @@ export function AcoesPage() {
   const [loading, setLoading] = useState(false);
   const [mensagem, setMensagem] = useState<string>("");
   const [result, setResultado] = useState<any>();
+  const { count, setCount } = useContext(SixSevenContext);
+  const nav = useNavigate();
 
   // Inicializar UID
   useEffect(() => {
@@ -51,6 +56,13 @@ export function AcoesPage() {
 
   const handleVerVotacao = async () => {
     if (!id) return;
+    if (count > 0) setCount(count + 1);
+    console.log(count);
+    if (count >= 60 && count < 67) toast.warn(`Você está próximo de descobrir uma surpresa, continue, faltam ${67 - count}!`);
+    if (count == 67) {
+      toast.warn("Parabéns, você descobriu um segredo!");
+      nav("/player/sixSevenPlayer");
+    }
 
     setLoading(true);
     try {
@@ -105,6 +117,8 @@ export function AcoesPage() {
   };
 
   const handleVotarComDado = async (opcao: OpcaoComDado) => {
+    setCount(count+1);
+    console.log(count);
     if (!id || votoComputado) return;
 
     try {
@@ -175,11 +189,10 @@ export function AcoesPage() {
               <div className="opcoes-grid">
                 {votacaoComDado.map((opcao, index) => (
                   <div
-                    // CORREÇÃO CRÍTICA: Se votoComputado for TRUE, a classe deve ser 'opcao-inativa'
                     className={`opcao-voto ${
                       !votoComputado ? "opcao-ativa" : "opcao-inativa"
                     }`}
-                    key={index} // O onClick também depende de votoComputado
+                    key={index}
                     onClick={() => !votoComputado && handleVotarComDado(opcao)}
                   >
                                                        {" "}
@@ -219,7 +232,7 @@ export function AcoesPage() {
                         {result.valoresDasRolagem.map((d: any, i: any) => {
                           console.log(`dado ${i}\n${d}`);
                           return (
-                            <div className="dado-opt">
+                            <div className="dado-opt" key={i}>
                               <h2>{d.name}</h2>
                               <h3>Rolagens</h3>
                               <h3>

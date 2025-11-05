@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useSSE } from "../services/SSEService";
 import { jogadores } from "../components/LoginButtons";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Votacao_Estado } from "../components/Dados";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
@@ -18,9 +18,6 @@ interface ResultadoVotacao {
   }[];
 }
 
-
-
-
 interface VotacaoEstadoResponse {
   votosTotal: number;
   result: ResultadoVotacao[];
@@ -34,16 +31,8 @@ export default function AguardaVotacaoPage() {
   const [loading, setLoading] = useState(false);
   const [mostrarResultado, setMostrarResultado] = useState(false);
   const [resultado, setResultado] = useState<VotacaoEstadoResponse | null>(null);
-  const [maisVotado, setMaisVotado] = useState(0);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (resultado?.result) {
-      const maxVotos = Math.max(...resultado.result.map(item => item.votos));
-      setMaisVotado(maxVotos);
-    }
-  }, [resultado]);
 
   const verResultadoVotacao = async () => {
     if (!id) return;
@@ -61,7 +50,7 @@ export default function AguardaVotacaoPage() {
 
   return (
     <>
-    <Header isMaster={true}/>
+      <Header isMaster={true}/>
       <div id="tudo">
         <main className="conteudo">
           <h1>Aguardando votacao do {jogadores[Number(id) - 1]}</h1>
@@ -78,7 +67,7 @@ export default function AguardaVotacaoPage() {
                 className="button"
                 onClick={() => {
                   setMostrarResultado(false);
-                  navigate(`/master/${id}`);
+                  navigate(`/goiabada/${id}`);
                 }}
               >
                 X
@@ -86,68 +75,76 @@ export default function AguardaVotacaoPage() {
               <h1 id="votacao-resultado">Resultado da Votação</h1>
               <h2 id="total-votacao">Total de votos: {resultado.votosTotal}</h2>
 
-              <div className="result-options-item-container">
-                {resultado.result.map((item, index) => {
-                  return (
-                    <div key={index} className="resultado-item">
-                      <div>
-                        <h1>{item.name}: </h1>
-                        <h2
-                          className={`dado-mestre ${
-                            item.votos === maisVotado ? `maior-resultado` : ""
-                          }`}
-                        >
-                          <strong> Votos: {item.votos}</strong>
-                        </h2>
-                      </div>
-                      {item.rolagens && (
-                        <div className="rolagens-info">
-                          <div className="rolagem-detalhes">
+              {/* AQUI É A PARTE QUE VOCÊ PRECISA COPIAR DO PRIMEIRO CÓDIGO */}
+              <div className="result-options-main-container">
+                {/* Vencedor - Esquerda */}
+                <div className="vencedor-container">
+                  {resultado?.result
+                    .filter((item) => item.votos === Math.max(...resultado.result.map(r => r.votos)))
+                    .map((item, index) => (
+                      <div key={index} className="resultado-item vencedor">
+                        <div>
+                          <h1>{item.name}</h1>
+                          <h2>
+                            <strong>Votos: {item.votos}</strong>
+                          </h2>
+                        </div>
+
+                        {item.rolagens && (
+                          <div className="rolagens-info">
                             {item.rolagens.map((rolagemItem, rIndex) => (
-                              <h2 className="dado-mestre" key={rIndex}>
+                              <div className="rolagem-detalhes" key={rIndex}>
                                 <strong>{rolagemItem.name}: </strong>
-                                <h3 id="total">{`${
-                                  Array.isArray(rolagemItem.moda)
+                                <span>
+                                  {Array.isArray(rolagemItem.moda)
                                     ? rolagemItem.moda.join(" + ")
-                                    : rolagemItem.moda
-                                } + ${rolagemItem.bonus || 0} = ${
-                                  rolagemItem.total
-                                }`}</h3>
-                              </h2>
+                                    : rolagemItem.moda}{" "}
+                                  + {rolagemItem.bonus || 0} = {rolagemItem.total}
+                                </span>
+                              </div>
                             ))}
-                            <br />
+
                             <div className="progresso-container">
                               <div
                                 className="progresso-barra"
                                 style={{
                                   width:
                                     resultado.votosTotal > 0
-                                      ? `${
-                                          (item.votos /
-                                            resultado.votosTotal) *
-                                          100
-                                        }%`
+                                      ? `${(item.votos / resultado.votosTotal) * 100}%`
                                       : "0%",
                                 }}
                               ></div>
-                              <h2 className="dado-mestre">
-                                Porcentagem de votos:
+
+                              <h2>
+                                Porcentagem de votos:{" "}
                                 <span className="progresso-texto">
                                   {resultado.votosTotal > 0
-                                    ? ` ${Math.round(
-                                        (item.votos / resultado.votosTotal) *
-                                          100
+                                    ? `${Math.round(
+                                        (item.votos / resultado.votosTotal) * 100
                                       )}%`
                                     : "0%"}
                                 </span>
                               </h2>
                             </div>
                           </div>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
+                        )}
+                      </div>
+                    ))}
+                </div>
+
+                {/* Perdedores - Direita (coluna fina) */}
+                <div className="perdedores-container">
+                  {resultado?.result
+                    .filter((item) => item.votos !== Math.max(...resultado.result.map(r => r.votos)))
+                    .map((item, index) => (
+                      <div key={index} className="resultado-item perdedor">
+                        <h1>{item.name}</h1>
+                        <h2>
+                          <strong>Votos: {item.votos}</strong>
+                        </h2>
+                      </div>
+                    ))}
+                </div>
               </div>
             </div>
           </div>

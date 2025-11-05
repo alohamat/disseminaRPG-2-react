@@ -52,7 +52,7 @@ export function MasterButtons( { MasterNumber } : MasterProps) {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`/master/${MasterNumber}`);
+        navigate(`/goiabada/${MasterNumber}`);
     }
     return (
         <div>
