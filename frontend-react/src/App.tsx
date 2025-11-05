@@ -1,21 +1,67 @@
-import { Route, Routes } from 'react-router-dom'
-import { Login } from './pages/Login';
-import Mestre from './pages/Mestre';
-import MestreJogador from './pages/MestreJogador';
-import MestreResetaDados from './pages/ResetaDados';
-import ExibeRolagem from './pages/ExibeRolagem';
-import Jogador from './pages/Jogador';
+import { Route, Routes, Navigate } from 'react-router-dom'
+import { Login } from './pages/LoginPage';
+import { Player } from "./pages/PlayerPage"
+import { Dados } from './pages/DadosPage';
+import { LoginMaster } from './pages/LoginMestrePage';
+import { Master } from './pages/MasterPage';
+import { VotingPage } from './pages/VotingPage';
+import { VotacaoComDados } from './pages/CriarVotacaoDados';
+import { AcoesPage } from './pages/AcoesPage';
+import AguardaVotacaoPage from './pages/AguardaVotacaoPage';
+import { useEffect } from 'react';
+import { api } from './services/ApiService';
+import { ToastContainer} from 'react-toastify';
+import { SixSevenProviderF } from './context/SixSevenProviderF';
+import { SixSevenPlayerPage } from './pages/SixSevenPlayerPage';
 
 function App() {
+  useEffect(() => {
+    const PING_INTERVAL = 5 * 60 * 1000; // 5 minutos
+    const ping = async () => {
+       try {
+        const res = await api.get("ping")
+        console.log("Ping enviado:", res.data);
+      } catch (err) {
+        console.error("Erro ao pingar o backend:", err);
+      }
+    };
+    ping();
+
+    const intervalId = setInterval(ping, PING_INTERVAL);
+
+    return () => clearInterval(intervalId);
+  }, [])
+
   return (
-    <Routes>
-      <Route path='/' element={<Login /> }/>
-      <Route path='/jogador/:jogador' element={<Jogador /> }/>
-      <Route path='/mestre' element={<Mestre /> }/>
-      <Route path='/mestre/:jogador' element={<MestreJogador /> }/>
-      <Route path='/mestre/:jogador/resetaDados' element={ <MestreResetaDados /> } />
-      <Route path='/mestre/:jogador/exibeRolagem' element={ <ExibeRolagem /> } />
+    <div>
+      <Routes>
+      <Route path='*' element={<Navigate to="/login" replace />}  />
+      <Route path='/login' element={<Login /> }/>
+      <Route path='/goiabada/login' element={<LoginMaster />} />
+      <Route path="/player/:id" element={<Player />} />
+      <Route path="/player/:id/dados" element={<Dados />} />
+      <Route path='/player/:id/acoes' element={ <SixSevenProviderF> <AcoesPage /> </SixSevenProviderF>} />
+      <Route path='/goiabada/:id' element={<Master />} />
+      <Route path='/goiabada/:id/aguarda-votacao' element={<AguardaVotacaoPage />} />
+      <Route path='/goiabada/:id/dados' element={<Dados />} />
+      <Route path='/goiabada/:id/criar-votacao' element={<VotingPage />} />
+      <Route path="/votacao-dados/:id" element={<VotacaoComDados />} />
+      <Route path="/player/sixSevenPlayer" element={<SixSevenPlayerPage />} />
     </Routes>
+    <ToastContainer
+      position="top-center"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick={false}
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="dark"
+    />
+    </div>
+   
   );
 }
 

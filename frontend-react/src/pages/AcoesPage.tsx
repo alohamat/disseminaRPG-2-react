@@ -1,0 +1,289 @@
+/* eslint-disable no-irregular-whitespace */
+import { Ver_Votacao } from "../components/Dados";
+import { Deposita_Votos } from "../components/Dados";
+import { Deposita_Votos_Com_Dado } from "../components/Dados";
+import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { jogadores } from "../components/LoginButtons";
+
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
+
+import { toast } from "react-toastify";
+import { SixSevenContext } from "../context/SixSevenContext";
+
+interface DadoVotacaoInfo {
+  name: string;
+  lados: number;
+  quantidade: number;
+  bonus?: number;
+}
+interface OpcaoComDado {
+  name: string;
+  dados: DadoVotacaoInfo[];
+}
+
+interface VotacaoResponse {
+  opcoes?: string[];
+  opcoesComDado?: OpcaoComDado[];
+  votacaoAberta: boolean;
+  mensagem?: string;
+}
+
+export function AcoesPage() {
+  const { id } = useParams();
+  const [votacao, setVotacao] = useState<string[] | null>(null);
+  const [votacaoComDado, setVotacaoComDado] = useState<OpcaoComDado[] | null>(
+    null
+  );
+  const [votoComputado, setVotoComputado] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
+  const [mensagem, setMensagem] = useState<string>("");
+  const [result, setResultado] = useState<any>();
+  const { count, setCount } = useContext(SixSevenContext);
+  const nav = useNavigate();
+
+  // Inicializar UID
+  useEffect(() => {
+    let uid = localStorage.getItem("uid");
+    if (!uid) {
+      uid = crypto.randomUUID();
+      localStorage.setItem("uid", uid);
+    }
+    // Carregar votação inicial
+    handleVerVotacao();
+  }, [id]);
+
+  const handleVerVotacao = async () => {
+    if (!id) return;
+    if (count > 0) setCount(count + 1);
+    console.log(count);
+    if (count >= 60 && count < 67) toast.warn(`Você está próximo de descobrir uma surpresa, continue, faltam ${67 - count}!`);
+    if (count == 67) {
+      toast.success("Parabéns, você descobriu um segredo!");
+      nav("/player/sixSevenPlayer");
+    }
+
+    setLoading(true);
+    try {
+      const resultado = (await Ver_Votacao(id)) as VotacaoResponse | null;
+      console.log("Resultado da votacao:", resultado);
+      setVotoComputado(false);
+
+      if (resultado?.opcoesComDado && resultado.opcoesComDado.length > 0) {
+        setVotacaoComDado(resultado.opcoesComDado);
+        setVotacao(null);
+        setMensagem(
+          "Votação com dados ativa! Escolha uma opção para rolar os dados."
+        );
+      } else if (resultado?.opcoes && resultado.opcoes.length > 0) {
+        setVotacao(resultado.opcoes);
+        setVotacaoComDado(null);
+        setMensagem("Votação normal ativa! Escolha uma opção.");
+      } else {
+        setVotacao(null);
+        setVotacaoComDado(null);
+        setMensagem(resultado?.mensagem || "Nenhuma votação ativa no momento.");
+      }
+    } catch (error) {
+      console.error("Erro ao buscar votação:", error);
+      setMensagem("Erro ao carregar votação. Tente novamente.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleVotar = async (opcao: string) => {
+    if (!id || votoComputado) return;
+
+    try {
+      setLoading(true);
+      await Deposita_Votos(id, opcao);
+      setVotoComputado(true);
+      setMensagem(`✅ Voto computado para: ${opcao}`);
+    } catch (error: any) {
+      console.error("Erro ao votar:", error);
+      if (error.response?.status === 403) {
+        setMensagem("❌ Você já votou nesta votação!");
+        setVotoComputado(true);
+      } else {
+        setMensagem(
+          error.response?.data?.erro || "Erro ao votar. Tente novamente."
+        );
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleVotarComDado = async (opcao: OpcaoComDado) => {
+    setCount(count+1);
+    console.log(count);
+    if (!id || votoComputado) return;
+
+    try {
+      setLoading(true);
+      const resultado = await Deposita_Votos_Com_Dado(id, opcao.name);
+      setVotoComputado(true);
+      setResultado(resultado);
+      let mensagemRolagem = `✅ Voto computado para: ${opcao.name}`;
+      // if (resultado?.valoresDasRolagem) {
+      //     const rolagens = resultado.valoresDasRolagem.map((r: any) =>
+      //         `${r.name}: ${Array.isArray(r.rolagem) ? r.rolagem.join(' + ') : r.rolagem}`
+      //     ).join(' | ');
+      //     mensagemRolagem += ` | 🎲 Rolagens: ${rolagens}`;
+      // }
+      setMensagem(mensagemRolagem);
+    } catch (error: any) {
+      console.error("Erro ao votar com dado:", error);
+      if (error.response?.status === 403) {
+        setMensagem("❌ Você já votou nesta votação!");
+        setVotoComputado(true);
+      } else {
+        setMensagem(
+          error.response?.data?.erro || "Erro ao votar. Tente novamente."
+        );
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div>
+      <Header />
+      <div id="tudo">
+        <div id="centralizar-botao">
+          <div className="votacao-info">
+            <h1>Votação - Personagem {jogadores[Number(id) - 1]}</h1>
+
+            {mensagem && (
+              <div
+                className={`mensagem ${
+                  mensagem.includes("✅")
+                    ? "mensagem-sucesso"
+                    : mensagem.includes("❌")
+                    ? "mensagem-erro"
+                    : "mensagem-info"
+                }`}
+                style={{ fontSize: "22px" }}
+              >
+                {mensagem}
+              </div>
+            )}
+          </div>
+
+          <div className="controles-jogador">
+            <div className="button" onClick={handleVerVotacao}>
+              {loading ? "🔄 Atualizando..." : "🔄 Atualizar Votação"}
+            </div>
+          </div>
+
+          {votacaoComDado && votacaoComDado.length > 0 && (
+            <div className="votacao-container">
+              <h2>🎲 Votação com Dados</h2>
+              <p className="instrucoes">
+                Clique em uma opção para votar e rolar os dados
+              </p>
+
+              <div className="opcoes-grid">
+                {votacaoComDado.map((opcao, index) => (
+                  <div
+                    className={`opcao-voto ${
+                      !votoComputado ? "opcao-ativa" : "opcao-inativa"
+                    }`}
+                    key={index}
+                    onClick={() => !votoComputado && handleVotarComDado(opcao)}
+                  >
+                                                       {" "}
+                    <div className="opcao-conteudo">
+                      <button className="opcao-nome button">
+                        {opcao.name}
+                      </button>
+                      <div className="dados-lista">
+                        {opcao.dados?.map((d, dIndex) => (
+                          <div key={dIndex} className="dado-info">
+                            🎲 {d.name} ({d.quantidade}D{d.lados}
+                            {d.bonus ? ` + ${d.bonus}` : ""})
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                                                   {" "}
+                  </div>
+                ))}
+                {result && mensagem && (
+                  <div className="modal">
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
+                    >
+                      <button
+                        className="button"
+                        onClick={() => setResultado(null)}
+                      >
+                        X
+                      </button>
+                      <h1>{mensagem}</h1>
+                      <div className="modal_resultado">
+                        {result.valoresDasRolagem.map((d: any, i: any) => {
+                          console.log(`dado ${i}\n${d}`);
+                          return (
+                            <div className="dado-opt" key={i}>
+                              <h2>{d.name}</h2>
+                              <h3>Rolagens</h3>
+                              <h3>
+                                {Array.isArray(d.rolagem)
+                                  ? d.rolagem.join(", ")
+                                  : d.rolagem}
+                              </h3>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {votacao && votacao.length > 0 && (
+            <div className="votacao-container">
+              <h2>📊 Votação Normal</h2>
+              <p className="instrucoes">Clique em uma opção para votar</p>
+
+              <div className="opcoes-grid">
+                {votacao.map((opcao, index) => (
+                  <div
+                    className={`opcao-voto ${
+                      !votoComputado ? "opcao-ativa" : "opcao-inativa"
+                    }`}
+                    key={index}
+                    onClick={() => !votoComputado && handleVotar(opcao)}
+                  >
+                    <div className="button">{opcao}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {!votacao && !votacaoComDado && !loading && (
+            <div className="nenhuma-votacao">
+              <h2>⏳ Nenhuma votação ativa</h2>
+              <p>
+                Clique em "Atualizar Votação" quando o mestre iniciar uma nova
+                votação
+              </p>
+            </div>
+          )}
+        </div>
+        <Footer />
+      </div>
+    </div>
+  );
+}

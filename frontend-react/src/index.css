@@ -7,50 +7,61 @@
 :root {
     --font-claro: white;
     --cinza-escuro: #121212;
-    --cor-principal:  #fd1f53;
+    --cor-principal: #fd1f53;
     --cor-sombra-1: #e31347;
     --input-fundo: #1a1a1a;
 }
-html, body {
+#tudo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    min-width: 100vw;
+    overflow-x: hidden;
+}
+body {
     margin: 0;
-    padding: 0;
     background-color: var(--cinza-escuro);
     color: var(--cor-principal);
     font-family: 'Arial', sans-serif;
-}
-
-#tudo {
     display: flex;
-    flex-direction: column;
     min-height: 100vh;
     justify-content: center;
-    align-items: center;
-    flex: 1;
+    font-size: large;
 }
 
 header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  padding: 1rem 2rem;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+footer {
     position: fixed;
     display: flex;
     justify-content: center;
-    top: 0;
+    bottom: 0;
     left: 0;
     width: 100vw;
     font-weight: bold;
-    z-index: 1000; /* fica acima do resto */
     padding: 1rem 0;
-}
-
-.mestre-buttons-container {
-    display: flex;
-    flex-direction: column;
+    background-color: #121212;
 }
 
 section {
+    margin-top: 60px;
+    margin-bottom: 60px;
     padding: 0vw 4vw;
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 100vw;
 }
 
 h1 {
@@ -62,14 +73,40 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    width: 100vw;
+    width: 100%;
+    gap: 5rem;
     max-height: 80vh;
 }
 
-button {
+#btnVoltar {
+    cursor: pointer;
+}
+
+.button {
     background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));
-    color: var(--font-claro);
+    color: white;
+    font-weight: bold;
+    padding: 1.7rem 2.6rem;
+    margin: 1rem 0;
+    width: 60vw;
+    max-width: 400px;
+    font-size: 1.7rem;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    border: 0px solid var(--cor-principal);
+    transition: 0.2s ease;
+}
+
+#close {
+    display: flex;
+    justify-content: center;
+    width: 25px;
+    
+}   
+
+.buttonindisponivel {
+    background-color: gray;
     font-weight: bold;
     padding: 1.7rem 2.6rem;
     margin: 1rem 0;
@@ -80,9 +117,27 @@ button {
     cursor: pointer;
     border: 0px solid var(--cor-principal);
     transition: 0.2s ease;
+    text-align: center;
 }
 
-button:hover {
+#btnRolagemBloqueado {
+    background: gray;
+    color: var(--font-claro);
+    font-weight: bold;
+    padding: 1.7rem 2.6rem;
+    margin: 1rem 0;
+    width: 60vw;
+    max-width: 400px;
+    font-size: 1.7rem;
+    border-radius: 10px;
+    cursor: not-allowed;
+    border: 0px solid var(--cor-principal);
+    transition: 0.2s ease;
+    text-align: center;
+    pointer-events: none;
+}
+
+.button:hover {
     transform: scale(1.05);
     color: var(--cinza-escuro);
     box-shadow: var(--cor-principal) 0px 0px 5px 1px;
@@ -94,19 +149,8 @@ button:hover {
     flex-direction: column;
 }
 
-#formExibirRolagens input {
-    background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));
-    color: var(--font-claro);
-    font-size: 1.5rem;
-    padding: 1rem 2rem;
-    margin: 1rem 0;
-    border-radius: 10px;
-    border: 0px solid var(--cor-principal);
-    transition: 0.2s ease;
 
-}
-
-#ExibirOpcoes input[type="text"] {
+input[type="text"] {
     padding: 10px 15px;       
     border-radius: 10px;
     border: none;           
@@ -116,15 +160,36 @@ button:hover {
     color: var(--font-claro);       
     width: 250px;
     padding: 1rem;
-    transition: 0.2s ease
+    transition: 0.2s ease;
+    margin: 5px;
 }
 
-#ExibirOpcoes input[type="text"]:focus {
+input[type="text"]:focus {
     box-shadow: 0 0 8px var(--cor-principal); 
  
 }
 
-.btnDeleteOpcao {
+.opcoes-list {
+    background-color: #292929;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 400px;
+}
+
+.opcao-item {
+    margin-top: 20px;
+}
+
+.opcao-item > span {
+    color: white;
+    display: inline-block;
+    max-width: 360px;
+    word-wrap: break-word;
+    font-size: 1.5rem;
+
+}
+
+#btnDeleteOpcao {
     margin-left: 10px;
     background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));
     color: var(--font-claro);
@@ -137,7 +202,6 @@ button:hover {
     width: 50px;
     transition: 0.2s ease;
 }
-
 #opcoes > div {
     display: flex;
     align-items: center;
@@ -146,8 +210,681 @@ button:hover {
     margin-bottom: 1rem;
 }
 
-#todas_rolagens {
-    max-height: 90%;
+div.grafico {
+    width: 80vw;
+    margin: 1vh 0;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(22, 22, 22, 0.79);
+    padding: 10px;
+    z-index: 50;
+}
+
+.modal > div {
+    max-height: 95vh;
+    overflow-y: auto;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 12px;
+    background-color: var(--cinza-escuro);
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.modal > div .button {
+    max-width: 300px;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+}
+
+.adicionar-opcao > input {
+    width: 390px;
+}
+
+.modal_resultado {
+    
+    top: 0;
+    left: 0;
+    width: 80%;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    z-index: 2;
+}
+
+.dado-opt {
+    width: 100%;
+}
+@media screen and (max-width: 400px){
+    .modal {
+        flex-wrap: wrap;
+    }
+   .portrait {
+    display: none;
+   }
+   .principal {
+    align-items: center;
+   }
+}
+
+/*ctrl C + ctrl V mais desgraçado e porco que eu já fiz, mas dane-se é para um bem maior*/
+.result-options-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.65);
+    display: flex;
+    flex-direction: column; /*Literalmente só mudei essa merda porque não queria css inline e estava com preguiça de criar uma 'classe' e adicionar nos outros modais*/
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    backdrop-filter: blur(4px);
+}
+
+.dado-mestre {
+    text-indent: 0; /* CORRIGIDO - removido o 75px */
+}
+
+.result-options-modal-content {
+    background: #121212;
+    width: 90%;
     max-width: 80%;
-    margin-top: 50px;
+    border-radius: 16px;
+    padding: 24px 32px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    animation: slideUp 0.3s ease-out;
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+.result-options-item-container {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.resultado-votacao {
+    max-width: 400px;
+}
+
+.resultado-item h1 {
+    text-align: center;
+}
+#total {
+    text-align: center;
+    margin-left: -100px;
+}
+.resultado-item {
+    border-radius: 2%;
+    padding: 0 10px;
+    background-color: #1a1a1a;
+    min-width: 400px;
+    width: 40%;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.maior-resultado {
+    color: green;
+}
+
+.resultado-header > h3 {
+    word-wrap: break-word;
+}
+
+/* Fundo escurecido do modal */
+.dice-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  backdrop-filter: blur(4px);
+}
+
+/* Container do conteúdo */
+.dice-modal__content {
+  background: #121212;
+  width: 90%;
+  max-width: 1200px;
+  border-radius: 16px;
+  padding: 24px 32px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  animation: slideUp 0.3s ease-out;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+
+
+/* Cada bloco de resultado */
+.dice-result {
+  background-color: #1f1f1f;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  transition: transform 0.2s ease;
+}
+
+.dice-result:hover {
+  transform: scale(1.02);
+}
+
+/* Área de valores individuais */
+.dice-result__values {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dice-result__value {
+  background-color: #292929;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+#votacao-resultado {
+    font-size: 50px;
+    text-align: center;
+}
+
+#total-votacao {
+    margin-top: -20px;
+    font-size: 40px;
+    text-align: center;
+}
+
+/* Animação de entrada */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  .dice-modal__content {
+    padding: 16px 20px;
+  }
+
+  .dice-result__values {
+    flex-direction: column;
+  }
+}
+
+.rolagem-detalhes {
+    margin-top: 15px;
+}
+
+.modal_resultado div {
+    background-color: var(--cinza-escuro);
+    padding: 20px;
+    color: var(--cor-principal);
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.2s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.modalVotacao{
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 2;
+    background-color: var(--cinza-escuro);
+    padding: 20px;
+    color: var(--font-claro);
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.2s ease;
+    width: 80%;
+    max-height: 80%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+}
+fieldset {
+    font-size: 30px;
+    width: 50px;
+}
+
+#login_page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+    color: var(--font-claro);
+}
+
+#login_page h1 {
+    color: var(--cor-principal);
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}   
+
+.char_buttons {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 100px;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1200px;
+    padding: 1rem;
+}
+
+.char_buttons fieldset {
+    border: 2px solid var(--cor-principal);
+    border-radius: 12px;
+    padding: 1.5rem;
+    min-width: 250px;
+    flex: 1 1 300px;
+    text-align: center;
+    transition: transform 0.2s ease;
+    background-color: black;
+}
+
+.char_buttons fieldset:hover {
+    transform: scale(1.02);
+}
+
+.char_buttons legend {
+    font-size: 1.3rem;
+    color: var(--cor-principal);
+    padding: 0 1rem;
+}
+
+.char_buttons button {
+    width: 100%;
+    background: linear-gradient(135deg, var(--cor-principal), var(--cor-sombra-1));
+    color: var(--font-claro);
+    font-weight: bold;
+    padding: 1.5rem 2rem;
+    font-size: 1.4rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.char_buttons button:hover {
+    color:var(--cinza-escuro);
+    transform: scale(1.05);
+    box-shadow: 0 0 10px var(--cor-principal);
+}
+
+@media (max-width: 900px) {
+    .char_buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .char_buttons fieldset {
+        width: 90%;
+        flex: none;
+    }
+    #dados-customizados {
+        display: flex;
+        flex-direction: column;
+        padding: 0.5rem;
+
+    }
+    .dado-item {
+        padding: 0.5rem;
+        width: 100%;
+    }
+}
+
+#centralizar-botao {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+img {
+    width: 200px    ;
+}
+
+.card_jogador {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background: linear-gradient(145deg, #1f1f1f, #292929);
+    color: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    width: 500px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+    border: 1px solid #3a3a3a;
+}
+
+.card_jogador:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+}
+
+.card_jogador img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 2px solid #555;
+    transition: transform 0.3s ease;
+}
+
+.card_jogador:hover img {
+    transform: rotate(-2deg) scale(1.05);
+}
+
+.card_jogador h2 {
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 400;
+    margin: 0;
+    color: #ddd;
+    flex: 1;
+}
+
+.card_jogador button {
+    background: #ff6a00;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 1rem;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.card_jogador button:hover {
+    background: #ffa31a;
+    transform: translateY(-2px);
+}
+
+/* Responsividade (até 900px) */
+@media (max-width: 900px) {
+    .card_jogador {
+        flex-direction: column;
+        max-width: 350px;
+        text-align: center;
+        padding: 15px;
+    }
+
+    .card_jogador img {
+        width: 150px;
+        height: 250px;
+    }
+
+    .card_jogador h2 {
+        font-size: 0.9rem;
+        margin-top: 10px;
+    }
+
+    .card_jogador button {
+        width: 100%;
+    }
+}
+
+
+.input-number, #ilados {
+    padding: 10px 15px;       
+    border-radius: 10px;
+    border: none;           
+    outline: none;           
+    font-size: 20px;        
+    background-color: var(--input-fundo);
+    color: var(--font-claro);
+    height: 100%;       
+    padding: 0.5rem;
+    transition: 0.2s ease;
+    margin: 5px;
+}
+
+.button-remover {
+  margin-top: 1rem;
+  background: crimson;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: 0.2s;
+}
+.button-remover:hover {
+  background: red;
+}
+
+#dados-customizados {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  padding: 1rem;
+}
+
+
+.dado-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fd1f53;
+  font-weight: bold;
+  border-radius: 10px;
+  min-width: 250px;
+  max-width: 300px;
+  padding: 0.5rem;
+}
+
+#dado-item-interno {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bloco {  
+    display: flex; 
+    align-items: center; 
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--cor-principal);
+    border-radius: 1rem;
+    padding: 1rem;
+
+
+    input[type="number"]{
+        text-align: center;
+        margin: 20px 0;
+    }
+
+}
+
+.botao-enviar {
+    padding: 1rem;
+    background-color: #fd1f53;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    transition: 0.2s ease-in-out;
+}
+.botao-enviar:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.votacao-container{
+    margin: 100px 0;
+}
+
+#dado-item-interno{
+    display: flex;
+    flex-flow: column;
+}
+
+#vida {
+    padding: 1rem;
+    background-color: #3a3a3a;
+    border: #e31347;
+    border-style: solid;
+    border-radius: 30px;
+    color: #ddd;
+}
+
+.principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.portrait {
+    width: 400px;
+    border: #e31347;
+    border-style: solid;
+    border-radius: 20px;
+}
+
+/* ADICIONANDO APENAS O LAYOUT DO RESULTADO DO SEGUNDO CSS */
+.result-options-main-container {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.vencedor-container {
+    flex: 1;
+    min-width: 0;
+}
+
+.perdedores-container {
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex-shrink: 0;
+}
+
+.resultado-item.vencedor {
+    background: linear-gradient(145deg, #1a3a1a, #0d2c0d);
+    border: 2px solid #4CAF50;
+    border-radius: 16px;
+    padding: 25px;
+    color: #e8f5e8;
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+}
+
+.resultado-item.vencedor h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    color: #4CAF50;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.resultado-item.vencedor h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #a5d6a7;
+}
+
+.resultado-item.perdedor {
+    background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
+    border: 1px solid #555;
+    border-radius: 12px;
+    padding: 20px 15px;
+    color: #ccc;
+    text-align: center;
+}
+
+.resultado-item.perdedor h1 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+    color: #ff6b6b;
+}
+
+.resultado-item.perdedor h2 {
+    font-size: 1.1rem;
+    color: #ccc;
+    margin: 0;
+}
+
+@media (max-width: 968px) {
+    .result-options-main-container {
+        flex-direction: column;
+    }
+    
+    .perdedores-container {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .resultado-item.perdedor {
+        flex: 1;
+        min-width: 200px;
+        max-width: 250px;
+    }
 }
