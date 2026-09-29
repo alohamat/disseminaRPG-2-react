@@ -34,7 +34,7 @@ export function useSSE(jogadorId: string | undefined, tipo: string) {
     evtSource.onmessage = (event) => {
       const data = JSON.parse(event.data);
       console.log("Valor via SSE:", data);
-      setSSEValue(tipo === "vida" ? data.vidaAtual: data.votosTotal);
+      setSSEValue(tipo === "vida" ? data.numeroInimigos: data.votosTotal);
     };
 
     evtSource.onerror = (err) => {
